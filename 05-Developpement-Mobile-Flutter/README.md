@@ -1,43 +1,43 @@
-# 📱 Développement Mobile Multi-Plateforme (Flutter & Dart)
+# Développement Mobile Multiplateforme (Flutter & Dart)
 
 > **Projet de Développement d'Application — Master 1 RESI**  
 > **Auteur** : Ababacar Ousmane Niang  
-> **Technologies** : Flutter SDK, Dart, Provider (State Management), Material Design 3
+> **Stack Technique** : Flutter SDK, Dart, Provider (State Management), Material Design 3
 
 ---
 
-## 🎯 Présentation du Projet
+## Présentation Technique du Projet
 
-Ce projet illustre la conception et le développement d'une application mobile moderne, performante et réactive développée sous le framework **Flutter** de Google.
+Ce projet présente l'architecture logicielle et l'implémentation d'une application mobile multiplateforme développée avec le framework **Flutter** de Google.
 
-### Fonctionnalités Clés Implémentées :
-- **Gestion d'état réactive (State Management)** : Utilisation de la bibliothèque `provider` pour propager l'état applicatif à travers l'arbre de widgets.
-- **Support Dynamique Sombre / Clair (Dark / Light Mode)** : `ThemeProvider` permettant à l'utilisateur de basculer instantanément de mode avec persistance de préférence.
-- **Parcours Utilisateur Fluide** : Écran d'accueil (`HomeScreen`), écran d'intégration (`OnboardingScreen`) et transitions soignées.
-- **Code Modulaire & Maintenable** : Séparation stricte entre widgets de vue, modèles de données et fournisseurs d'état.
-
----
-
-## 📂 Organisation des Sources (`src/`)
-
-- [`pubspec.yaml`](./src/pubspec.yaml) : Définition du projet, des dépendances Flutter et des polices.
-- [`lib/main.dart`](./src/lib/main.dart) : Point d'entrée de l'application, initialisation des thèmes et du provider.
-- [`lib/themeProvider.dart`](./src/lib/themeProvider.dart) : Gestionnaire d'état du thème sombre/clair.
-- [`ababacar_bara.dart`](./src/ababacar_bara.dart) : Script d'exercices et de cas d'usage métiers.
+### Principes d'Ingénierie Logicielle :
+- **Gestion d'État Réactive** : Utilisation du patron de conception `provider` pour garantir un découplage strict entre la couche de données et l'arbre de widgets.
+- **Thématisation Dynamique** : `ThemeProvider` assurant la bascule instantanée entre thème sombre et thème clair avec conservation des préférences d'affichage.
+- **Parcours Utilisateur & Ergonomie** : Conception d'écrans dédiés (`HomeScreen`, `OnboardingScreen`) avec transitions fluides respectant les spécifications Material Design 3.
+- **Structure Modulaire** : Découpage maintenable séparant composants graphiques, modèles et contrôleurs.
 
 ---
 
-## 🚀 Exécution & Compilation
+## Organisation des Sources (`src/`)
+
+- [`pubspec.yaml`](./src/pubspec.yaml) : Manifeste du projet, gestion des dépendances et déclaration des polices.
+- [`lib/main.dart`](./src/lib/main.dart) : Point d'entrée de l'application, initialisation des thèmes et injection du fournisseur d'état.
+- [`lib/themeProvider.dart`](./src/lib/themeProvider.dart) : Gestionnaire d'état du cycle de vie des thèmes visuels.
+- [`ababacar_bara.dart`](./src/ababacar_bara.dart) : Script de validation d'algorithmes et de logique métier.
+
+---
+
+## Procédure d'Exécution & Compilation
 
 ### Prérequis
-- Flutter SDK (version 3.7+)
-- Émulateur Android / iOS ou navigateur Web
+- Flutter SDK (version 3.7 ou supérieure)
+- Android SDK / Xcode ou environnement d'exécution Web (Chrome)
 
 ### Commandes
 ```bash
-# Récupération des dépendances
+# Installation des dépendances
 flutter pub get
 
-# Lancement en mode debug
+# Lancement en environnement local de développement
 flutter run
 ```

@@ -1,21 +1,21 @@
-# ⚙️ DevOps, Conteneurisation & Architecture MultiCloud
+# DevOps, Conteneurisation & Architecture Multi-Tiers
 
 > **Spécialisation Master 2 RESI (Réseaux & Systèmes Informatiques)**  
 > **Auteur** : Ababacar Ousmane Niang  
-> **Outils** : Docker, Docker Compose, Kubernetes, AWS (IAM, EC2, VPC), GitHub Actions, NGINX
+> **Outils & Technologies** : Docker, Docker Compose, Kubernetes, AWS (IAM, EC2, VPC), GitHub Actions, NGINX
 
 ---
 
-## 🎯 Objectifs de l'Ingénierie DevOps
+## Principes & Objectifs Opérationnels
 
-L'ingénierie DevOps vise à combler le fossé entre développement et exploitation système par la standardisation des environnements, l'automatisation des déploiements et l'assurance de la haute disponibilité :
-- **Immutabilité des environnements** via des conteneurs légers et reproductibles.
-- **Sécurisation (Container Hardening)** : Exécution systématique en utilisateur non-privilégié (`non-root`), images minimales basées sur Alpine Linux, et multi-stage build pour éliminer les outils de compilation du runtime final.
-- **Isolation des couches réseau** : Ségrégation stricte des flux (`front-network` pour le reverse proxy et `back-network` pour la base de données et le cache).
+L'ingénierie DevOps mise en œuvre répond à trois exigences majeures d'exploitabilité et de sécurité :
+- **Immutabilité des environnements** : encapsulation des dépendances applicatives au sein d'images conteneurisées reproductibles.
+- **Durcissement des conteneurs (Container Hardening)** : utilisation d'images de base minimales (Alpine Linux), exclusion des utilitaires de build du runtime via le patron *multi-stage build*, et exécution sous compte de service non privilégié (`non-root`).
+- **Cloisonnement réseau par couches** : segmentation réseau interne sous Docker (`front-network` exposé pour le reverse proxy et `back-network` isolé pour la persistance et le cache).
 
 ---
 
-## 🏗️ Architecture Multi-Tiers Conteneurisée
+## Architecture Multi-Tiers Conteneurisée
 
 ```mermaid
 graph LR
@@ -25,22 +25,22 @@ graph LR
         Nginx -->|Proxy Pass :3000| App[Application Conteneurisée]
     end
     
-    subgraph "Réseau Interne Sécurisé (back-network)"
+    subgraph "Réseau Interne Isolé (back-network)"
         App -->|Connexion TCP :5432| DB[(PostgreSQL 16)]
-        App -->|Sessions / Cache :6379| Redis[(Redis Cache)]
+        App -->|Cache & Sessions :6379| Redis[(Redis)]
     end
 ```
 
 ---
 
-## 🚀 Utilisation & Déploiement
+## Déploiement & Exploitation
 
-### 1. Démarrage de la stack complète
+### 1. Démarrage de la stack de services
 ```bash
 docker compose up -d
 ```
 
-### 2. Surveillance et vérification d'état
+### 2. Surveillance et contrôle d'état
 ```bash
 docker compose ps
 docker compose logs -f webapp
@@ -48,7 +48,8 @@ docker compose logs -f webapp
 
 ---
 
-## ☁️ Compétences Cloud & Infrastructure as Code (AWS)
-- **AWS IAM** : Politiques de moindres privilèges, groupes, rôles d'instances EC2 et authentification multi-facteurs (MFA).
-- **AWS Networking** : Configuration de VPCs, sous-réseaux publics/privés, tables de routage et passerelles Internet (IGW).
-- **Intégration Continue (CI/CD)** : Pipelines GitHub Actions automatisant les tests unitaires, la construction d'artefacts et le déploiement sur GitHub Pages.
+## Compétences Cloud & Automatisation
+
+- **AWS IAM & Sécurité** : Gestion des politiques de moindre privilège, groupes d'utilisateurs, rôles d'instances EC2 et obligation du MFA.
+- **AWS Réseau** : Implémentation de VPCs, sous-réseaux publics et privés, passerelles Internet (IGW) et tables de routage associées.
+- **Automatisation CI/CD** : Conception de pipelines GitHub Actions validant le code source, construisant les artefacts et automatisant le déploiement sur GitHub Pages.
