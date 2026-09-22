@@ -49,10 +49,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ├── 05-Developpement-Mobile-Flutter/# Application mobile multiplateforme avec gestion d'état réactive
 ├── assets/                         # Schémas d'architecture et ressources graphiques
 ├── docs/                           # Justificatifs officiels et supports techniques
-├── index.html                      # Interface du portfolio statique (GitHub Pages)
-├── styles.css                      # Feuilles de styles du portfolio
-├── script.js                       # Moteur d'interactions et visualiseur de documents
-└── .github/workflows/deploy.yml    # Workflow de déploiement continu
+└── README.md                       # Spécifications et documentation d'ingénierie
 ```
 
 ---
