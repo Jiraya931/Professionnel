@@ -2,17 +2,13 @@
 
 # Projets d'Ingénierie — Systèmes, Réseaux & Sécurité
 ### Ababacar Ousmane Niang
-**Stagiaire en Administration Systèmes, Réseaux & Sécurité — SIMEN**  
-*Système Intégré de Management de l'Éducation Nationale*
 
 [![Consulter le Portfolio](https://img.shields.io/badge/Portfolio_Interactif-Accéder_au_Site-2563eb?style=flat-square)](https://jiraya931.github.io/Professionnel/)
-[![GitHub](https://img.shields.io/badge/GitHub-Jiraya931-181717?style=flat-square&logo=github)](https://github.com/Jiraya931)
-[![Statut](https://img.shields.io/badge/Statut-Stagiaire_au_SIMEN-7c3aed?style=flat-square)]()
 
 <br/>
 
-> **Consultation du profil & parcours** : Ce référentiel Git est dédié exclusivement aux spécifications techniques, topologies de simulation, architectures et codes sources des projets.  
-> Pour consulter mon **cursus académique détaillé**, mes **certifications professionnelles vérifiées (Cisco CCNA, etc.)**, mon **CV complet** ainsi que mes coordonnées de contact, veuillez vous référer à mon [**Portfolio Web Interactif**](https://jiraya931.github.io/Professionnel/).
+> **Consultation du profil & parcours** : Ce référentiel est dédié exclusivement aux spécifications techniques, topologies de simulation, architectures et codes sources des projets.  
+> Pour consulter mon **cursus académique**, mes **certifications professionnelles (Cisco CCNA, etc.)**, mon **CV complet** ainsi que mes coordonnées de contact, veuillez vous référer à mon [**Portfolio Web Interactif**](https://jiraya931.github.io/Professionnel/).
 
 </div>
 
