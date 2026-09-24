@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    PORTFOLIO INTERACTIVE LOGIC & ANIMATIONS (script.js)
    Ababacar Ousmane Niang - Portfolio d'Ingénierie
    ========================================================================== */
@@ -402,6 +402,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Structure de code modulaire et compatible Android, iOS et exécution Web`
             ],
             githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter`
+        },
+                'virtualization-project': {
+            title: \Virtualisation Datacenter & Clusters HA (VMware & Proxmox)\,
+            category: \SystÃ¨mes & Virtualisation (Master RESI)\,
+            image: \ssets/project_web_app.png\,
+            description: \Conception et dÃ©ploiement d'architectures de virtualisation de datacenter en haute disponibilitÃ©. MaÃ®trise opÃ©rationnelle du binÃ´me VMware vSphere (cluster d'hÃ´tes ESXi managÃ©s par vCenter HA, stockage partagÃ© SAN/iSCSI, vMotion et DRS) et de la solution open source Proxmox VE (cluster de nÅ“uds rÃ©silients, conteneurs lÃ©gers LXC, basculement automatique et stratÃ©gies de sauvegarde/restauration).\,
+            technologies: [\VMware vSphere\, \ESXi / vCenter Server\, \Proxmox VE\, \High Availability (HA/DRS)\, \SAN / iSCSI\, \LXC / KVM\, \Motion\],
+            features: [
+                \Cluster VMware vCenter supervisant les hÃ´tes ESXi avec basculement transparent (vSphere HA)\,
+                \Cluster Proxmox VE multi-nÅ“uds avec conteneurs LXC et migration Ã  chaud des machines virtuelles\,
+                \Stockage mutualisÃ© SAN/iSCSI et segmentation rÃ©seau par VLANs dÃ©diÃ©s au stockage et au management\,
+                \Rapports complets de dimensionnement Datacenter et d'installation Proxmox VE disponibles au tÃ©lÃ©chargement\
+            ],
+            githubUrl: \https://github.com/Jiraya931/Professionnel\
+        },
+        'monitoring-graylog-project': {
+            title: \ObservabilitÃ© SystÃ¨me & SIEM (Graylog, Prometheus & Grafana)\,
+            category: \Supervision & SIEM (Master 1 RESI)\,
+            image: \ssets/project_cyber_security.png\,
+            description: \DÃ©ploiement d'une chaÃ®ne complÃ¨te de maintien en condition opÃ©rationnelle (MCO) et de dÃ©tection des incidents de sÃ©curitÃ© sous Linux Debian. ImplÃ©mentation de Prometheus avec exportateurs Node Exporter pour la collecte mÃ©trologique en temps rÃ©el (CPU, RAM, disques, I/O) visualisÃ©e sur des dashboards Grafana dynamiques, associÃ©e Ã  un cluster de centralisation de journaux SIEM Graylog (OpenSearch + MongoDB) pour l'audit et la conformitÃ©.\,
+            technologies: [\Prometheus\, \Grafana\, \Graylog SIEM\, \OpenSearch\, \MongoDB\, \Linux Debian\, \Node Exporter\, \MÃ©trologie & Alerting\],
+            features: [
+                \Collecte mÃ©trique continue via Prometheus et alertes automatiques en cas de dÃ©passement de seuil\,
+                \Tableaux de bord d'observabilitÃ© Grafana haute dÃ©finition avec mÃ©triques systÃ¨me dÃ©taillÃ©es\,
+                \Centralisation et indexation en temps rÃ©el des logs serveurs et applicatifs via Graylog & OpenSearch\,
+                \Rapport technique d'installation et de configuration documentÃ© disponible dans le dossier acadÃ©mique\
+            ],
+            githubUrl: \https://github.com/Jiraya931/Professionnel\
+        },
+        'glpi-ad-project': {
+            title: \Gestion des Services ITIL & Parc (GLPI & Active Directory)\,
+            category: \ITSM & Gouvernance IT (Master 2 RESI)\,
+            image: \ssets/project_web_app.png\,
+            description: \Mise en Å“uvre d'une solution de gestion des services informatiques (ITSM) et d'inventaire automatisÃ© sous GLPI, alignÃ©e sur les bonnes pratiques du rÃ©fÃ©rentiel ITIL v3 (gestion des incidents, gestion des changements et CMDB). Interconnexion sÃ©curisÃ©e LDAP avec le contrÃ´leur de domaine Windows Server Active Directory (AD DS) pour la synchronisation unifiÃ©e des utilisateurs et le dÃ©ploiement d'agents d'inventaire.\,
+            technologies: [\GLPI 10+\, \Active Directory (AD DS)\, \LDAP / LDAPS\, \Windows Server\, \ITIL v3 (Incidents/Changements)\, \CMDB / Inventaire\, \Agent FusionInventory\],
+            features: [
+                \Synchronisation automatique de l'annuaire Active Directory en LDAP pour une authentification unifiÃ©e\,
+                \Gestion du cycle de vie des tickets d'assistance et suivi des SLAs selon les standards ITIL v3\,
+                \Inventaire automatisÃ© et cartographie complÃ¨te du parc informatique matÃ©riel et logiciel (CMDB)\,
+                \ProcÃ©dure pas-Ã -pas documentÃ©e d'installation et d'interconnexion AD accessible dans le portfolio\
+            ],
+            githubUrl: \https://github.com/Jiraya931/Professionnel\
         },
         'vmware-project': {
             title: `Infrastructure Virtualisée VMware vSphere HA`,

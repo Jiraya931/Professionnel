@@ -1406,6 +1406,11 @@ footer {
     color: var(--accent-cyan);
 }
 
+.doc-icon.badge-isi {
+    background: rgba(16, 185, 129, 0.12);
+    color: var(--accent-emerald);
+}
+
 .doc-icon.badge-licence {
     background: rgba(99, 102, 241, 0.1);
     color: var(--accent-primary);
