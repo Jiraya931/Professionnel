@@ -192,20 +192,28 @@
                         <!-- Systèmes & Virtualisation Skills -->
                         <div class="skill-category-content active" id="tab-sys">
                             <div class="skill-item">
-                                <div class="skill-info"><span>Administration Système Linux (Ubuntu, Debian, Alpine) & Windows Server (AD DS)</span><span>92%</span></div>
+                                <div class="skill-info"><span>Administration Système Linux (Debian, Ubuntu, Alpine) & Windows Server (AD DS, DNS, DHCP, IIS)</span><span>92%</span></div>
                                 <div class="skill-bar"><div class="skill-progress" data-progress="92%"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Virtualisation Datacenter (VMware vSphere, ESXi / vCenter, Proxmox VE)</span><span>90%</span></div>
+                                <div class="skill-info"><span>Virtualisation Datacenter & Clusters HA (VMware vSphere HA/DRS, ESXi, Proxmox VE, LXC)</span><span>92%</span></div>
+                                <div class="skill-bar"><div class="skill-progress" data-progress="92%"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Observabilité, Métrologie & Centralisation des Logs (Prometheus, Grafana, Graylog SIEM, Zabbix)</span><span>90%</span></div>
                                 <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Annuaires d'Entreprise Souverains (OpenLDAP, Active Directory, Samba)</span><span>88%</span></div>
-                                <div class="skill-bar"><div class="skill-progress" data-progress="88%"></div></div>
+                                <div class="skill-info"><span>Gestion des Services ITIL & Parc d'Entreprise (GLPI, Agent FusionInventory, CMDB, Liaison AD)</span><span>90%</span></div>
+                                <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
                             </div>
                             <div class="skill-item">
-                                <div class="skill-info"><span>Scripting & Automatisation Système (Bash, Shell, PowerShell, Python)</span><span>85%</span></div>
-                                <div class="skill-bar"><div class="skill-progress" data-progress="85%"></div></div>
+                                <div class="skill-info"><span>Annuaires d'Entreprise & Fédération d'Identités (Active Directory, OpenLDAP, Keycloak IAM)</span><span>90%</span></div>
+                                <div class="skill-bar"><div class="skill-progress" data-progress="90%"></div></div>
+                            </div>
+                            <div class="skill-item">
+                                <div class="skill-info"><span>Scripting & Automatisation Système (Bash, Shell, PowerShell, Python, Terraform)</span><span>86%</span></div>
+                                <div class="skill-bar"><div class="skill-progress" data-progress="86%"></div></div>
                             </div>
                         </div>
 
@@ -595,6 +603,7 @@
                         <button class="filter-btn doc-filter-btn active" data-doc-filter="all">Tous les documents</button>
                         <button class="filter-btn doc-filter-btn" data-doc-filter="diploma">CV & Diplômes</button>
                         <button class="filter-btn doc-filter-btn" data-doc-filter="ccna">Certifications CCNA</button>
+                        <button class="filter-btn doc-filter-btn" data-doc-filter="reports">Rapports Techniques ISI</button>
                     </div>
                 </div>
 
@@ -688,6 +697,60 @@
                         <div class="doc-actions">
                             <button class="btn-doc-action btn-doc-view" data-pdf="docs/CCNA3.pdf" data-title="Certification Cisco CCNA 3 (ENSA)"><i class="fas fa-eye"></i> Consulter</button>
                             <a href="docs/CCNA3.pdf" download class="btn-doc-action btn-doc-download"><i class="fas fa-download"></i> PDF</a>
+                        </div>
+                    </div>
+                
+                    <!-- Rapport Technique 1 : Proxmox VE -->
+                    <div class="doc-card" data-doc-category="reports">
+                        <div>
+                            <div class="doc-header">
+                                <div class="doc-icon badge-isi"><i class="fas fa-server"></i></div>
+                                <div>
+                                    <div class="doc-title">Rapport Proxmox VE & Datacenter</div>
+                                    <div class="doc-subtitle">Rapport ProxMox.pdf • Master 1 RESI (ISI)</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Conception d'un cluster Proxmox VE, conteneurisation LXC, haute disponibilité et dimensionnement d'un datacenter virtualisé.</p>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="btn-doc-action btn-doc-view" data-pdf="docs/isi/M1/Sem2/Virtualisation et Datacenter/Rapport/Rapport ProxMox.pdf" data-title="Rapport Proxmox VE & Datacenter (Groupe ISI)"><i class="fas fa-eye"></i> Consulter</button>
+                            <a href="docs/isi/M1/Sem2/Virtualisation et Datacenter/Rapport/Rapport ProxMox.pdf" download="Rapport_ProxMox_Niang.pdf" class="btn-doc-action btn-doc-download"><i class="fas fa-download"></i> PDF</a>
+                        </div>
+                    </div>
+
+                    <!-- Rapport Technique 2 : Prometheus & Grafana -->
+                    <div class="doc-card" data-doc-category="reports">
+                        <div>
+                            <div class="doc-header">
+                                <div class="doc-icon badge-isi"><i class="fas fa-chart-line"></i></div>
+                                <div>
+                                    <div class="doc-title">Supervision Prometheus & Grafana</div>
+                                    <div class="doc-subtitle">PROMETHEUS & GRAFANA SUR DEBIAN.pdf • Master 1 RESI (ISI)</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Mise en œuvre d'une architecture d'observabilité sous Debian Linux avec métrologie système, agents Node Exporter et tableaux de bord Grafana.</p>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="btn-doc-action btn-doc-view" data-pdf="docs/isi/M1/Sem2/Supervision des Systèmes et Services Réseaux Avancée/Rapport/PROMETHEUS & GRAFANA SUR DEBIAN.pdf" data-title="Supervision Prometheus & Grafana sur Debian (Groupe ISI)"><i class="fas fa-eye"></i> Consulter</button>
+                            <a href="docs/isi/M1/Sem2/Supervision des Systèmes et Services Réseaux Avancée/Rapport/PROMETHEUS & GRAFANA SUR DEBIAN.pdf" download="Prometheus_Grafana_Debian.pdf" class="btn-doc-action btn-doc-download"><i class="fas fa-download"></i> PDF</a>
+                        </div>
+                    </div>
+
+                    <!-- Rapport Technique 3 : GLPI & Active Directory -->
+                    <div class="doc-card" data-doc-category="reports">
+                        <div>
+                            <div class="doc-header">
+                                <div class="doc-icon badge-isi"><i class="fas fa-tasks"></i></div>
+                                <div>
+                                    <div class="doc-title">ITSM GLPI & Liaison Active Directory</div>
+                                    <div class="doc-subtitle">MISE EN PLACE DE GLPI ET liaison avec AD.pdf • Master 2 RESI (ISI)</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.85rem; color: var(--text-secondary);">Guide d'implémentation de la solution d'ITSM GLPI (ITIL v3), synchronisation d'annuaire LDAP Windows Server AD DS et inventaire de parc automatisé.</p>
+                        </div>
+                        <div class="doc-actions">
+                            <button class="btn-doc-action btn-doc-view" data-pdf="docs/isi/M2/Sem1/Gestion des services à l’aide du référentiel ITIL/MISE EN PLACE DE GLPI ET liaison avec AD.pdf" data-title="Mise en place de GLPI et liaison avec AD (Groupe ISI)"><i class="fas fa-eye"></i> Consulter</button>
+                            <a href="docs/isi/M2/Sem1/Gestion des services à l’aide du référentiel ITIL/MISE EN PLACE DE GLPI ET liaison avec AD.pdf" download="GLPI_Liaison_Active_Directory.pdf" class="btn-doc-action btn-doc-download"><i class="fas fa-download"></i> PDF</a>
                         </div>
                     </div>
                 </div>

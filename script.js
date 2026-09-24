@@ -403,6 +403,48 @@ document.addEventListener('DOMContentLoaded', () => {
             ],
             githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter`
         },
+                'virtualization-project': {
+            title: `Virtualisation Datacenter & Clusters HA (VMware & Proxmox)`,
+            category: `Systèmes & Virtualisation (Master RESI)`,
+            image: `assets/project_web_app.png`,
+            description: `Conception et déploiement d'architectures de virtualisation de datacenter en haute disponibilité. Maîtrise opérationnelle du binôme VMware vSphere (cluster d'hôtes ESXi managés par vCenter HA, stockage partagé SAN/iSCSI, vMotion et DRS) et de la solution open source Proxmox VE (cluster de nœuds résilients, conteneurs légers LXC, basculement automatique et stratégies de sauvegarde/restauration).`,
+            technologies: [`VMware vSphere`, `ESXi / vCenter Server`, `Proxmox VE`, `High Availability (HA/DRS)`, `SAN / iSCSI`, `LXC / KVM`, `vMotion`],
+            features: [
+                `Cluster VMware vCenter supervisant les hôtes ESXi avec basculement transparent (vSphere HA)`,
+                `Cluster Proxmox VE multi-nœuds avec conteneurs LXC et migration à chaud des machines virtuelles`,
+                `Stockage mutualisé SAN/iSCSI et segmentation réseau par VLANs dédiés au stockage et au management`,
+                `Rapports complets de dimensionnement Datacenter et d'installation Proxmox VE disponibles au téléchargement`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel`
+        },
+        'monitoring-graylog-project': {
+            title: `Observabilité Système & SIEM (Graylog, Prometheus & Grafana)`,
+            category: `Supervision & SIEM (Master 1 RESI)`,
+            image: `assets/project_cyber_security.png`,
+            description: `Déploiement d'une chaîne complète de maintien en condition opérationnelle (MCO) et de détection des incidents de sécurité sous Linux Debian. Implémentation de Prometheus avec exportateurs Node Exporter pour la collecte métrologique en temps réel (CPU, RAM, disques, I/O) visualisée sur des dashboards Grafana dynamiques, associée à un cluster de centralisation de journaux SIEM Graylog (OpenSearch + MongoDB) pour l'audit et la conformité.`,
+            technologies: [`Prometheus`, `Grafana`, `Graylog SIEM`, `OpenSearch`, `MongoDB`, `Linux Debian`, `Node Exporter`, `Métrologie & Alerting`],
+            features: [
+                `Collecte métrique continue via Prometheus et alertes automatiques en cas de dépassement de seuil`,
+                `Tableaux de bord d'observabilité Grafana haute définition avec métriques système détaillées`,
+                `Centralisation et indexation en temps réel des logs serveurs et applicatifs via Graylog & OpenSearch`,
+                `Rapport technique d'installation et de configuration documenté disponible dans le dossier académique`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel`
+        },
+        'glpi-ad-project': {
+            title: `Gestion des Services ITIL & Parc (GLPI & Active Directory)`,
+            category: `ITSM & Gouvernance IT (Master 2 RESI)`,
+            image: `assets/project_web_app.png`,
+            description: `Mise en œuvre d'une solution de gestion des services informatiques (ITSM) et d'inventaire automatisé sous GLPI, alignée sur les bonnes pratiques du référentiel ITIL v3 (gestion des incidents, gestion des changements et CMDB). Interconnexion sécurisée LDAP avec le contrôleur de domaine Windows Server Active Directory (AD DS) pour la synchronisation unifiée des utilisateurs et le déploiement d'agents d'inventaire.`,
+            technologies: [`GLPI 10+`, `Active Directory (AD DS)`, `LDAP / LDAPS`, `Windows Server`, `ITIL v3 (Incidents/Changements)`, `CMDB / Inventaire`, `Agent FusionInventory`],
+            features: [
+                `Synchronisation automatique de l'annuaire Active Directory en LDAP pour une authentification unifiée`,
+                `Gestion du cycle de vie des tickets d'assistance et suivi des SLAs selon les standards ITIL v3`,
+                `Inventaire automatisé et cartographie complète du parc informatique matériel et logiciel (CMDB)`,
+                `Procédure pas-à-pas documentée d'installation et d'interconnexion AD accessible dans le portfolio`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel`
+        },
         'vmware-project': {
             title: `Infrastructure Virtualisée VMware vSphere HA`,
             category: `Systèmes & Virtualisation`,
