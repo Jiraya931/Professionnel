@@ -84,6 +84,11 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 - **Architecture Applicative** : Gestion d'état réactive via le patron de conception `provider`.
 - **Interface & Expérience** : Prise en charge des modes clair et sombre (`themeProvider.dart`), écran d'onboarding et structure logicielle modulaire.
 
+### 6. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Dossier Académique ISI)
+- **Virtualisation Datacenter & Hyperviseurs** : Architecture VMware vSphere & Proxmox VE avec dimensionnement de datacenter virtuel et cluster haute disponibilité ([Rapport Proxmox VE](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/Rapport%20ProxMox.pdf) / [Rapport Datacenter Virtuel](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/RAPPORT-DATACENTER%20VIRTUEL.pdf)).
+- **Observabilité, Métrologie & SIEM** : Déploiement d'une chaîne de monitoring Prometheus/Grafana sous Linux Debian et cluster de centralisation de journaux SIEM Graylog avec OpenSearch ([Rapport Prometheus & Grafana](./docs/isi/M1/Sem2/Supervision%20des%20Syst%C3%A8mes%20et%20Services%20R%C3%A9seaux%20Avanc%C3%A9e/Rapport/PROMETHEUS%20&%20GRAFANA%20SUR%20DEBIAN.pdf) / [Rapport Installation Graylog](./docs/isi/M1/Sem2/Administration%20syst%C3%A8me%20avanc%C3%A9%20-%20LinuxWindows/Rapport/Rapport_Installation_Graylog.pdf)).
+- **Gestion des Services ITIL & Inventaire de Parc** : Implémentation d'une plateforme d'ITSM GLPI alignée ITIL v3 avec synchronisation d'annuaire Windows Server Active Directory en LDAP ([Guide GLPI & Active Directory](./docs/isi/M2/Sem1/Gestion%20des%20services%20%C3%A0%20l%E2%80%99aide%20du%20r%C3%A9f%C3%A9rentiel%20ITIL/MISE%20EN%20PLACE%20DE%20GLPI%20ET%20liaison%20avec%20AD.pdf)).
+
 ---
 
 ## Informations Complémentaires & Cursus
