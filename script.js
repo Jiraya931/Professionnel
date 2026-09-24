@@ -1,5 +1,6 @@
 /* ==========================================================================
    PORTFOLIO INTERACTIVE LOGIC & ANIMATIONS (script.js)
+   Ababacar Ousmane Niang - Portfolio d'Ingénierie
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -47,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scrollspy
         let currentSection = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 120;
+            const sectionTop = section.offsetTop - 140;
             const sectionHeight = section.offsetHeight;
             if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
                 currentSection = section.getAttribute('id');
@@ -87,8 +88,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 this.x = Math.random() * canvas.width;
                 this.y = Math.random() * canvas.height;
                 this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.8;
-                this.speedY = (Math.random() - 0.5) * 0.8;
+                this.speedX = (Math.random() - 0.5) * 0.7;
+                this.speedY = (Math.random() - 0.5) * 0.7;
             }
 
             update() {
@@ -111,7 +112,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(99, 102, 241, 0.6)';
+                ctx.fillStyle = 'rgba(99, 102, 241, 0.55)';
                 ctx.beginPath();
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fill();
@@ -120,7 +121,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         function initParticles() {
             particles = [];
-            const particleCount = Math.min(Math.floor(window.innerWidth / 15), 80);
+            const particleCount = Math.min(Math.floor(window.innerWidth / 16), 75);
             for (let i = 0; i < particleCount; i++) {
                 particles.push(new Particle());
             }
@@ -133,9 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     const dy = particles[a].y - particles[b].y;
                     const distance = Math.sqrt(dx * dx + dy * dy);
 
-                    if (distance < 120) {
-                        const opacity = 1 - (distance / 120);
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity * 0.2})`;
+                    if (distance < 115) {
+                        const opacity = 1 - (distance / 115);
+                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity * 0.18})`;
                         ctx.lineWidth = 1;
                         ctx.beginPath();
                         ctx.moveTo(particles[a].x, particles[a].y);
@@ -164,11 +165,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const typingElement = document.getElementById('typing-text');
     if (typingElement) {
         const phrases = [
-            'Stagiaire au SIMEN (Systèmes & Réseaux)',
-            'Master 2 RESI — ISI Dakar',
-            'Spécialiste Réseaux & CCNP ENCOR',
-            'Sécurité & Fédération d\'Identités SSO',
-            'Cloud HCIP Huawei & DevOps'
+            'Stagiaire en Administration Systèmes, Réseaux & Sécurité (SIMEN)',
+            'Master 2 Réseaux & Systèmes Informatiques — ISI Dakar',
+            'Spécialiste Réseaux Cisco CCNA & Huawei Datacenter',
+            'Architecte IAM & Fédération SSO (Keycloak)',
+            'Praticien DevOps, Conteneurisation & Cybersécurité'
         ];
         let phraseIndex = 0;
         let charIndex = 0;
@@ -185,15 +186,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 charIndex++;
             }
 
-            let typeSpeed = isDeleting ? 50 : 100;
+            let typeSpeed = isDeleting ? 40 : 85;
 
             if (!isDeleting && charIndex === currentPhrase.length) {
-                typeSpeed = 2000; // Pause at end
+                typeSpeed = 2200; // Pause at end
                 isDeleting = true;
             } else if (isDeleting && charIndex === 0) {
                 isDeleting = false;
                 phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 500; // Pause before typing new word
+                typeSpeed = 450; // Pause before typing next phrase
             }
 
             setTimeout(type, typeSpeed);
@@ -259,39 +260,40 @@ document.addEventListener('DOMContentLoaded', () => {
                         const target = parseInt(stat.getAttribute('data-count') || '0', 10);
                         const suffix = stat.getAttribute('data-suffix') || '';
                         let current = 0;
-                        const increment = Math.ceil(target / 40);
+                        const increment = Math.max(1, Math.ceil(target / 30));
                         const timer = setInterval(() => {
                             current += increment;
                             if (current >= target) {
                                 current = target;
                                 clearInterval(timer);
                             }
-                            stat.textContent = current + suffix;
+                            stat.textContent = current + (suffix.startsWith(' ') ? suffix : ' ' + suffix);
                         }, 40);
                     });
                 }
             });
-        }, { threshold: 0.5 });
+        }, { threshold: 0.3 });
 
         counterObserver.observe(statsSection);
     }
 
     // --- 7. Portfolio Projects Filter & Search ---
-    const filterBtns = document.querySelectorAll('.filter-btn');
+    const filterBtns = document.querySelectorAll('.portfolio-filter-bar .filter-btn');
     const projectCards = document.querySelectorAll('.project-card');
     const searchInput = document.getElementById('project-search');
 
     function filterProjects() {
-        const activeCategory = document.querySelector('.filter-btn.active')?.getAttribute('data-filter') || 'all';
+        const activeCategory = document.querySelector('.portfolio-filter-bar .filter-btn.active')?.getAttribute('data-filter') || 'all';
         const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
 
         projectCards.forEach(card => {
             const category = card.getAttribute('data-category');
             const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
             const desc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
+            const techTags = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.textContent.toLowerCase()).join(' ');
 
             const matchesCategory = (activeCategory === 'all' || category === activeCategory);
-            const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm);
+            const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || techTags.includes(searchTerm);
 
             if (matchesCategory && matchesSearch) {
                 card.style.display = 'flex';
@@ -304,7 +306,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 card.style.transform = 'translateY(20px) scale(0.95)';
                 setTimeout(() => {
                     card.style.display = 'none';
-                }, 300);
+                }, 250);
             }
         });
     }
@@ -324,85 +326,96 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- 8. Project Details Modal ---
     const projectModal = document.getElementById('project-modal');
     const modalCloseBtn = projectModal ? projectModal.querySelector('.modal-close-btn') : null;
+    const modalCloseBottomBtn = projectModal ? projectModal.querySelector('.modal-close-btn-bottom') : null;
+    const modalGithubBtn = document.getElementById('modal-github-btn');
 
     const projectData = {
         'sso-project': {
-            title: `Solution SSO & Fédération d'Identités`,
-            category: `Sécurité & Systèmes (Mémoire M2)`,
+            title: `Solution SSO & Fédération d'Identités Souveraine`,
+            category: `IAM & Sécurité (Mémoire M2 / SIMEN)`,
             image: `assets/project_cyber_security.png`,
-            description: `Projet de mémoire Master 2 RESI (ISI Dakar) : Étude, conception et mise en œuvre d'un système d'authentification unique (SSO) centralisé avec fédération d'identités pour sécuriser les accès aux applications d'entreprise.`,
-            technologies: [`Keycloak`, `OAuth2 / OpenID Connect`, `SAML 2.0`, `LDAP / Active Directory`, `Docker & Nginx`],
+            description: `Projet de fin d'études Master 2 RESI réalisé dans le cadre du SIMEN (Système Intégré de Management de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
+            technologies: [`Keycloak 24+`, `OpenLDAP`, `PostgreSQL`, `Docker Compose`, `OpenID Connect (OIDC / PKCE)`, `SAML 2.0`, `JWT RS256`, `MFA / WebAuthn`],
             features: [
-                `Authentification unique (Single Sign-On) multi-applications`,
-                `Fédération d'identités sécurisée via SAML 2.0 / OpenID Connect`,
-                `Annuaire d'entreprise centralisé avec OpenLDAP / Active Directory`,
-                `Journalisation et audit de sécurité des accès utilisateur`
-            ]
+                `Authentification unique (SSO) multi-applications sans rupture de session`,
+                `Fédération d'identités souveraine via OpenLDAP et annuaires d'entreprise`,
+                `Génération et validation de jetons JWT asymétriques signés en RS256`,
+                `Authentification multifacteur (MFA / OTP) obligatoire et politiques RBAC/ABAC`,
+                `Stack reproductible prête à l'emploi (docker compose) et document d'architecture technique`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak`
+        },
+        'cisco-network-project': {
+            title: `Ingénierie Réseaux Résilients Cisco & Huawei`,
+            category: `Réseaux & Télécoms (CCNA / CCNP / HCIP)`,
+            image: `assets/project_network_cisco.png`,
+            description: `Conception, dimensionnement et déploiement d'une architecture réseau multi-tiers (Cœur, Distribution, Accès) pour environnements de campus et datacenters. Implémentation du routage dynamique OSPFv2 VLSM multi-zones, redondance de passerelle FHRP (HSRP/VRRP), agrégation de liens EtherChannel LACP à 2 Gbps, segmentation par VLANs 802.1Q avec relais DHCP et priorisation des flux vocaux ToIP/VoIP (Cisco CME) via QoS.`,
+            technologies: [`Cisco IOS`, `Huawei VRP`, `OSPFv2 Multi-Zones`, `HSRP / VRRP`, `EtherChannel LACP`, `VLANs 802.1Q`, `Relais DHCP`, `VoIP CME`, `QoS (DSCP/CoS)`],
+            features: [
+                `Architecture 3-tiers à haute résilience sans point unique de rupture (SPOF)`,
+                `Routage dynamique OSPFv2 inter-sites avec découpage VLSM optimisé`,
+                `Haute disponibilité de passerelle par HSRP/VRRP avec tracking d'interfaces WAN`,
+                `Agrégation de bande passante EtherChannel LACP (2 Gbps) entre commutateurs de distribution`,
+                `Déploiement VoIP sous Cisco CME et priorisation de la qualité de service (DSCP/CoS)`,
+                `Script d'injection CLI complet (cisco-core-routing.cfg) et maquettes Packet Tracer incluses`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
+        },
+        'security-hardening-project': {
+            title: `Cybersécurité, Filtrage Avancé & Durcissement L2/L3`,
+            category: `Cybersécurité & Systèmes (Master 1 RESI)`,
+            image: `assets/project_cyber_security.png`,
+            description: `Mise en œuvre du principe de défense en profondeur sur les couches d'accès, d'interconnexion et de périmètre : neutralisation proactive des attaques de niveau 2 sur commutateurs, interconnexion chiffrée de sites distants par tunnel VPN IPsec Site-à-Site en CLI Cisco, et isolation étanche des flux au moyen d'une architecture DMZ (Zone Démilitarisée).`,
+            technologies: [`Port-Security`, `DHCP Snooping`, `Dynamic ARP Inspection (DAI)`, `VPN IPsec (IKEv1/v2)`, `Chiffrement AES-256`, `SHA-256`, `DH Group 14`, `DMZ Stateful Firewall`, `Cisco ASA`],
+            features: [
+                `Protection L2 contre les attaques Man-in-the-Middle (ARP Spoofing, Rogue DHCP, MAC Flooding)`,
+                `Tunnel IPsec Site-à-Site chiffré en AES-256 avec négociation ISAKMP et Transform-Set ESP`,
+                `Isolation DMZ interdisant tout flux initié de la zone publique vers l'intranet privé`,
+                `Ateliers Packet Tracer complets vérifiés (.pka) avec contrôle de conformité CLI`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
+        },
+        'devops-container-project': {
+            title: `DevOps & Architecture Conteneurisée Multi-Tiers`,
+            category: `DevOps & Cloud (Master 2 RESI)`,
+            image: `assets/project_web_app.png`,
+            description: `Industrialisation et sécurisation d'environnements applicatifs modernes sous Docker et Kubernetes. Démarche de durcissement (Container Hardening) via des multi-stage builds réduisant drastiquement l'empreinte mémoire et garantissant l'exécution sous utilisateur non-root. Segmentation réseau bi-tiers sous Docker Compose et automatisation continue par pipeline GitHub Actions.`,
+            technologies: [`Docker`, `Docker Compose`, `Multi-Stage Build`, `Container Hardening (non-root)`, `NGINX Reverse Proxy`, `Node.js`, `PostgreSQL 16`, `Redis`, `GitHub Actions (CI/CD)`, `AWS IAM & VPC`],
+            features: [
+                `Dockerfile multi-stage durci exécuté sous compte de service non-privilégié`,
+                `Isolation réseau bi-zone (front-network exposé pour Nginx et back-network isolé pour PostgreSQL/Redis)`,
+                `Pipeline GitHub Actions assurant la conformité, la validation des builds et le déploiement`,
+                `Bonnes pratiques AWS IAM : politique de moindre privilège, rôles EC2 et obligation MFA`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/04-DevOps-Conteneurisation`
+        },
+        'flutter-mobile-project': {
+            title: `Application Mobile Multiplateforme (Flutter & Dart)`,
+            category: `Développement Mobile (Flutter & Dart)`,
+            image: `05-Developpement-Mobile-Flutter/src/lib/assets/bienvenue.png`,
+            description: `Architecture logicielle et développement d'une application mobile multiplateforme respectant les spécifications Material Design 3 de Google. Découpage modulaire strict séparant la logique métier des composants visuels grâce au patron de conception Provider, avec gestion de thème dynamique jour/nuit persistante et parcours d'onboarding fluide.`,
+            technologies: [`Flutter SDK (3.7+)`, `Dart`, `Provider (State Management)`, `Material Design 3`, `SharedPreferences`, `Mobile UX/UI`],
+            features: [
+                `Gestion d'état réactive découplant la couche de données de l'arbre de widgets via Provider`,
+                `Thématisation dynamique (ThemeProvider) avec bascule instantanée clair/sombre`,
+                `Écrans d'intégration (OnboardingScreen) et d'accueil ergonomiques avec transitions fluides`,
+                `Structure de code modulaire et compatible Android, iOS et exécution Web`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter`
         },
         'vmware-project': {
             title: `Infrastructure Virtualisée VMware vSphere HA`,
             category: `Systèmes & Virtualisation`,
             image: `assets/project_web_app.png`,
-            description: `Conception et déploiement d'une architecture vSphere en haute disponibilité avec hôtes ESXi, serveur vCenter, stockage partagé SAN/iSCSI et segmentation réseau par VLANs.`,
-            technologies: [`VMware vSphere`, `ESXi / vCenter`, `SAN / iSCSI`, `VLANs`, `High Availability`],
+            description: `Conception et déploiement d'une architecture de virtualisation de datacenter en haute disponibilité sous VMware vSphere. Mise en grappe d'hyperviseurs ESXi supervisés par un serveur vCenter centralisé, interconnexion à un stockage partagé SAN/iSCSI et segmentation réseau par VLANs pour la tolérance aux pannes.`,
+            technologies: [`VMware vSphere`, `ESXi / vCenter Server`, `SAN / iSCSI`, `High Availability (HA/DRS)`, `VLANs 802.1Q`, `vMotion`],
             features: [
-                `Virtualisation et clusters ESXi supervisés par vCenter`,
-                `Stockage centralisé partagé et tolérance aux pannes (vSphere HA/DRS)`,
-                `Segmentation réseau sécurisée et règles d'isolation`,
-                `Gestion des sauvegardes et snapshots automatisés`
-            ]
-        },
-        'aws-terraform': {
-            title: `Automatisation Cloud AWS & Terraform (IaC)`,
-            category: `Cloud & DevOps`,
-            image: `assets/project_cyber_security.png`,
-            description: `Déploiement et sécurisation d'infrastructures cloud sur Amazon Web Services (AWS). Provisioning automatisé par code (Infrastructure as Code) via Terraform et gestion stricte des droits IAM.`,
-            technologies: [`AWS (EC2, VPC, IAM)`, `Terraform (IaC)`, `Linux Admin`, `Bash Scripting`, `Git / GitHub`],
-            features: [
-                `Provisioning automatisé d'instances EC2 Linux/Windows via Terraform`,
-                `Configuration de réseaux virtuels VPC, sous-réseaux et tables de routage`,
-                `Gestion des identités et politiques de sécurité avec AWS IAM`,
-                `Déploiement reproductible et sécurisé par code`
-            ]
-        },
-        'firewall-vpn': {
-            title: `Sécurisation d'Infrastructure - Pare-feu ASA & VPN`,
-            category: `Sécurité & Réseaux`,
-            image: `assets/project_network_cisco.png`,
-            description: `Configuration et déploiement d'un pare-feu Cisco ASA et mise en place de tunnels VPN IPsec site-à-site pour l'interconnexion sécurisée d'agences distantes.`,
-            technologies: [`Cisco ASA`, `VPN IPsec`, `GNS3 / EVE-NG`, `ACLs & NAT`, `L2 Security`],
-            features: [
-                `Filtrage dynamique des flux réseau avec pare-feu Cisco ASA`,
-                `Tunnels de chiffrement VPN IPsec site-à-site pour interconnexions distantes`,
-                `Protection de niveau 2 (Port Security, DHCP Snooping, DAI)`,
-                `Validation et simulations poussées sous GNS3 / EVE-NG`
-            ]
-        },
-        'edge-iot': {
-            title: `Sécurité & Architecture Edge Computing`,
-            category: `Systèmes & Edge (Chef d'équipe)`,
-            image: `assets/project_cyber_security.png`,
-            description: `Conception d'une architecture Edge Computing segmentée avec des listes de contrôle d'accès (ACL) pour sécuriser les flux et héberger une plateforme IoT industrielle. Pilotage d'une équipe de 6 personnes.`,
-            technologies: [`Edge Computing`, `IoT Platform`, `ACL Security`, `Management (6 pers.)`, `Linux Server`],
-            features: [
-                `Calcul et traitement de données au plus près de la source (Edge)`,
-                `Segmentation stricte des flux et sécurité réseau via ACLs`,
-                `Hébergement et déploiement d'une plateforme d'analytique IoT`,
-                `Gestion de projet et leadership d'une équipe technique de 6 personnes`
-            ]
-        },
-        'huawei-datacom': {
-            title: `Système Campus d'Entreprise - Huawei HCIA`,
-            category: `Réseaux & Datacom`,
-            image: `assets/project_network_cisco.png`,
-            description: `Projet complet en équipe : étude des besoins, ingénierie et déploiement d'un réseau campus d'entreprise multi-étages sur équipements Huawei selon le référentiel HCIA-Datacom.`,
-            technologies: [`Huawei Datacom`, `Routage OSPF`, `VLANs / Trunking`, `DHCP & NAT`, `ACLs`],
-            features: [
-                `Architecture de commutation multi-niveaux (Cœur, Distribution, Accès)`,
-                `Configuration des VLANs, Spanning Tree et inter-VLAN routing`,
-                `Attribution dynamique IP via DHCP et routage dynamique OSPF`,
-                `Traduction d'adresses NAT et filtrage de sécurité par ACL`
-            ]
+                `Grappe d'hyperviseurs ESXi managée de manière centralisée sous VMware vCenter`,
+                `Stockage partagé en réseau avec basculement automatique en cas d'incident (vSphere HA)`,
+                `Migration à chaud des machines virtuelles (vMotion) sans interruption de service`,
+                `Segmentation réseau étanche entre flux d'administration, de stockage et de production`
+            ],
+            githubUrl: `https://github.com/Jiraya931/Professionnel`
         }
     };
 
@@ -415,7 +428,14 @@ document.addEventListener('DOMContentLoaded', () => {
             if (data && projectModal) {
                 document.getElementById('modal-title').textContent = data.title;
                 document.getElementById('modal-category').textContent = data.category;
-                document.getElementById('modal-image').src = data.image;
+                
+                const modalImg = document.getElementById('modal-image');
+                modalImg.src = data.image;
+                modalImg.onerror = function() {
+                    this.onerror = null;
+                    this.src = 'assets/project_web_app.png';
+                };
+
                 document.getElementById('modal-desc').textContent = data.description;
 
                 const techContainer = document.getElementById('modal-techs');
@@ -424,34 +444,45 @@ document.addEventListener('DOMContentLoaded', () => {
                 const featuresContainer = document.getElementById('modal-features');
                 featuresContainer.innerHTML = data.features.map(f => `<li><i class="fas fa-check-circle" style="color: var(--accent-emerald);"></i> ${f}</li>`).join('');
 
+                if (modalGithubBtn) {
+                    modalGithubBtn.href = data.githubUrl || 'https://github.com/Jiraya931/Professionnel';
+                }
+
                 projectModal.classList.add('active');
             }
         });
     });
 
-    if (modalCloseBtn) {
-        modalCloseBtn.addEventListener('click', () => {
+    function closeProjectModal() {
+        if (projectModal) {
             projectModal.classList.remove('active');
-        });
+        }
     }
 
+    if (modalCloseBtn) {
+        modalCloseBtn.addEventListener('click', closeProjectModal);
+    }
+    if (modalCloseBottomBtn) {
+        modalCloseBottomBtn.addEventListener('click', closeProjectModal);
+    }
     if (projectModal) {
         projectModal.addEventListener('click', (e) => {
             if (e.target === projectModal) {
-                projectModal.classList.remove('active');
+                closeProjectModal();
             }
         });
     }
 
-    // --- Document PDF Preview Modal ---
+    // --- 9. Document PDF Preview Modal & Filter ---
     const pdfModal = document.getElementById('pdf-modal');
     const pdfFrame = document.getElementById('pdf-frame');
     const pdfTitle = document.getElementById('pdf-modal-title');
 
     document.querySelectorAll('.btn-doc-view').forEach(btn => {
         btn.addEventListener('click', (e) => {
+            e.preventDefault();
             const pdfPath = btn.getAttribute('data-pdf');
-            const title = btn.getAttribute('data-title') || 'Document';
+            const title = btn.getAttribute('data-title') || 'Visualisation du Document';
             if (pdfPath) {
                 if (pdfFrame) pdfFrame.src = pdfPath;
                 if (pdfTitle) pdfTitle.textContent = title;
@@ -460,21 +491,32 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    function closePdfModal() {
+        if (pdfModal) {
+            pdfModal.classList.remove('active');
+            if (pdfFrame) pdfFrame.src = '';
+        }
+    }
+
     if (pdfModal) {
         const closePdfBtn = pdfModal.querySelector('.modal-close-btn');
         if (closePdfBtn) {
-            closePdfBtn.addEventListener('click', () => {
-                pdfModal.classList.remove('active');
-                if (pdfFrame) pdfFrame.src = '';
-            });
+            closePdfBtn.addEventListener('click', closePdfModal);
         }
         pdfModal.addEventListener('click', (e) => {
             if (e.target === pdfModal) {
-                pdfModal.classList.remove('active');
-                if (pdfFrame) pdfFrame.src = '';
+                closePdfModal();
             }
         });
     }
+
+    // Global Escape Key Listener for Modals
+    window.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            closeProjectModal();
+            closePdfModal();
+        }
+    });
 
     // Document Filter Buttons
     const docFilterBtns = document.querySelectorAll('.doc-filter-btn');
@@ -497,8 +539,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-
-    // --- 9. Contact Form & Clipboard Copy ---
+    // --- 10. Contact Form & Clipboard Copy ---
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
         contactForm.addEventListener('submit', (e) => {
@@ -519,11 +560,11 @@ document.addEventListener('DOMContentLoaded', () => {
             submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
 
             setTimeout(() => {
-                showToast('Merci ! Votre message a été envoyé avec succès.');
+                showToast('Merci ! Votre message a été enregistré avec succès.');
                 contactForm.reset();
                 submitBtn.disabled = false;
                 submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
-            }, 1200);
+            }, 1000);
         });
     }
 
@@ -541,7 +582,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 10. Toast Notification System ---
+    // --- 11. Toast Notification System ---
     function showToast(message, type = 'success') {
         let toastContainer = document.querySelector('.toast-container');
         if (!toastContainer) {
@@ -567,6 +608,6 @@ document.addEventListener('DOMContentLoaded', () => {
             toast.style.opacity = '0';
             toast.style.transform = 'translateX(100%)';
             setTimeout(() => toast.remove(), 300);
-        }, 3500);
+        }, 3200);
     }
 });
