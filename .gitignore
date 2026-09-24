@@ -28,3 +28,6 @@ build/
 *.mp4
 *.mkv
 *.avi
+
+# Deployment worktree
+.deploy-gh-pages/
