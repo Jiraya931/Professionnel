@@ -539,42 +539,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 10. Contact Form & Clipboard Copy ---
-    const contactForm = document.getElementById('contact-form');
-    if (contactForm) {
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            
-            const name = document.getElementById('form-name').value.trim();
-            const email = document.getElementById('form-email').value.trim();
-            const message = document.getElementById('form-message').value.trim();
-
-            if (!name || !email || !message) {
-                showToast('Veuillez remplir tous les champs obligatoires.', 'error');
-                return;
-            }
-
-            // Simulate form submission
-            const submitBtn = contactForm.querySelector('button[type="submit"]');
-            submitBtn.disabled = true;
-            submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours...';
-
-            setTimeout(() => {
-                showToast('Merci ! Votre message a été enregistré avec succès.');
-                contactForm.reset();
-                submitBtn.disabled = false;
-                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Envoyer le message';
-            }, 1000);
-        });
-    }
-
-    // Copy to clipboard helper
+    // --- 10. Clipboard Copy Helper with Enhanced Feedback ---
     document.querySelectorAll('.btn-copy').forEach(btn => {
         btn.addEventListener('click', () => {
             const textToCopy = btn.getAttribute('data-copy');
             if (textToCopy) {
                 navigator.clipboard.writeText(textToCopy).then(() => {
+                    const originalHtml = btn.innerHTML;
+                    btn.innerHTML = '<i class="fas fa-check" style="color: var(--accent-emerald);"></i> Copié !';
+                    btn.style.borderColor = 'var(--accent-emerald)';
                     showToast(`Copié dans le presse-papier : ${textToCopy}`);
+                    setTimeout(() => {
+                        btn.innerHTML = originalHtml;
+                        btn.style.borderColor = '';
+                    }, 2000);
                 }).catch(() => {
                     showToast('Erreur lors de la copie', 'error');
                 });
