@@ -41,7 +41,7 @@ function Sync-And-Deploy {
         }
     }
 
-    # 2. Synchroniser les dossiers assets et docs
+    # 2. Synchroniser les dossiers assets et docs (en excluant les rapports internes ISI)
     $folders = @("assets", "docs")
     foreach ($folder in $folders) {
         $srcFolder = Join-Path $SourceDir $folder
@@ -50,8 +50,14 @@ function Sync-And-Deploy {
             if (-not (Test-Path $dstFolder)) {
                 New-Item -ItemType Directory -Path $dstFolder -Force | Out-Null
             }
-            robocopy $srcFolder $dstFolder /E /XO /XF "*.tmp" "*.swp" /NFL /NDL /NJH /NJS /NC /NS | Out-Null
+            robocopy $srcFolder $dstFolder /E /XO /XF "*.tmp" "*.swp" /XD "isi" ".tmp.driveupload" /NFL /NDL /NJH /NJS /NC /NS | Out-Null
         }
+    }
+
+    # Nettoyer docs/isi dans le deploiement gh-pages s'il est present (les rapports restent sur le repo git principal)
+    $ghpagesIsi = Join-Path $TargetDir "docs\isi"
+    if (Test-Path $ghpagesIsi) {
+        Remove-Item -Path $ghpagesIsi -Recurse -Force
     }
 
     # 3. Vérifier les changements git dans GIT-GHPAGES
