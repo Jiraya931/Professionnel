@@ -1,45 +1,48 @@
-﻿/* ==========================================================================
-   PORTFOLIO INTERACTIVE LOGIC & ANIMATIONS (script.js)
-   Ababacar Ousmane Niang - Portfolio d'Ingénierie
+/* ==========================================================================
+   PORTFOLIO D'INGÉNIERIE SYSTÈMES, RÉSEAUX & CYBERSÉCURITÉ
+   Auteur : Ababacar Ousmane Niang (SIMEN / Master 2 RESI - ISI Dakar)
+   Logique Interactive, Terminal CLI, Blueprint & Command Palette
    ========================================================================== */
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- 1. Theme Toggle (Dark / Light) ---
+
+    // --- 1. Gestion du Thème (Dark / Light) Persistant ---
     const themeToggleBtn = document.getElementById('theme-toggle');
-    const themeIcon = themeToggleBtn ? themeToggleBtn.querySelector('i') : null;
-    
-    // Check saved theme or default to dark
-    const savedTheme = localStorage.getItem('portfolio-theme') || 'dark';
+    const savedTheme = localStorage.getItem('aon-portfolio-theme') || 'dark';
     document.documentElement.setAttribute('data-theme', savedTheme);
     updateThemeIcon(savedTheme);
 
     if (themeToggleBtn) {
-        themeToggleBtn.addEventListener('click', () => {
-            const currentTheme = document.documentElement.getAttribute('data-theme');
-            const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-            document.documentElement.setAttribute('data-theme', newTheme);
-            localStorage.setItem('portfolio-theme', newTheme);
-            updateThemeIcon(newTheme);
-            showToast(`Mode ${newTheme === 'dark' ? 'sombre' : 'clair'} activé`);
-        });
+        themeToggleBtn.addEventListener('click', toggleTheme);
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+        document.documentElement.setAttribute('data-theme', newTheme);
+        localStorage.setItem('aon-portfolio-theme', newTheme);
+        updateThemeIcon(newTheme);
+        showToast(`Mode ${newTheme === 'dark' ? 'Cyber Obsidian (Sombre)' : 'High-Tech Lab (Clair)'} activé`);
     }
 
     function updateThemeIcon(theme) {
-        if (!themeIcon) return;
+        if (!themeToggleBtn) return;
+        const icon = themeToggleBtn.querySelector('i');
+        if (!icon) return;
         if (theme === 'light') {
-            themeIcon.className = 'fas fa-moon';
+            icon.className = 'fas fa-moon';
         } else {
-            themeIcon.className = 'fas fa-sun';
+            icon.className = 'fas fa-sun';
         }
     }
 
-    // --- 2. Navbar Scroll & Scrollspy ---
-    const navbar = document.querySelector('.navbar');
+    // --- 2. Navbar Scroll Effect & Scrollspy ---
+    const navbar = document.getElementById('navbar');
     const navLinks = document.querySelectorAll('.nav-link');
     const sections = document.querySelectorAll('section[id]');
 
     window.addEventListener('scroll', () => {
-        if (window.scrollY > 50) {
+        if (window.scrollY > 40) {
             navbar?.classList.add('scrolled');
         } else {
             navbar?.classList.remove('scrolled');
@@ -48,7 +51,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Scrollspy
         let currentSection = '';
         sections.forEach(section => {
-            const sectionTop = section.offsetTop - 140;
+            const sectionTop = section.offsetTop - 160;
             const sectionHeight = section.offsetHeight;
             if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
                 currentSection = section.getAttribute('id');
@@ -63,279 +66,352 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 3. Particle Canvas Background ---
-    const canvas = document.getElementById('particle-canvas');
-    if (canvas) {
-        const ctx = canvas.getContext('2d');
-        let particles = [];
-        let mouse = { x: null, y: null, radius: 120 };
-
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-
-        resizeCanvas();
-        window.addEventListener('resize', resizeCanvas);
-
-        window.addEventListener('mousemove', (e) => {
-            mouse.x = e.x;
-            mouse.y = e.y;
-        });
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 2 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.7;
-                this.speedY = (Math.random() - 0.5) * 0.7;
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-
-                // Mouse interaction
-                const dx = mouse.x - this.x;
-                const dy = mouse.y - this.y;
-                const distance = Math.sqrt(dx * dx + dy * dy);
-                if (distance < mouse.radius) {
-                    const angle = Math.atan2(dy, dx);
-                    const force = (mouse.radius - distance) / mouse.radius;
-                    this.x -= Math.cos(angle) * force * 2;
-                    this.y -= Math.sin(angle) * force * 2;
-                }
-            }
-
-            draw() {
-                ctx.fillStyle = 'rgba(99, 102, 241, 0.55)';
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
-
-        function initParticles() {
-            particles = [];
-            const particleCount = Math.min(Math.floor(window.innerWidth / 16), 75);
-            for (let i = 0; i < particleCount; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function connectParticles() {
-            for (let a = 0; a < particles.length; a++) {
-                for (let b = a; b < particles.length; b++) {
-                    const dx = particles[a].x - particles[b].x;
-                    const dy = particles[a].y - particles[b].y;
-                    const distance = Math.sqrt(dx * dx + dy * dy);
-
-                    if (distance < 115) {
-                        const opacity = 1 - (distance / 115);
-                        ctx.strokeStyle = `rgba(99, 102, 241, ${opacity * 0.18})`;
-                        ctx.lineWidth = 1;
-                        ctx.beginPath();
-                        ctx.moveTo(particles[a].x, particles[a].y);
-                        ctx.lineTo(particles[b].x, particles[b].y);
-                        ctx.stroke();
-                    }
-                }
-            }
-        }
-
-        function animateCanvas() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            connectParticles();
-            requestAnimationFrame(animateCanvas);
-        }
-
-        initParticles();
-        animateCanvas();
-    }
-
-    // --- 4. Typing Effect for Hero Title ---
+    // --- 3. Typing Effect pour le Hero ---
     const typingElement = document.getElementById('typing-text');
     if (typingElement) {
-        const phrases = [
-            'Stagiaire en Administration Systèmes, Réseaux & Sécurité (SIMEN)',
-            'Master 2 Réseaux & Systèmes Informatiques — ISI Dakar',
-            'Spécialiste Réseaux Cisco CCNA & Huawei Datacenter',
-            'Architecte IAM & Fédération SSO (Keycloak)',
-            'Praticien DevOps, Conteneurisation & Cybersécurité'
+        const roles = [
+            'Stagiaire au SIMEN (Ministère Éducation Nationale)',
+            'Étudiant Master 2 RESI (Groupe ISI Dakar)',
+            'Certifié Cisco CCNA (ITN, SRWE, ENSA)',
+            'Spécialiste Architecture IAM Keycloak SSO & OpenLDAP',
+            'Ingénieur Routage Cisco IOS / OSPFv2 & Durcissement L2/L3',
+            'Praticien DevOps Docker Multi-Stage & CI/CD GitHub Actions'
         ];
-        let phraseIndex = 0;
-        let charIndex = 0;
+        let roleIdx = 0;
+        let charIdx = 0;
         let isDeleting = false;
 
-        function type() {
-            const currentPhrase = phrases[phraseIndex];
-            
+        function typeLoop() {
+            const currentRole = roles[roleIdx];
             if (isDeleting) {
-                typingElement.textContent = currentPhrase.substring(0, charIndex - 1);
-                charIndex--;
+                typingElement.textContent = currentRole.substring(0, charIdx - 1);
+                charIdx--;
             } else {
-                typingElement.textContent = currentPhrase.substring(0, charIndex + 1);
-                charIndex++;
+                typingElement.textContent = currentRole.substring(0, charIdx + 1);
+                charIdx++;
             }
 
-            let typeSpeed = isDeleting ? 40 : 85;
+            let speed = isDeleting ? 35 : 75;
 
-            if (!isDeleting && charIndex === currentPhrase.length) {
-                typeSpeed = 2200; // Pause at end
+            if (!isDeleting && charIdx === currentRole.length) {
+                speed = 2200;
                 isDeleting = true;
-            } else if (isDeleting && charIndex === 0) {
+            } else if (isDeleting && charIdx === 0) {
                 isDeleting = false;
-                phraseIndex = (phraseIndex + 1) % phrases.length;
-                typeSpeed = 450; // Pause before typing next phrase
+                roleIdx = (roleIdx + 1) % roles.length;
+                speed = 400;
             }
 
-            setTimeout(type, typeSpeed);
+            setTimeout(typeLoop, speed);
         }
 
-        type();
+        typeLoop();
     }
 
-    // --- 5. Skills Tab Switcher ---
-    const tabBtns = document.querySelectorAll('.skill-tab-btn');
-    const tabContents = document.querySelectorAll('.skill-category-content');
+    // --- 4. Animation des Métriques Numériques au Scroll ---
+    const metricNumbers = document.querySelectorAll('.metric-number');
+    let metricsCounted = false;
 
-    tabBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            tabBtns.forEach(b => b.classList.remove('active'));
-            tabContents.forEach(c => c.classList.remove('active'));
-
-            btn.classList.add('active');
-            const targetId = btn.getAttribute('data-tab');
-            const targetContent = document.getElementById(targetId);
-            if (targetContent) {
-                targetContent.classList.add('active');
-                animateSkillBars(targetContent);
-            }
-        });
-    });
-
-    function animateSkillBars(container = document) {
-        const progressBars = container.querySelectorAll('.skill-progress');
-        progressBars.forEach(bar => {
-            const targetWidth = bar.getAttribute('data-progress') || '85%';
-            bar.style.width = targetWidth;
-        });
-    }
-
-    // Trigger initial progress bar animation on scroll
-    const skillsSection = document.getElementById('skills');
-    if (skillsSection) {
+    const metricsSection = document.querySelector('.infra-metrics-row');
+    if (metricsSection) {
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const activeCategory = document.querySelector('.skill-category-content.active');
-                    if (activeCategory) animateSkillBars(activeCategory);
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.3 });
-
-        observer.observe(skillsSection);
-    }
-
-    // --- 6. Number Counter Animation ---
-    const statNumbers = document.querySelectorAll('.stat-number');
-    let counted = false;
-
-    const statsSection = document.querySelector('.stats-bar');
-    if (statsSection) {
-        const counterObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting && !counted) {
-                    counted = true;
-                    statNumbers.forEach(stat => {
-                        const target = parseInt(stat.getAttribute('data-count') || '0', 10);
-                        const suffix = stat.getAttribute('data-suffix') || '';
+                if (entry.isIntersecting && !metricsCounted) {
+                    metricsCounted = true;
+                    metricNumbers.forEach(metric => {
+                        const target = parseInt(metric.getAttribute('data-count') || '0', 10);
+                        const suffix = metric.querySelector('.metric-suffix');
+                        const suffixHtml = suffix ? suffix.outerHTML : '';
                         let current = 0;
-                        const increment = Math.max(1, Math.ceil(target / 30));
+                        const increment = Math.max(1, Math.ceil(target / 25));
                         const timer = setInterval(() => {
                             current += increment;
                             if (current >= target) {
                                 current = target;
                                 clearInterval(timer);
                             }
-                            stat.textContent = current + (suffix.startsWith(' ') ? suffix : ' ' + suffix);
+                            metric.innerHTML = current + suffixHtml;
                         }, 40);
                     });
                 }
             });
-        }, { threshold: 0.3 });
+        }, { threshold: 0.25 });
 
-        counterObserver.observe(statsSection);
+        observer.observe(metricsSection);
     }
 
-    // --- 7. Portfolio Projects Filter & Search ---
-    const filterBtns = document.querySelectorAll('.portfolio-filter-bar .filter-btn');
-    const projectCards = document.querySelectorAll('.project-card');
-    const searchInput = document.getElementById('project-search');
+    // --- 5. TERMINAL SYSADMIN & NETWORK CLI INTERACTIF ---
+    const terminalOutput = document.getElementById('terminal-output');
+    const terminalInput = document.getElementById('terminal-input');
+    const triggerTerminalBtn = document.getElementById('trigger-terminal-btn');
 
-    function filterProjects() {
-        const activeCategory = document.querySelector('.portfolio-filter-bar .filter-btn.active')?.getAttribute('data-filter') || 'all';
-        const searchTerm = searchInput ? searchInput.value.toLowerCase().trim() : '';
-
-        projectCards.forEach(card => {
-            const category = card.getAttribute('data-category');
-            const title = card.querySelector('.project-title')?.textContent.toLowerCase() || '';
-            const desc = card.querySelector('.project-desc')?.textContent.toLowerCase() || '';
-            const techTags = Array.from(card.querySelectorAll('.tech-tag')).map(t => t.textContent.toLowerCase()).join(' ');
-
-            const matchesCategory = (activeCategory === 'all' || category === activeCategory);
-            const matchesSearch = title.includes(searchTerm) || desc.includes(searchTerm) || techTags.includes(searchTerm);
-
-            if (matchesCategory && matchesSearch) {
-                card.style.display = 'flex';
-                setTimeout(() => {
-                    card.style.opacity = '1';
-                    card.style.transform = 'translateY(0) scale(1)';
-                }, 50);
-            } else {
-                card.style.opacity = '0';
-                card.style.transform = 'translateY(20px) scale(0.95)';
-                setTimeout(() => {
-                    card.style.display = 'none';
-                }, 250);
+    if (triggerTerminalBtn) {
+        triggerTerminalBtn.addEventListener('click', () => {
+            const termSec = document.getElementById('terminal-section');
+            if (termSec) {
+                termSec.scrollIntoView({ behavior: 'smooth' });
+                terminalInput?.focus();
             }
         });
     }
 
-    filterBtns.forEach(btn => {
+    const terminalCommands = {
+        'help': `Commandes disponibles :
+  <span style="color:#00f0ff;">whoami</span>          : Identité, formation M2 RESI et mission actuelle au SIMEN
+  <span style="color:#00f0ff;">cat sso.spec</span>    : Spécifications techniques du cluster Keycloak SSO
+  <span style="color:#00f0ff;">show ip route</span>   : Table de routage dynamique OSPFv2 (Cisco IOS)
+  <span style="color:#00f0ff;">security-audit</span> : Rapport de durcissement L2, IPsec et DMZ
+  <span style="color:#00f0ff;">projects</span>        : Liste exhaustive des 6 projets documentés
+  <span style="color:#00f0ff;">certs</span>           : Validation officielle des certifications Cisco CCNA
+  <span style="color:#00f0ff;">contact</span>         : Coordonnées téléphoniques, WhatsApp et email
+  <span style="color:#00f0ff;">download cv</span>     : Ouvre directement le CV officiel au format PDF
+  <span style="color:#00f0ff;">clear</span>           : Réinitialise l'écran du terminal`,
+
+        'whoami': `<strong style="color:#38bdf8;">Ababacar Ousmane Niang</strong>
+• Rôle actuel : Stagiaire en Administration Systèmes, Réseaux & Sécurité au SIMEN (depuis Sept. 2026)
+• Formation : Master 2 RESI (Réseaux & Systèmes Informatiques) au Groupe ISI Dakar
+• Diplôme : Licence en Informatique et Gestion (Ensup'Afrique)
+• Spécialisation : IAM Keycloak, Routage Cisco CCNA/CCNP, Cybersécurité L2/IPsec, Docker CI/CD`,
+
+        'cat-sso': `<span style="color:#fbbf24;">[CLUSTER KEYCLOAK 24+ SOVERAIN - SIMEN / MÉMOIRE M2]</span>
+{
+  "node_id": "keycloak-simen-core-01",
+  "auth_protocols": ["OpenID Connect (OIDC / PKCE)", "SAML 2.0"],
+  "token_algorithm": "JWT RS256 (Clé asymétrique RSA 2048-bit)",
+  "mfa_enforced": true,
+  "user_federation": "OpenLDAP + PostgreSQL 16 (Interconnexion active)",
+  "session_management": "SSO Multi-Applications sans ressaisie de mot de passe",
+  "deployment": "Docker Compose durci sous Alpine Linux",
+  "security_tier": "Haute Sécurité Souveraine"
+}`,
+
+        'show-ip-route': `<span style="color:#10b981;">Cisco IOS Router# show ip route ospf</span>
+Codes: L - local, C - connected, S - static, R - RIP, M - mobile, B - BGP
+       D - EIGRP, EX - EIGRP external, O - OSPF, IA - OSPF inter area
+Gateway of last resort is 192.168.100.1 to network 0.0.0.0
+
+O IA  10.10.10.0/24 [110/2] via 192.168.1.2, 01:24:12, GigabitEthernet0/0/0 (CAMPUS_CORE)
+O IA  10.20.20.0/24 [110/3] via 192.168.1.6, 01:24:12, GigabitEthernet0/0/1 (DATACENTER_VLAN)
+O     172.16.1.0/28 [110/11] via 10.0.0.2, 00:45:09, GigabitEthernet0/1/0 (IPSEC_TUNNEL)
+O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2Gbps Redondé)
+[+] Statut FHRP : HSRP Active Gateway 192.168.10.254 (Priority 110, Preempt Active)`,
+
+        'security-audit': `<span style="color:#f43f5e;">[RAPPORT DE DURCISSEMENT & AUDIT CYBERSÉCURITÉ L2/L3]</span>
+[✓] Commutateur Accès L2 : Port-Security activé (Mode Violation Restrict, Max MAC = 2)
+[✓] DHCP Snooping : Trusted Ports restreints aux liaisons montantes (Anti-Rogue DHCP)
+[✓] Dynamic ARP Inspection (DAI) : Filtrage anti ARP Spoofing / Man-in-the-Middle actif
+[✓] Spanning-Tree Guard : BPDU Guard & Root Guard déployés sur interfaces de bordure
+[✓] Tunnel IPsec Site-à-Site : Phase 1 ISAKMP DH Group 14, Phase 2 ESP AES-256 / SHA-256
+[✓] Cloisonnement DMZ : Règles d'état Stateful interdisant les flux initiés de DMZ vers LAN`,
+
+        'projects': `1. <span style="color:#00f0ff;">01-SSO-Federation-Keycloak</span> (SIMEN / Mémoire M2) - IAM Souverain & SAML/OIDC
+2. <span style="color:#00f0ff;">02-Reseaux-Cisco-Huawei</span> - Cœur OSPFv2, HSRP, LACP, VoIP CME, QoS
+3. <span style="color:#00f0ff;">03-Securite-Systemes-Reseaux</span> - Durcissement L2, VPN IPsec Site-à-Site, DMZ
+4. <span style="color:#00f0ff;">04-DevOps-Conteneurisation</span> - Docker Multi-Stage non-root, CI/CD Actions
+5. <span style="color:#00f0ff;">05-Developpement-Mobile-Flutter</span> - App multiplateforme Material 3 & Provider
+6. <span style="color:#00f0ff;">Infrastructure VMware vSphere HA</span> - ESXi, vCenter, SAN iSCSI, vMotion`,
+
+        'certs': `<span style="color:#10b981;">[RÉFÉRENTIELS ET VALIDATIONS OFFICIELLES]</span>
+• Cisco CCNA 1 : Introduction to Networks (ITN) -> <a href="docs/CCNA1.pdf" target="_blank" style="color:#38bdf8;">Voir PDF</a>
+• Cisco CCNA 2 : Switching, Routing and Wireless (SRWE) -> <a href="docs/CCNA2.pdf" target="_blank" style="color:#38bdf8;">Voir PDF</a>
+• Cisco CCNA 3 : Enterprise Networking, Security and Automation (ENSA) -> <a href="docs/CCNA3.pdf" target="_blank" style="color:#38bdf8;">Voir PDF</a>
+• Diplôme Universitaire : Licence Informatique & Gestion -> <a href="docs/Diplome Licence.pdf" target="_blank" style="color:#38bdf8;">Voir PDF</a>`,
+
+        'contact': `Coordonnées Directes :
+• Email : <a href="mailto:ababacarousmane@outlook.com" style="color:#38bdf8;">ababacarousmane@outlook.com</a>
+• Téléphone & WhatsApp : <a href="tel:+221781481291" style="color:#38bdf8;">+221 78 148 12 91</a>
+• Profil LinkedIn : <a href="https://www.linkedin.com/in/ababacar-ousmane-niang-117419233/" target="_blank" style="color:#38bdf8;">linkedin.com/in/ababacar-ousmane-niang</a>
+• Localisation : Axe Diamniadio - Dakar, Sénégal (Disponible)`,
+
+        'download-cv': `Téléchargement du CV en cours... <br>Consultez directement le document : <a href="docs/CV_updated.pdf" target="_blank" style="color:#00f0ff; text-decoration:underline;">Ouvrir CV_updated.pdf</a>`
+    };
+
+    function executeCommand(rawCmd) {
+        const cmd = rawCmd.trim().toLowerCase();
+        if (!cmd) return;
+
+        // Ajouter la commande tapée
+        const cmdLine = document.createElement('div');
+        cmdLine.className = 'terminal-line';
+        cmdLine.innerHTML = `<span class="terminal-prompt">ababacar@simen-core:~$</span> ${escapeHtml(rawCmd)}`;
+        terminalOutput?.appendChild(cmdLine);
+
+        // Traiter
+        if (cmd === 'clear' || cmd === 'cls') {
+            if (terminalOutput) terminalOutput.innerHTML = '';
+        } else if (cmd === 'cat sso.spec' || cmd === 'cat-sso' || cmd === 'sso') {
+            printResponse(terminalCommands['cat-sso']);
+        } else if (cmd === 'show ip route' || cmd === 'show-ip-route' || cmd === 'ip route' || cmd === 'route') {
+            printResponse(terminalCommands['show-ip-route']);
+        } else if (cmd === 'security-audit' || cmd === 'audit' || cmd === 'security') {
+            printResponse(terminalCommands['security-audit']);
+        } else if (cmd === 'download cv' || cmd === 'download-cv' || cmd === 'cv') {
+            printResponse(terminalCommands['download-cv']);
+            window.open('docs/CV_updated.pdf', '_blank');
+        } else if (terminalCommands[cmd]) {
+            printResponse(terminalCommands[cmd]);
+        } else {
+            printResponse(`<span style="color:#ef4444;">bash: commande inconnue: "${escapeHtml(rawCmd)}".</span> Tapez <span style="color:#00f0ff;">help</span> pour voir les commandes disponibles.`);
+        }
+
+        if (terminalOutput) {
+            terminalOutput.scrollTop = terminalOutput.scrollHeight;
+        }
+    }
+
+    function printResponse(html) {
+        const respLine = document.createElement('div');
+        respLine.className = 'terminal-line';
+        respLine.style.color = '#cbd5e1';
+        respLine.innerHTML = html;
+        terminalOutput?.appendChild(respLine);
+    }
+
+    if (terminalInput) {
+        terminalInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const val = terminalInput.value;
+                terminalInput.value = '';
+                executeCommand(val);
+            }
+        });
+    }
+
+    // Boutons de raccourcis rapides dans le terminal
+    document.querySelectorAll('.quick-cmd-pill').forEach(btn => {
         btn.addEventListener('click', () => {
-            filterBtns.forEach(b => b.classList.remove('active'));
+            const cmd = btn.getAttribute('data-cmd');
+            if (cmd) executeCommand(cmd);
+        });
+    });
+
+    function escapeHtml(str) {
+        return str.replace(/[&<>"']/g, m => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;' }[m]));
+    }
+
+    // --- 6. SCHÉMA D'ARCHITECTURE INTERACTIF (BLUEPRINT) ---
+    const blueprintNodes = document.querySelectorAll('.blueprint-node');
+    const inspectorTitle = document.getElementById('inspector-title');
+    const inspectorDesc = document.getElementById('inspector-desc');
+    const inspectorChips = document.getElementById('inspector-chips');
+    const inspectorSpecs = document.getElementById('inspector-specs');
+    const inspectorBtn = document.getElementById('inspector-btn');
+
+    const blueprintData = {
+        'sso': {
+            title: `<i class="fas fa-key" style="color: var(--accent-cyan);"></i> Cluster IAM Keycloak 24+ & Fédération d'Identités`,
+            desc: `Infrastructure d'authentification centralisée souveraine conçue pour l'écosystème de l'Éducation Nationale (SIMEN). Élimination des silos applicatifs, interconnexion aux annuaires OpenLDAP/Active Directory, émission de jetons JWT asymétriques signés par clé privée RS256 et imposition de l'authentification multifacteur (MFA / WebAuthn).`,
+            chips: ['Keycloak 24+', 'OpenLDAP', 'PostgreSQL 16', 'Docker Compose', 'JWT RS256', 'MFA / OTP'],
+            specs: [
+                `Protocole d'échange : OpenID Connect (OIDC / PKCE) & SAML 2.0`,
+                `Chiffrement des sessions : TLS 1.3 avec algorithmes courbes elliptiques`,
+                `Souveraineté : Hébergement local sans dépendance externe Cloud GAFAM`
+            ],
+            link: `https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak`
+        },
+        'network': {
+            title: `<i class="fas fa-server" style="color: var(--accent-blue);"></i> Cœur de Réseau Résilient Cisco & Huawei`,
+            desc: `Topologie 3-tiers à haute tolérance aux pannes (Cœur, Distribution, Accès). Routage dynamique OSPFv2 multi-zones avec découpage VLSM, haute disponibilité de passerelle par HSRP/VRRP avec tracking d'interfaces WAN et agrégation LACP 2 Gbps.`,
+            chips: ['Cisco IOS', 'Huawei VRP', 'OSPFv2 Multi-Zones', 'HSRP / VRRP', 'EtherChannel LACP', 'VoIP CME', 'QoS DSCP'],
+            specs: [
+                `Redondance de passerelle : FHRP (HSRP actif avec priorité 110 et préemption)`,
+                `Bande passante d'interconnexion : Port-Channel LACP 2 Gbps redondé`,
+                `Priorisation VoIP : Marquage DSCP EF (Expedited Forwarding) et CoS 5`
+            ],
+            link: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
+        },
+        'security': {
+            title: `<i class="fas fa-shield-halved" style="color: var(--accent-rose);"></i> Cybersécurité Périmétrique, IPsec & Filtrage L2/L3`,
+            desc: `Principe de défense en profondeur : neutralisation des attaques de commutation (ARP Spoofing, Rogue DHCP, MAC Flooding), tunnel chiffré VPN IPsec Site-à-Site en CLI Cisco IOS (IKEv1/v2, AES-256) et isolation DMZ par pare-feu d'état.`,
+            chips: ['Port-Security', 'DHCP Snooping', 'Dynamic ARP Inspection', 'VPN IPsec AES-256', 'IKEv2', 'DMZ Firewall'],
+            specs: [
+                `Chiffrement VPN : Phase 1 ISAKMP DH Group 14 + Phase 2 ESP AES-256 / SHA-256`,
+                `Protection L2 : Port-Security mode Restrict + DHCP Snooping sur ports d'accès`,
+                `Cloisonnement DMZ : Zéro flux initié du sous-réseau public vers le LAN interne`
+            ],
+            link: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
+        },
+        'virt': {
+            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtualisé VMware vSphere HA & Proxmox`,
+            desc: `Clustering d'hyperviseurs de production ESXi administrés sous vCenter Server avec stockage centralisé partagé SAN/iSCSI. Tolérance aux pannes matérielles (vSphere HA), migration à chaud sans interruption vMotion et grappes Proxmox VE.`,
+            chips: ['VMware ESXi', 'vCenter Server', 'vSphere HA/DRS', 'vMotion', 'SAN / iSCSI', 'Proxmox VE', 'LXC'],
+            specs: [
+                `Haute Disponibilité : Redémarrage automatique des VM en cas de crash hôte (HA)`,
+                `Stockage partagé : Baie SAN iSCSI multipathing pour tolérance de lien`,
+                `Segmentation réseau : Port groups dédiés Management, vMotion et Production`
+            ],
+            link: `https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi`
+        }
+    };
+
+    blueprintNodes.forEach(node => {
+        node.addEventListener('click', () => {
+            blueprintNodes.forEach(n => n.classList.remove('active'));
+            node.classList.add('active');
+
+            const key = node.getAttribute('data-node');
+            const data = blueprintData[key];
+            if (data && inspectorTitle && inspectorDesc && inspectorChips && inspectorSpecs) {
+                inspectorTitle.innerHTML = data.title;
+                inspectorDesc.textContent = data.desc;
+                inspectorChips.innerHTML = data.chips.map(c => `<span class="tech-chip">${c}</span>`).join('');
+                inspectorSpecs.innerHTML = data.specs.map(s => `<li><i class="fas fa-arrow-right" style="color: var(--accent-cyan); font-size: 0.75rem;"></i> ${s}</li>`).join('');
+                if (inspectorBtn) inspectorBtn.href = data.link;
+            }
+        });
+    });
+
+    // --- 7. FILTRES & RECHERCHE DE PROJETS ---
+    const filterPills = document.querySelectorAll('.filter-pill-btn');
+    const projectCards = document.querySelectorAll('.project-card-star, .project-card-bento');
+    const searchInput = document.getElementById('project-search');
+
+    function applyProjectFilter() {
+        const activeFilter = document.querySelector('.filter-pill-btn.active')?.getAttribute('data-filter') || 'all';
+        const query = searchInput ? searchInput.value.toLowerCase().trim() : '';
+
+        projectCards.forEach(card => {
+            const category = card.getAttribute('data-category');
+            const textContent = card.textContent.toLowerCase();
+
+            const matchCat = (activeFilter === 'all' || category === activeFilter);
+            const matchSearch = query === '' || textContent.includes(query);
+
+            if (matchCat && matchSearch) {
+                card.style.display = card.classList.contains('project-card-star') ? 'grid' : 'flex';
+                setTimeout(() => { card.style.opacity = '1'; }, 30);
+            } else {
+                card.style.opacity = '0';
+                card.style.display = 'none';
+            }
+        });
+    }
+
+    filterPills.forEach(btn => {
+        btn.addEventListener('click', () => {
+            filterPills.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
-            filterProjects();
+            applyProjectFilter();
         });
     });
 
     if (searchInput) {
-        searchInput.addEventListener('input', filterProjects);
+        searchInput.addEventListener('input', applyProjectFilter);
     }
 
-    // --- 8. Project Details Modal ---
+    // --- 8. MODAL DÉTAILS DE PROJET ---
     const projectModal = document.getElementById('project-modal');
-    const modalCloseBtn = projectModal ? projectModal.querySelector('.modal-close-btn') : null;
+    const modalCloseBtn = projectModal ? projectModal.querySelector('.modal-close-icon') : null;
     const modalCloseBottomBtn = projectModal ? projectModal.querySelector('.modal-close-btn-bottom') : null;
     const modalGithubBtn = document.getElementById('modal-github-btn');
 
-    const projectData = {
+    const projectCatalog = {
         'sso-project': {
             title: `Solution SSO & Fédération d'Identités Souveraine`,
-            category: `IAM & Sécurité (Mémoire M2 / SIMEN)`,
+            category: `IAM & SÉCURITÉ (SIMEN / MÉMOIRE M2)`,
             image: `assets/project_cyber_security.png`,
-            description: `Projet de fin d'études Master 2 RESI réalisé dans le cadre du SIMEN (Système Intégré de Management de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
-            technologies: [`Keycloak 24+`, `OpenLDAP`, `PostgreSQL`, `Docker Compose`, `OpenID Connect (OIDC / PKCE)`, `SAML 2.0`, `JWT RS256`, `MFA / WebAuthn`],
+            desc: `Projet de fin d'études Master 2 RESI réalisé dans le cadre du SIMEN (Système Intégré de Management de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
+            techs: [`Keycloak 24+`, `OpenLDAP`, `PostgreSQL 16`, `Docker Compose`, `OpenID Connect (OIDC / PKCE)`, `SAML 2.0`, `JWT RS256`, `MFA / WebAuthn`],
             features: [
                 `Authentification unique (SSO) multi-applications sans rupture de session`,
                 `Fédération d'identités souveraine via OpenLDAP et annuaires d'entreprise`,
@@ -343,14 +419,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Authentification multifacteur (MFA / OTP) obligatoire et politiques RBAC/ABAC`,
                 `Stack reproductible prête à l'emploi (docker compose) et document d'architecture technique`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak`
+            github: `https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak`
         },
         'cisco-network-project': {
             title: `Ingénierie Réseaux Résilients Cisco & Huawei`,
-            category: `Réseaux & Télécoms (CCNA / CCNP / HCIP)`,
+            category: `RÉSEAUX & TÉLÉCOMS (CCNA / CCNP / HCIP)`,
             image: `assets/project_network_cisco.png`,
-            description: `Conception, dimensionnement et déploiement d'une architecture réseau multi-tiers (Cœur, Distribution, Accès) pour environnements de campus et datacenters. Implémentation du routage dynamique OSPFv2 VLSM multi-zones, redondance de passerelle FHRP (HSRP/VRRP), agrégation de liens EtherChannel LACP à 2 Gbps, segmentation par VLANs 802.1Q avec relais DHCP et priorisation des flux vocaux ToIP/VoIP (Cisco CME) via QoS.`,
-            technologies: [`Cisco IOS`, `Huawei VRP`, `OSPFv2 Multi-Zones`, `HSRP / VRRP`, `EtherChannel LACP`, `VLANs 802.1Q`, `Relais DHCP`, `VoIP CME`, `QoS (DSCP/CoS)`],
+            desc: `Conception, dimensionnement et déploiement d'une architecture réseau multi-tiers (Cœur, Distribution, Accès) pour environnements de campus et datacenters. Implémentation du routage dynamique OSPFv2 VLSM multi-zones, redondance de passerelle FHRP (HSRP/VRRP), agrégation de liens EtherChannel LACP à 2 Gbps, segmentation par VLANs 802.1Q avec relais DHCP et priorisation des flux vocaux ToIP/VoIP (Cisco CME) via QoS.`,
+            techs: [`Cisco IOS`, `Huawei VRP`, `OSPFv2 Multi-Zones`, `HSRP / VRRP`, `EtherChannel LACP`, `VLANs 802.1Q`, `Relais DHCP`, `VoIP CME`, `QoS (DSCP/CoS)`],
             features: [
                 `Architecture 3-tiers à haute résilience sans point unique de rupture (SPOF)`,
                 `Routage dynamique OSPFv2 inter-sites avec découpage VLSM optimisé`,
@@ -359,93 +435,88 @@ document.addEventListener('DOMContentLoaded', () => {
                 `Déploiement VoIP sous Cisco CME et priorisation de la qualité de service (DSCP/CoS)`,
                 `Script d'injection CLI complet (cisco-core-routing.cfg) et maquettes Packet Tracer incluses`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
+            github: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
         },
         'security-hardening-project': {
             title: `Cybersécurité, Filtrage Avancé & Durcissement L2/L3`,
-            category: `Cybersécurité & Systèmes (Master 1 RESI)`,
+            category: `CYBERSÉCURITÉ & DURCISSEMENT (MASTER 1 RESI)`,
             image: `assets/project_cyber_security.png`,
-            description: `Mise en œuvre du principe de défense en profondeur sur les couches d'accès, d'interconnexion et de périmètre : neutralisation proactive des attaques de niveau 2 sur commutateurs, interconnexion chiffrée de sites distants par tunnel VPN IPsec Site-à-Site en CLI Cisco, et isolation étanche des flux au moyen d'une architecture DMZ (Zone Démilitarisée).`,
-            technologies: [`Port-Security`, `DHCP Snooping`, `Dynamic ARP Inspection (DAI)`, `VPN IPsec (IKEv1/v2)`, `Chiffrement AES-256`, `SHA-256`, `DH Group 14`, `DMZ Stateful Firewall`, `Cisco ASA`],
+            desc: `Mise en œuvre du principe de défense en profondeur sur les couches d'accès, d'interconnexion et de périmètre : neutralisation proactive des attaques de niveau 2 sur commutateurs, interconnexion chiffrée de sites distants par tunnel VPN IPsec Site-à-Site en CLI Cisco, et isolation étanche des flux au moyen d'une architecture DMZ (Zone Démilitarisée).`,
+            techs: [`Port-Security`, `DHCP Snooping`, `Dynamic ARP Inspection (DAI)`, `VPN IPsec (IKEv1/v2)`, `Chiffrement AES-256`, `SHA-256`, `DH Group 14`, `DMZ Stateful Firewall`, `Cisco ASA`],
             features: [
                 `Protection L2 contre les attaques Man-in-the-Middle (ARP Spoofing, Rogue DHCP, MAC Flooding)`,
                 `Tunnel IPsec Site-à-Site chiffré en AES-256 avec négociation ISAKMP et Transform-Set ESP`,
                 `Isolation DMZ interdisant tout flux initié de la zone publique vers l'intranet privé`,
                 `Ateliers Packet Tracer complets vérifiés (.pka) avec contrôle de conformité CLI`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
+            github: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
         },
         'devops-container-project': {
             title: `DevOps & Architecture Conteneurisée Multi-Tiers`,
-            category: `DevOps & Cloud (Master 2 RESI)`,
+            category: `DEVOPS & CLOUD (MASTER 2 RESI)`,
             image: `assets/project_web_app.png`,
-            description: `Industrialisation et sécurisation d'environnements applicatifs modernes sous Docker et Kubernetes. Démarche de durcissement (Container Hardening) via des multi-stage builds réduisant drastiquement l'empreinte mémoire et garantissant l'exécution sous utilisateur non-root. Segmentation réseau bi-tiers sous Docker Compose et automatisation continue par pipeline GitHub Actions.`,
-            technologies: [`Docker`, `Docker Compose`, `Multi-Stage Build`, `Container Hardening (non-root)`, `NGINX Reverse Proxy`, `Node.js`, `PostgreSQL 16`, `Redis`, `GitHub Actions (CI/CD)`, `AWS IAM & VPC`],
+            desc: `Industrialisation et sécurisation d'environnements applicatifs modernes sous Docker et Kubernetes. Démarche de durcissement (Container Hardening) via des multi-stage builds réduisant drastiquement l'empreinte mémoire et garantissant l'exécution sous utilisateur non-root. Segmentation réseau bi-tiers sous Docker Compose et automatisation continue par pipeline GitHub Actions.`,
+            techs: [`Docker`, `Docker Compose`, `Multi-Stage Build`, `Container Hardening (non-root)`, `NGINX Reverse Proxy`, `Node.js`, `PostgreSQL 16`, `Redis`, `GitHub Actions (CI/CD)`, `AWS IAM & VPC`],
             features: [
                 `Dockerfile multi-stage durci exécuté sous compte de service non-privilégié`,
                 `Isolation réseau bi-zone (front-network exposé pour Nginx et back-network isolé pour PostgreSQL/Redis)`,
                 `Pipeline GitHub Actions assurant la conformité, la validation des builds et le déploiement`,
                 `Bonnes pratiques AWS IAM : politique de moindre privilège, rôles EC2 et obligation MFA`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/04-DevOps-Conteneurisation`
+            github: `https://github.com/Jiraya931/Professionnel/tree/main/04-DevOps-Conteneurisation`
         },
         'flutter-mobile-project': {
             title: `Application Mobile Multiplateforme (Flutter & Dart)`,
-            category: `Développement Mobile (Flutter & Dart)`,
+            category: `DÉVELOPPEMENT MOBILE (FLUTTER & DART)`,
             image: `05-Developpement-Mobile-Flutter/src/lib/assets/bienvenue.png`,
-            description: `Architecture logicielle et développement d'une application mobile multiplateforme respectant les spécifications Material Design 3 de Google. Découpage modulaire strict séparant la logique métier des composants visuels grâce au patron de conception Provider, avec gestion de thème dynamique jour/nuit persistante et parcours d'onboarding fluide.`,
-            technologies: [`Flutter SDK (3.7+)`, `Dart`, `Provider (State Management)`, `Material Design 3`, `SharedPreferences`, `Mobile UX/UI`],
+            desc: `Architecture logicielle et développement d'une application mobile multiplateforme respectant les spécifications Material Design 3 de Google. Découpage modulaire strict séparant la logique métier des composants visuels grâce au patron de conception Provider, avec gestion de thème dynamique jour/nuit persistante et parcours d'onboarding fluide.`,
+            techs: [`Flutter SDK (3.7+)`, `Dart`, `Provider (State Management)`, `Material Design 3`, `SharedPreferences`, `Mobile UX/UI`],
             features: [
                 `Gestion d'état réactive découplant la couche de données de l'arbre de widgets via Provider`,
                 `Thématisation dynamique (ThemeProvider) avec bascule instantanée clair/sombre`,
                 `Écrans d'intégration (OnboardingScreen) et d'accueil ergonomiques avec transitions fluides`,
                 `Structure de code modulaire et compatible Android, iOS et exécution Web`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter`
+            github: `https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter`
         },
         'vmware-project': {
             title: `Infrastructure Virtualisée VMware vSphere HA`,
-            category: `Systèmes & Virtualisation`,
+            category: `SYSTÈMES & VIRTUALISATION`,
             image: `assets/project_web_app.png`,
-            description: `Conception et déploiement d'une architecture de virtualisation de datacenter en haute disponibilité sous VMware vSphere. Mise en grappe d'hyperviseurs ESXi supervisés par un serveur vCenter centralisé, interconnexion à un stockage partagé SAN/iSCSI et segmentation réseau par VLANs pour la tolérance aux pannes.`,
-            technologies: [`VMware vSphere`, `ESXi / vCenter Server`, `SAN / iSCSI`, `High Availability (HA/DRS)`, `VLANs 802.1Q`, `vMotion`],
+            desc: `Conception et déploiement d'une architecture de virtualisation de datacenter en haute disponibilité sous VMware vSphere. Mise en grappe d'hyperviseurs ESXi supervisés par un serveur vCenter centralisé, interconnexion à un stockage partagé SAN/iSCSI et segmentation réseau par VLANs pour la tolérance aux pannes.`,
+            techs: [`VMware vSphere`, `ESXi / vCenter Server`, `SAN / iSCSI`, `High Availability (HA/DRS)`, `VLANs 802.1Q`, `vMotion`],
             features: [
                 `Grappe d'hyperviseurs ESXi managée de manière centralisée sous VMware vCenter`,
                 `Stockage partagé en réseau avec basculement automatique en cas d'incident (vSphere HA)`,
                 `Migration à chaud des machines virtuelles (vMotion) sans interruption de service`,
                 `Segmentation réseau étanche entre flux d'administration, de stockage et de production`
             ],
-            githubUrl: `https://github.com/Jiraya931/Professionnel`
+            github: `https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi`
         }
     };
 
     document.querySelectorAll('.btn-details').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const projectId = btn.getAttribute('data-project');
-            const data = projectData[projectId];
-
+            const pId = btn.getAttribute('data-project');
+            const data = projectCatalog[pId];
             if (data && projectModal) {
                 document.getElementById('modal-title').textContent = data.title;
                 document.getElementById('modal-category').textContent = data.category;
                 
-                const modalImg = document.getElementById('modal-image');
-                modalImg.src = data.image;
-                modalImg.onerror = function() {
+                const mImg = document.getElementById('modal-image');
+                mImg.src = data.image;
+                mImg.onerror = function() {
                     this.onerror = null;
                     this.src = 'assets/project_web_app.png';
                 };
 
-                document.getElementById('modal-desc').textContent = data.description;
-
-                const techContainer = document.getElementById('modal-techs');
-                techContainer.innerHTML = data.technologies.map(t => `<span class="tech-tag">${t}</span>`).join('');
-
-                const featuresContainer = document.getElementById('modal-features');
-                featuresContainer.innerHTML = data.features.map(f => `<li><i class="fas fa-check-circle" style="color: var(--accent-emerald);"></i> ${f}</li>`).join('');
+                document.getElementById('modal-desc').textContent = data.desc;
+                document.getElementById('modal-techs').innerHTML = data.techs.map(t => `<span class="comp-tag">${t}</span>`).join('');
+                document.getElementById('modal-features').innerHTML = data.features.map(f => `<li><i class="fas fa-circle-check" style="color: var(--accent-emerald);"></i> ${f}</li>`).join('');
 
                 if (modalGithubBtn) {
-                    modalGithubBtn.href = data.githubUrl || 'https://github.com/Jiraya931/Professionnel';
+                    modalGithubBtn.href = data.github || 'https://github.com/Jiraya931/Professionnel';
                 }
 
                 projectModal.classList.add('active');
@@ -453,27 +524,20 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    function closeProjectModal() {
-        if (projectModal) {
-            projectModal.classList.remove('active');
+    function closeModals() {
+        projectModal?.classList.remove('active');
+        const pdfModal = document.getElementById('pdf-modal');
+        if (pdfModal) {
+            pdfModal.classList.remove('active');
+            const pdfFrame = document.getElementById('pdf-frame');
+            if (pdfFrame) pdfFrame.src = '';
         }
     }
 
-    if (modalCloseBtn) {
-        modalCloseBtn.addEventListener('click', closeProjectModal);
-    }
-    if (modalCloseBottomBtn) {
-        modalCloseBottomBtn.addEventListener('click', closeProjectModal);
-    }
-    if (projectModal) {
-        projectModal.addEventListener('click', (e) => {
-            if (e.target === projectModal) {
-                closeProjectModal();
-            }
-        });
-    }
+    modalCloseBtn?.addEventListener('click', closeModals);
+    modalCloseBottomBtn?.addEventListener('click', closeModals);
 
-    // --- 9. Document PDF Preview Modal & Filter ---
+    // --- 9. MODAL VISUALISEUR PDF OFFICIEL ---
     const pdfModal = document.getElementById('pdf-modal');
     const pdfFrame = document.getElementById('pdf-frame');
     const pdfTitle = document.getElementById('pdf-modal-title');
@@ -481,78 +545,136 @@ document.addEventListener('DOMContentLoaded', () => {
     document.querySelectorAll('.btn-doc-view').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
-            const pdfPath = btn.getAttribute('data-pdf');
+            const pdfUrl = btn.getAttribute('data-pdf');
             const title = btn.getAttribute('data-title') || 'Visualisation du Document';
-            if (pdfPath) {
-                if (pdfFrame) pdfFrame.src = pdfPath;
+            if (pdfUrl && pdfModal && pdfFrame) {
+                pdfFrame.src = pdfUrl;
                 if (pdfTitle) pdfTitle.textContent = title;
-                if (pdfModal) pdfModal.classList.add('active');
+                pdfModal.classList.add('active');
             }
         });
     });
 
-    function closePdfModal() {
-        if (pdfModal) {
-            pdfModal.classList.remove('active');
-            if (pdfFrame) pdfFrame.src = '';
-        }
-    }
+    const pdfCloseBtn = pdfModal?.querySelector('.modal-close-icon');
+    pdfCloseBtn?.addEventListener('click', closeModals);
 
-    if (pdfModal) {
-        const closePdfBtn = pdfModal.querySelector('.modal-close-btn');
-        if (closePdfBtn) {
-            closePdfBtn.addEventListener('click', closePdfModal);
+    // Fermeture des modaux au clic extérieur ou touche Échap
+    window.addEventListener('click', (e) => {
+        if (e.target === projectModal || e.target === pdfModal) {
+            closeModals();
         }
-        pdfModal.addEventListener('click', (e) => {
-            if (e.target === pdfModal) {
-                closePdfModal();
-            }
-        });
-    }
+    });
 
-    // Global Escape Key Listener for Modals
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            closeProjectModal();
-            closePdfModal();
+            closeModals();
+            closeCmdPalette();
         }
     });
 
-    // Document Filter Buttons
-    const docFilterBtns = document.querySelectorAll('.doc-filter-btn');
-    const docCards = document.querySelectorAll('.doc-card');
+    // --- 10. PALETTE DE COMMANDES (Ctrl+K) ---
+    const cmdPalette = document.getElementById('cmd-palette');
+    const triggerCmdPaletteBtn = document.getElementById('trigger-cmd-palette');
+    const cmdSearchInput = document.getElementById('cmd-search-input');
+    const cmdItems = document.querySelectorAll('.cmd-item');
 
-    docFilterBtns.forEach(btn => {
-        btn.addEventListener('click', () => {
-            docFilterBtns.forEach(b => b.classList.remove('active'));
-            btn.classList.add('active');
-            const filter = btn.getAttribute('data-doc-filter');
+    function openCmdPalette() {
+        cmdPalette?.classList.add('active');
+        cmdSearchInput?.focus();
+    }
 
-            docCards.forEach(card => {
-                const docCategory = card.getAttribute('data-doc-category');
-                if (filter === 'all' || docCategory === filter) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            });
+    function closeCmdPalette() {
+        cmdPalette?.classList.remove('active');
+        if (cmdSearchInput) cmdSearchInput.value = '';
+        filterCmdItems('');
+    }
+
+    triggerCmdPaletteBtn?.addEventListener('click', openCmdPalette);
+
+    window.addEventListener('keydown', (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+            e.preventDefault();
+            if (cmdPalette?.classList.contains('active')) {
+                closeCmdPalette();
+            } else {
+                openCmdPalette();
+            }
+        }
+    });
+
+    cmdPalette?.addEventListener('click', (e) => {
+        if (e.target === cmdPalette) closeCmdPalette();
+    });
+
+    function filterCmdItems(query) {
+        cmdItems.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (query === '' || text.includes(query.toLowerCase())) {
+                item.style.display = 'flex';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    }
+
+    cmdSearchInput?.addEventListener('input', (e) => {
+        filterCmdItems(e.target.value);
+    });
+
+    cmdItems.forEach(item => {
+        item.addEventListener('click', () => {
+            const action = item.getAttribute('data-action');
+            closeCmdPalette();
+            handleCmdAction(action);
         });
     });
 
-    // --- 10. Clipboard Copy Helper with Enhanced Feedback ---
+    function handleCmdAction(action) {
+        switch (action) {
+            case 'goto-hero':
+                document.getElementById('hero')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-blueprint':
+                document.getElementById('blueprint')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-skills':
+                document.getElementById('skills')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-projects':
+                document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-timeline':
+                document.getElementById('timeline')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-vault':
+                document.getElementById('vault')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'goto-contact':
+                document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
+                break;
+            case 'open-cv':
+                window.open('docs/CV_updated.pdf', '_blank');
+                break;
+            case 'toggle-theme':
+                toggleTheme();
+                break;
+            case 'open-terminal':
+                document.getElementById('terminal-section')?.scrollIntoView({ behavior: 'smooth' });
+                terminalInput?.focus();
+                break;
+        }
+    }
+
+    // --- 11. COPIE RAPIDE DANS LE PRESSE-PAPIER & FEEDBACK ---
     document.querySelectorAll('.btn-copy').forEach(btn => {
         btn.addEventListener('click', () => {
-            const textToCopy = btn.getAttribute('data-copy');
-            if (textToCopy) {
-                navigator.clipboard.writeText(textToCopy).then(() => {
-                    const originalHtml = btn.innerHTML;
-                    btn.innerHTML = '<i class="fas fa-check" style="color: var(--accent-emerald);"></i> Copié !';
-                    btn.style.borderColor = 'var(--accent-emerald)';
-                    showToast(`Copié dans le presse-papier : ${textToCopy}`);
-                    setTimeout(() => {
-                        btn.innerHTML = originalHtml;
-                        btn.style.borderColor = '';
-                    }, 2000);
+            const str = btn.getAttribute('data-copy');
+            if (str) {
+                navigator.clipboard.writeText(str).then(() => {
+                    const original = btn.innerHTML;
+                    btn.innerHTML = `<i class="fas fa-check" style="color: #10b981;"></i> Copié !`;
+                    showToast(`Copié dans le presse-papier : ${str}`);
+                    setTimeout(() => { btn.innerHTML = original; }, 2200);
                 }).catch(() => {
                     showToast('Erreur lors de la copie', 'error');
                 });
@@ -560,32 +682,151 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- 11. Toast Notification System ---
-    function showToast(message, type = 'success') {
-        let toastContainer = document.querySelector('.toast-container');
-        if (!toastContainer) {
-            toastContainer = document.createElement('div');
-            toastContainer.className = 'toast-container';
-            document.body.appendChild(toastContainer);
+    // --- 12. SYSTÈME DE TOAST NOTIFICATIONS ---
+    function showToast(msg, type = 'success') {
+        let container = document.querySelector('.toast-container');
+        if (!container) {
+            container = document.createElement('div');
+            container.className = 'toast-container';
+            document.body.appendChild(container);
         }
 
         const toast = document.createElement('div');
-        toast.className = 'toast';
+        toast.className = 'toast-item';
         if (type === 'error') {
-            toast.style.borderLeftColor = 'var(--accent-pink)';
+            toast.style.borderColor = '#ef4444';
         }
 
         toast.innerHTML = `
-            <i class="${type === 'error' ? 'fas fa-exclamation-circle' : 'fas fa-check-circle'}" style="color: ${type === 'error' ? 'var(--accent-pink)' : 'var(--accent-emerald)'}"></i>
-            <span>${message}</span>
+            <i class="${type === 'error' ? 'fas fa-triangle-exclamation' : 'fas fa-circle-check'}" style="color: ${type === 'error' ? '#ef4444' : '#10b981'}; font-size: 1.1rem;"></i>
+            <span>${msg}</span>
         `;
 
-        toastContainer.appendChild(toast);
+        container.appendChild(toast);
 
         setTimeout(() => {
             toast.style.opacity = '0';
             toast.style.transform = 'translateX(100%)';
             setTimeout(() => toast.remove(), 300);
-        }, 3200);
+        }, 3000);
+    }
+
+    // --- 13. CANVAS DE RÉSEAU DE NŒUDS FLUIDE ---
+    const canvas = document.getElementById('particle-canvas');
+    if (canvas) {
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+        let mouse = { x: null, y: null, radius: 140 };
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resize();
+        window.addEventListener('resize', resize);
+
+        window.addEventListener('mousemove', (e) => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class NodeParticle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.radius = Math.random() * 1.8 + 1;
+                this.vx = (Math.random() - 0.5) * 0.55;
+                this.vy = (Math.random() - 0.5) * 0.55;
+            }
+
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                if (this.x < 0 || this.x > canvas.width) this.vx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.vy *= -1;
+
+                if (mouse.x !== null) {
+                    const dx = mouse.x - this.x;
+                    const dy = mouse.y - this.y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+                    if (dist < mouse.radius) {
+                        const angle = Math.atan2(dy, dx);
+                        const force = (mouse.radius - dist) / mouse.radius;
+                        this.x -= Math.cos(angle) * force * 1.5;
+                        this.y -= Math.sin(angle) * force * 1.5;
+                    }
+                }
+            }
+
+            draw() {
+                ctx.fillStyle = 'rgba(0, 240, 255, 0.45)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function initNodes() {
+            particles = [];
+            const count = Math.min(Math.floor(window.innerWidth / 22), 65);
+            for (let i = 0; i < count; i++) {
+                particles.push(new NodeParticle());
+            }
+        }
+
+        function renderNetwork() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => {
+                p.update();
+                p.draw();
+            });
+
+            for (let i = 0; i < particles.length; i++) {
+                for (let j = i + 1; j < particles.length; j++) {
+                    const dx = particles[i].x - particles[j].x;
+                    const dy = particles[i].y - particles[j].y;
+                    const dist = Math.sqrt(dx * dx + dy * dy);
+
+                    if (dist < 120) {
+                        const alpha = (1 - dist / 120) * 0.16;
+                        ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(particles[i].x, particles[i].y);
+                        ctx.lineTo(particles[j].x, particles[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+
+            requestAnimationFrame(renderNetwork);
+        }
+
+        initNodes();
+        renderNetwork();
+    }
+
+    // Menu Mobile Toggle
+    const mobileToggle = document.getElementById('mobile-nav-toggle');
+    const navMenu = document.querySelector('.nav-menu');
+    if (mobileToggle && navMenu) {
+        mobileToggle.addEventListener('click', () => {
+            const isOpen = navMenu.style.display === 'flex';
+            if (isOpen) {
+                navMenu.style.display = 'none';
+            } else {
+                navMenu.style.display = 'flex';
+                navMenu.style.flexDirection = 'column';
+                navMenu.style.position = 'absolute';
+                navMenu.style.top = '70px';
+                navMenu.style.left = '1.5rem';
+                navMenu.style.right = '1.5rem';
+                navMenu.style.background = '#0b1120';
+                navMenu.style.padding = '1.25rem';
+                navMenu.style.borderRadius = '16px';
+                navMenu.style.border = '1px solid rgba(0,240,255,0.3)';
+                navMenu.style.boxShadow = '0 15px 35px rgba(0,0,0,0.8)';
+            }
+        });
     }
 });
