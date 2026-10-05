@@ -1,0 +1,1217 @@
+<!DOCTYPE html>
+<html lang="fr" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portfolio d'ingénierie d'Ababacar Ousmane Niang - Stagiaire en Administration Systèmes, Réseaux & Sécurité au SIMEN et étudiant en Master 2 RESI (Groupe ISI Dakar). Démonstrateurs techniques : IAM Keycloak, Réseaux Cisco/Huawei, Cybersécurité L2/IPsec, DevOps Docker CI/CD et Flutter.">
+    <meta name="author" content="Ababacar Ousmane Niang">
+    <title>Ababacar Ousmane Niang | Ingénieur Systèmes, Réseaux & Sécurité</title>
+
+    <!-- Open Graph / Meta Réseaux Sociaux -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://jiraya931.github.io/Professionnel/">
+    <meta property="og:title" content="Ababacar Ousmane Niang — Ingénieur Systèmes, Réseaux & Sécurité">
+    <meta property="og:description" content="Portfolio technique et livrables d'ingénierie : IAM Keycloak SSO, Réseaux Cisco & Huawei, Cybersécurité, DevOps Conteneurisation et Mobile Flutter.">
+    <meta property="og:image" content="assets/Photo.jpeg">
+
+    <!-- Font Awesome CDN pour icônes -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+    <!-- Arrière-plan dynamique d'infrastructure & Lueur cinétique -->
+    <div class="infra-grid-bg"></div>
+    <div class="ambient-mesh">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+        <div class="glow-orb glow-orb-3"></div>
+    </div>
+    <canvas id="particle-canvas"></canvas>
+
+    <!-- Barre de Navigation Flottante Style "Command Bar" -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="#hero" class="brand-logo" aria-label="Accueil Ababacar Ousmane Niang">
+                <div class="brand-node-indicator"><i class="fas fa-terminal"></i></div>
+                <span>AON<span class="gradient-accent-text">.infra</span></span>
+            </a>
+
+            <ul class="nav-menu">
+                <li><a href="#hero" class="nav-link active"><i class="fas fa-home"></i> Accueil</a></li>
+                <li><a href="#blueprint" class="nav-link"><i class="fas fa-network-wired"></i> Architecture</a></li>
+                <li><a href="#skills" class="nav-link"><i class="fas fa-layer-group"></i> Matrice Tech</a></li>
+                <li><a href="#projects" class="nav-link"><i class="fas fa-cubes"></i> Projets</a></li>
+                <li><a href="#timeline" class="nav-link"><i class="fas fa-history"></i> Parcours</a></li>
+                <li><a href="#vault" class="nav-link"><i class="fas fa-shield-halved"></i> Certifications</a></li>
+                <li><a href="#contact" class="nav-link"><i class="fas fa-paper-plane"></i> Contact</a></li>
+            </ul>
+
+            <div class="nav-right-controls">
+                <button class="btn-nav-terminal" id="trigger-terminal-btn" title="Ouvrir la Console SysAdmin">
+                    <i class="fas fa-terminal"></i> <span>CLI</span>
+                </button>
+                <button class="btn-cmd-palette" id="trigger-cmd-palette" title="Ouvrir la palette de commandes (Ctrl+K)">
+                    <i class="fas fa-search"></i> <span class="kbd-shortcut">Ctrl K</span>
+                </button>
+                <button class="theme-switch-btn" id="theme-toggle" aria-label="Changer de thème" title="Basculer entre thème sombre et clair">
+                    <i class="fas fa-sun"></i>
+                </button>
+                <button class="mobile-nav-toggle" id="mobile-nav-toggle" aria-label="Menu Mobile">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Contenu Principal -->
+    <main>
+
+        <!-- HERO SECTION : STATION DE COMMANDE D'INGÉNIERIE -->
+        <section class="hero-section" id="hero">
+            <div class="container">
+                <div class="hero-grid">
+                    
+                    <!-- Colonne Gauche : Pitch & Appel à l'action -->
+                    <div class="hero-content-col">
+                        <div class="infra-telemetry-badge">
+                            <span class="pulse-indicator"></span>
+                            <span>NODE: DKR-SIMEN // STATUT: OPÉRATIONNEL // EN STAGE DEPUIS SEPTEMBRE 2026</span>
+                        </div>
+
+                        <h1 class="hero-main-title">
+                            Architecte & Administrateur <br>
+                            <span class="gradient-text">Systèmes, Réseaux & Sécurité</span>
+                        </h1>
+
+                        <div class="hero-role-wrapper">
+                            <span class="hero-role-prompt">root@ababacar:~$</span>
+                            <span class="hero-role-typing" id="typing-text"></span>
+                        </div>
+
+                        <p class="hero-description">
+                            Stagiaire au <strong>SIMEN</strong> (Ministère de l'Éducation Nationale du Sénégal) & étudiant en dernière année de <strong>Master 2 RESI</strong> au Groupe ISI Dakar. Je conçois et déploie des infrastructures souveraines à haute disponibilité (IAM Keycloak SSO, cœurs de réseaux Cisco & Huawei, durcissement L2/IPsec et environnements conteneurisés durcis).
+                        </p>
+
+                        <div class="hero-actions-row">
+                            <a href="#projects" class="btn btn-primary">
+                                <i class="fas fa-cubes"></i> Explorer les Réalisations
+                            </a>
+                            <a href="#vault" class="btn btn-secondary">
+                                <i class="fas fa-file-shield"></i> Certifications & CV
+                            </a>
+                            <a href="docs/CV_updated.pdf" target="_blank" class="btn btn-terminal" title="Consulter le CV PDF officiel">
+                                <i class="fas fa-download"></i> CV PDF
+                            </a>
+                        </div>
+
+                        <!-- Réseaux Sociaux & Accès Direct -->
+                        <div class="hero-social-strip">
+                            <a href="https://github.com/Jiraya931/Professionnel" target="_blank" rel="noopener noreferrer" class="social-circle-btn" title="Dépôt GitHub Officiel" aria-label="GitHub">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="https://www.linkedin.com/in/ababacar-ousmane-niang-117419233/" target="_blank" rel="noopener noreferrer" class="social-circle-btn" title="Profil LinkedIn" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="mailto:ababacarousmane@outlook.com" class="social-circle-btn" title="M'écrire par Email" aria-label="Email">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                            <a href="https://wa.me/221781481291" target="_blank" rel="noopener noreferrer" class="social-circle-btn" title="Échanger sur WhatsApp" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="tel:+221781481291" class="social-circle-btn" title="Appel direct" aria-label="Téléphone">
+                                <i class="fas fa-phone"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Colonne Droite : Carte d'Accréditation d'Ingénieur Holographique -->
+                    <div class="hero-badge-container">
+                        <div class="hologram-id-card">
+                            <div class="card-scanline"></div>
+                            
+                            <div class="card-top-bar">
+                                <div class="chip-graphic"></div>
+                                <div class="card-security-id">
+                                    ACCREDITATION ID<br>
+                                    <strong>SIMEN-M2-2026-AON</strong>
+                                </div>
+                            </div>
+
+                            <div class="card-photo-wrapper">
+                                <img src="assets/Photo.jpeg" alt="Ababacar Ousmane Niang" class="card-photo-img" onerror="this.onerror=null;this.src='assets/avatar_hero.png';">
+                                <div class="photo-badge-status" title="Disponible pour missions & opportunités">
+                                    <i class="fas fa-check"></i>
+                                </div>
+                            </div>
+
+                            <h3 class="card-id-name">Ababacar Ousmane Niang</h3>
+                            <div class="card-id-title">Ingénieur Systèmes, Réseaux & Sécurité</div>
+
+                            <div class="card-specs-list">
+                                <div class="spec-item">
+                                    <span class="spec-key">RÔLE ACTUEL</span>
+                                    <span class="spec-value">SIMEN (Stage Administration)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-key">FORMATION</span>
+                                    <span class="spec-value">Master 2 RESI (Groupe ISI)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-key">CERTIFICATIONS</span>
+                                    <span class="spec-value verified"><i class="fas fa-circle-check"></i> Cisco CCNA (1, 2, 3)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-key">MÉMOIRE M2</span>
+                                    <span class="spec-value">SSO & IAM Souverain (Keycloak)</span>
+                                </div>
+                                <div class="spec-item">
+                                    <span class="spec-key">LOCALISATION</span>
+                                    <span class="spec-value">Dakar / Diamniadio, Sénégal</span>
+                                </div>
+                            </div>
+
+                            <div class="card-bottom-signatures">
+                                <span>CHIFFREMENT: TLS 1.3 / AES-256</span>
+                                <span>STATUS: AUTHENTIFIÉ</span>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- Métriques Réelles d'Infrastructure -->
+                <div class="infra-metrics-row">
+                    <div class="metric-box">
+                        <div class="metric-number" data-count="6">0<span class="metric-suffix">+</span></div>
+                        <div class="metric-title">Architectures & Livrables Concrets</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-number" data-count="3">0<span class="metric-suffix">/3</span></div>
+                        <div class="metric-title">Certifications Cisco CCNA Validées</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-number" data-count="100">0<span class="metric-suffix">%</span></div>
+                        <div class="metric-title">Livrables Reproductibles & Vérifiables</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-number" data-count="24">0<span class="metric-suffix">h</span></div>
+                        <div class="metric-title">Engagement de Réactivité de Contact</div>
+                    </div>
+                </div>
+
+                <!-- SECTION SIGNATURE : TERMINAL SYSADMIN & NETWORK CLI INTERACTIF -->
+                <div class="terminal-panel-wrapper" id="terminal-section">
+                    <div class="terminal-header-bar">
+                        <div class="terminal-controls">
+                            <span class="terminal-btn close"></span>
+                            <span class="terminal-btn min"></span>
+                            <span class="terminal-btn max"></span>
+                        </div>
+                        <div class="terminal-title-bar">
+                            <i class="fas fa-terminal"></i>
+                            <span>sysadmin-console@ababacar-server: ~ (bash / zsh session)</span>
+                        </div>
+                        <div class="terminal-actions-quick">
+                            <button class="quick-cmd-pill" data-cmd="help">help</button>
+                            <button class="quick-cmd-pill" data-cmd="whoami">whoami</button>
+                            <button class="quick-cmd-pill" data-cmd="cat-sso">cat sso.spec</button>
+                            <button class="quick-cmd-pill" data-cmd="show-ip-route">show ip route</button>
+                            <button class="quick-cmd-pill" data-cmd="security-audit">security-audit</button>
+                            <button class="quick-cmd-pill" data-cmd="clear">clear</button>
+                        </div>
+                    </div>
+
+                    <div class="terminal-body" id="terminal-output">
+                        <div class="terminal-line"><span class="terminal-prompt">ababacar@simen-core:~$</span> <span class="terminal-prompt-path">./welcome.sh</span></div>
+                        <div class="terminal-line" style="color: #38bdf8;">[+] Session d'ingénierie active - Initialisation des modules systèmes & réseaux...</div>
+                        <div class="terminal-line" style="color: #94a3b8;">Tapez ou cliquez sur une commande ci-dessus (<span style="color: #00f0ff;">help</span>, <span style="color: #00f0ff;">whoami</span>, <span style="color: #00f0ff;">cat sso.spec</span>, <span style="color: #00f0ff;">show ip route</span>, <span style="color: #00f0ff;">security-audit</span>) pour interagir en direct.</div>
+                    </div>
+
+                    <div class="terminal-input-row" style="padding: 0.5rem 1.5rem 1.25rem 1.5rem; background: #060913;">
+                        <span class="terminal-prompt">ababacar@simen-core:~$</span>
+                        <input type="text" id="terminal-input" class="terminal-input" placeholder="Tapez une commande (ex: help, whoami, projects, certs, cv)..." autocomplete="off" spellcheck="false">
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION BLUEPRINT : SCHÉMA D'ARCHITECTURE INTERACTIF -->
+        <section id="blueprint">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-network-wired"></i> Architecture & Topologie</div>
+                    <h2 class="section-title">Schéma d'Infrastructure <span class="gradient-text">Interactif</span></h2>
+                    <p class="section-subtitle">Explorez les briques d'infrastructure déployées : cliquez sur chaque composant pour inspecter les flux de protocoles, la sécurité et les choix d'ingénierie.</p>
+                </div>
+
+                <div class="blueprint-card">
+                    <div class="blueprint-grid-visualizer">
+                        
+                        <!-- Nœud 1 : IAM Keycloak SSO -->
+                        <div class="blueprint-node active" data-node="sso">
+                            <div class="node-icon-header">
+                                <div class="node-icon"><i class="fas fa-key"></i></div>
+                                <span class="node-badge">SOUVERAIN</span>
+                            </div>
+                            <h3 class="node-title">Cluster IAM Keycloak</h3>
+                            <div class="node-protocols">OIDC • SAML 2.0 • JWT RS256</div>
+                        </div>
+
+                        <!-- Nœud 2 : Cœur de Réseau Cisco / Huawei -->
+                        <div class="blueprint-node" data-node="network">
+                            <div class="node-icon-header">
+                                <div class="node-icon"><i class="fas fa-server"></i></div>
+                                <span class="node-badge">HA REDONDÉ</span>
+                            </div>
+                            <h3 class="node-title">Cœur & Routage Résilient</h3>
+                            <div class="node-protocols">OSPFv2 • HSRP/VRRP • LACP 2Gbps</div>
+                        </div>
+
+                        <!-- Nœud 3 : Filtrage & Sécurité L2/L3 -->
+                        <div class="blueprint-node" data-node="security">
+                            <div class="node-icon-header">
+                                <div class="node-icon"><i class="fas fa-shield-halved"></i></div>
+                                <span class="node-badge">DURCI</span>
+                            </div>
+                            <h3 class="node-title">Défense en Profondeur</h3>
+                            <div class="node-protocols">Port-Sec • DHCP Snooping • IPsec</div>
+                        </div>
+
+                        <!-- Nœud 4 : Virtualisation Datacenter -->
+                        <div class="blueprint-node" data-node="virt">
+                            <div class="node-icon-header">
+                                <div class="node-icon"><i class="fas fa-cubes-stacked"></i></div>
+                                <span class="node-badge">CLUSTER HA</span>
+                            </div>
+                            <h3 class="node-title">VMware vSphere & Proxmox</h3>
+                            <div class="node-protocols">ESXi • vCenter • SAN iSCSI</div>
+                        </div>
+
+                    </div>
+
+                    <!-- Fiche Technique d'Inspection -->
+                    <div class="blueprint-inspector" id="blueprint-inspector">
+                        <div>
+                            <div class="inspector-title" id="inspector-title">
+                                <i class="fas fa-key" style="color: var(--accent-cyan);"></i>
+                                Cluster IAM Keycloak 24+ & Fédération d'Identités
+                            </div>
+                            <p class="inspector-desc" id="inspector-desc">
+                                Infrastructure d'authentification centralisée souveraine conçue pour l'écosystème de l'Éducation Nationale (SIMEN). Élimination des silos applicatifs, interconnexion aux annuaires OpenLDAP/Active Directory, émission de jetons JWT asymétriques signés par clé privée RS256 et imposition de l'authentification multifacteur (MFA / WebAuthn).
+                            </p>
+                            <div class="inspector-tech-chips" id="inspector-chips">
+                                <span class="tech-chip">Keycloak 24+</span>
+                                <span class="tech-chip">OpenLDAP</span>
+                                <span class="tech-chip">PostgreSQL 16</span>
+                                <span class="tech-chip">Docker Compose</span>
+                                <span class="tech-chip">JWT RS256</span>
+                                <span class="tech-chip">MFA / OTP</span>
+                            </div>
+                        </div>
+
+                        <div style="background: rgba(0,0,0,0.3); border-radius: var(--radius-sm); padding: 1.25rem; border: 1px solid var(--border-subtle); display: flex; flex-direction: column; justify-content: space-between;">
+                            <div>
+                                <div style="font-family: var(--font-mono); font-size: 0.78rem; color: var(--accent-emerald); margin-bottom: 0.5rem;">
+                                    <i class="fas fa-circle-check"></i> SPÉCIFICATIONS TECHNIQUES DU FLUX
+                                </div>
+                                <ul style="list-style: none; font-size: 0.85rem; color: var(--text-secondary); display: flex; flex-direction: column; gap: 0.5rem;" id="inspector-specs">
+                                    <li><i class="fas fa-arrow-right" style="color: var(--accent-cyan); font-size: 0.75rem;"></i> Protocole d'échange : OpenID Connect (OIDC / PKCE) & SAML 2.0</li>
+                                    <li><i class="fas fa-arrow-right" style="color: var(--accent-cyan); font-size: 0.75rem;"></i> Chiffrement des sessions : TLS 1.3 avec algorithmes courbes elliptiques</li>
+                                    <li><i class="fas fa-arrow-right" style="color: var(--accent-cyan); font-size: 0.75rem;"></i> Souveraineté : Hébergement local sans dépendance externe Cloud GAFAM</li>
+                                </ul>
+                            </div>
+                            <div style="margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid var(--border-subtle); display: flex; justify-content: space-between; align-items: center;">
+                                <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--text-muted);">DISPONIBILITÉ CIBLE : 99.95%</span>
+                                <a href="https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" id="inspector-btn">
+                                    <i class="fab fa-github"></i> Explorer le Dépôt
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- SECTION COMPÉTENCES : MATRICE D'INGÉNIERIE SANS POURCENTAGES ABSTRAITS -->
+        <section id="skills">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-layer-group"></i> Matrice Opérationnelle</div>
+                    <h2 class="section-title">Compétences d'<span class="gradient-text">Ingénierie</span></h2>
+                    <p class="section-subtitle">Plus de pourcentages arbitraires : une cartographie concrète par piliers technologiques, niveaux de maturité opérationnelle et stacks certifiées.</p>
+                </div>
+
+                <div class="skills-matrix-grid">
+
+                    <!-- Pilier 1 : Systèmes, Annuaires & Virtualisation -->
+                    <div class="skill-pillar-card">
+                        <div class="pillar-header">
+                            <div class="pillar-icon-box pillar-sys"><i class="fas fa-server"></i></div>
+                            <div>
+                                <h3 class="pillar-title">Systèmes & Virtualisation Datacenter</h3>
+                                <div class="pillar-badge-env">Environnements : SIMEN Prod • Clusters HA • Hyperviseurs</div>
+                            </div>
+                        </div>
+
+                        <div class="skill-competencies-list">
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Administration Linux & Windows Server</span>
+                                    <span class="comp-level-badge level-prod">Production Ready</span>
+                                </div>
+                                <p class="comp-description">Gestion avancée Debian, Ubuntu Server, Alpine. Active Directory (AD DS, GPO, DNS, DHCP), contrôle d'intégrité, services IIS, gestion des rôles et sécurisation système.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Debian</span>
+                                    <span class="comp-tag">Ubuntu</span>
+                                    <span class="comp-tag">AD DS / GPO</span>
+                                    <span class="comp-tag">DNS/DHCP</span>
+                                    <span class="comp-tag">Bash/PowerShell</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Virtualisation VMware vSphere & Proxmox VE</span>
+                                    <span class="comp-level-badge level-prod">Architecture Datacenter</span>
+                                </div>
+                                <p class="comp-description">Déploiement d'hyperviseurs ESXi, clustering vCenter HA/DRS, migration à chaud vMotion, stockage partagé SAN/iSCSI, grappes Proxmox VE avec conteneurs LXC.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">VMware ESXi</span>
+                                    <span class="comp-tag">vCenter</span>
+                                    <span class="comp-tag">Proxmox VE</span>
+                                    <span class="comp-tag">SAN / iSCSI</span>
+                                    <span class="comp-tag">vMotion</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Observabilité, Métrologie & Supervision IT</span>
+                                    <span class="comp-level-badge level-spec">Supervision 24/7</span>
+                                </div>
+                                <p class="comp-description">Collecte de métriques temps réel sous Prometheus & Grafana, centralisation des logs sous Graylog SIEM, alertage Zabbix et ITSM d'entreprise (GLPI + FusionInventory).</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Prometheus</span>
+                                    <span class="comp-tag">Grafana</span>
+                                    <span class="comp-tag">Graylog</span>
+                                    <span class="comp-tag">GLPI / ITIL</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pilier 2 : Réseaux & Télécoms -->
+                    <div class="skill-pillar-card">
+                        <div class="pillar-header">
+                            <div class="pillar-icon-box pillar-net"><i class="fas fa-network-wired"></i></div>
+                            <div>
+                                <h3 class="pillar-title">Infrastructures Réseaux & Télécoms</h3>
+                                <div class="pillar-badge-env">Certifié : Cisco CCNA (1, 2, 3) • Spécialisation HCIP Datacenter</div>
+                            </div>
+                        </div>
+
+                        <div class="skill-competencies-list">
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Routage Dynamique & Cœur de Réseau</span>
+                                    <span class="comp-level-badge level-cert">Cisco CCNA Certifié</span>
+                                </div>
+                                <p class="comp-description">Architecture OSPFv2 multi-zones, découpage VLSM, notions BGP, redondance de passerelle FHRP (HSRP/VRRP avec tracking) et adressage hiérarchique IPv4/IPv6.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Cisco IOS</span>
+                                    <span class="comp-tag">Huawei VRP</span>
+                                    <span class="comp-tag">OSPFv2 Multi-Zones</span>
+                                    <span class="comp-tag">HSRP / VRRP</span>
+                                    <span class="comp-tag">BGP</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Commutation Avancée L2/L3 & Haute Disponibilité</span>
+                                    <span class="comp-level-badge level-cert">Cisco CCNA Certifié</span>
+                                </div>
+                                <p class="comp-description">Segmentation par VLANs 802.1Q, Trunking, agrégation de liens EtherChannel LACP à 2 Gbps, Spanning Tree (PVST+, MSTP) et relais DHCP inter-VLAN.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">VLAN 802.1Q</span>
+                                    <span class="comp-tag">EtherChannel LACP</span>
+                                    <span class="comp-tag">RSTP / MSTP</span>
+                                    <span class="comp-tag">Relais DHCP</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Téléphonie sur IP (ToIP) & Qualité de Service (QoS)</span>
+                                    <span class="comp-level-badge level-spec">Ingénierie VoIP</span>
+                                </div>
+                                <p class="comp-description">Serveur de téléphonie Cisco CME (CallManager Express), protocoles SCCP/SIP, routage des flux vocaux et priorisation QoS avec marquage DSCP et CoS.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Cisco CME</span>
+                                    <span class="comp-tag">SIP / SCCP</span>
+                                    <span class="comp-tag">QoS DSCP / CoS</span>
+                                    <span class="comp-tag">VoIP</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pilier 3 : IAM, Sécurité & Fédération d'Identités -->
+                    <div class="skill-pillar-card">
+                        <div class="pillar-header">
+                            <div class="pillar-icon-box pillar-sec"><i class="fas fa-shield-halved"></i></div>
+                            <div>
+                                <h3 class="pillar-title">Fédération d'Identités & IAM Souverain</h3>
+                                <div class="pillar-badge-env">Domaine d'Excellence : Mémoire M2 RESI • Implémentation SIMEN</div>
+                            </div>
+                        </div>
+
+                        <div class="skill-competencies-list">
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Keycloak 24+ & Standards d'Identité</span>
+                                    <span class="comp-level-badge level-prod">Souveraineté Numérique</span>
+                                </div>
+                                <p class="comp-description">Déploiement et sécurisation de Keycloak. Standards OpenID Connect (OIDC / PKCE), SAML 2.0, OAuth 2.0, chiffrement asymétrique des jetons JWT signés en RS256.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Keycloak 24+</span>
+                                    <span class="comp-tag">OpenID Connect</span>
+                                    <span class="comp-tag">SAML 2.0</span>
+                                    <span class="comp-tag">JWT RS256</span>
+                                    <span class="comp-tag">OAuth 2.0</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Fédération Annuaires & Authentification Forte</span>
+                                    <span class="comp-level-badge level-prod">Production Ready</span>
+                                </div>
+                                <p class="comp-description">Synchronisation bidirectionnelle avec annuaires OpenLDAP et Microsoft Active Directory, authentification multifacteur (MFA / OTP), politiques d'accès RBAC et ABAC.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">OpenLDAP</span>
+                                    <span class="comp-tag">Active Directory</span>
+                                    <span class="comp-tag">MFA / TOTP</span>
+                                    <span class="comp-tag">RBAC / ABAC</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Cybersécurité Périmétrique, VPN IPsec & Filtrage L2/L3</span>
+                                    <span class="comp-level-badge level-cert">Durcissement Validé</span>
+                                </div>
+                                <p class="comp-description">Tunnels chiffrés VPN IPsec Site-à-Site (IKEv1/v2, AES-256, SHA-256), protection commutateurs contre attaques L2 (Port-Security, DHCP Snooping, DAI) et DMZ pare-feu étanche.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">VPN IPsec AES-256</span>
+                                    <span class="comp-tag">Port-Security</span>
+                                    <span class="comp-tag">DHCP Snooping</span>
+                                    <span class="comp-tag">DAI</span>
+                                    <span class="comp-tag">DMZ Firewall</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pilier 4 : DevOps, Cloud & Automatisation -->
+                    <div class="skill-pillar-card">
+                        <div class="pillar-header">
+                            <div class="pillar-icon-box pillar-ops"><i class="fas fa-boxes-packing"></i></div>
+                            <div>
+                                <h3 class="pillar-title">DevOps, Cloud & Automatisation</h3>
+                                <div class="pillar-badge-env">Méthodologies : GitOps • CI/CD Durci • Infrastructure as Code</div>
+                            </div>
+                        </div>
+
+                        <div class="skill-competencies-list">
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Conteneurisation Durcie & Multi-Stage</span>
+                                    <span class="comp-level-badge level-prod">Hardening Validé</span>
+                                </div>
+                                <p class="comp-description">Conception de Dockerfiles multi-stage réduits sous Alpine Linux, exécution sans privilèges root, segmentation réseau bi-tiers sous Docker Compose et persistance de données sécurisée.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">Docker</span>
+                                    <span class="comp-tag">Docker Compose</span>
+                                    <span class="comp-tag">Multi-Stage</span>
+                                    <span class="comp-tag">Hardening non-root</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Intégration & Déploiement Continus (CI/CD)</span>
+                                    <span class="comp-level-badge level-spec">Automatisation</span>
+                                </div>
+                                <p class="comp-description">Pipelines automatisés sous GitHub Actions pour le test, la conformité de sécurité, le build et le déploiement continu d'applications et de référentiels d'ingénierie.</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">GitHub Actions</span>
+                                    <span class="comp-tag">CI/CD Pipeline</span>
+                                    <span class="comp-tag">Tests & Lint</span>
+                                    <span class="comp-tag">GitOps</span>
+                                </div>
+                            </div>
+
+                            <div class="competency-item">
+                                <div class="comp-header">
+                                    <span class="comp-name">Cloud AWS & Développement Mobile Flutter</span>
+                                    <span class="comp-level-badge level-spec">Multiplateforme</span>
+                                </div>
+                                <p class="comp-description">Configuration Cloud AWS (politique de moindre privilège IAM, VPC, EC2). Développement mobile multiplateforme sous Flutter/Dart avec gestion d'état réactive (Provider).</p>
+                                <div class="comp-tags-row">
+                                    <span class="comp-tag">AWS IAM / VPC</span>
+                                    <span class="comp-tag">Terraform IaC</span>
+                                    <span class="comp-tag">Flutter SDK</span>
+                                    <span class="comp-tag">Dart / Provider</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION PROJETS : BENTO GRID D'ARCHITECTURE & SÉCURITÉ -->
+        <section id="projects">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-cubes"></i> Livrables & Démonstrateurs</div>
+                    <h2 class="section-title">Projets d'<span class="gradient-text">Ingénierie</span></h2>
+                    <p class="section-subtitle">Chaque projet est documenté avec son architecture réelle, ses scripts de configuration, ses topologies Packet Tracer ou ses configurations Docker vérifiables.</p>
+                </div>
+
+                <!-- Contrôles de Recherche et Filtres -->
+                <div class="portfolio-controls-bar">
+                    <div class="filter-pills-group">
+                        <button class="filter-pill-btn active" data-filter="all">Tous les projets</button>
+                        <button class="filter-pill-btn" data-filter="security">IAM & Sécurité</button>
+                        <button class="filter-pill-btn" data-filter="network">Réseaux & Télécoms</button>
+                        <button class="filter-pill-btn" data-filter="devops">DevOps & Cloud</button>
+                        <button class="filter-pill-btn" data-filter="sys">Systèmes & Virtualisation</button>
+                        <button class="filter-pill-btn" data-filter="mobile">Mobile Flutter</button>
+                    </div>
+
+                    <div class="project-search-container">
+                        <i class="fas fa-search search-input-icon"></i>
+                        <input type="text" id="project-search" class="search-input-field" placeholder="Rechercher (ex: Keycloak, OSPF, Docker, IPsec)...">
+                    </div>
+                </div>
+
+                <!-- Grille Bento des Projets -->
+                <div class="bento-projects-grid">
+
+                    <!-- PROJET 1 (STAR PROJECT VEDETTE) : SSO & FÉDÉRATION KEYCLOAK SIMEN -->
+                    <div class="project-card-star" data-category="security">
+                        <div>
+                            <div class="star-project-badge">
+                                <i class="fas fa-star" style="color: #fbbf24;"></i> PROJET PHARE • MÉMOIRE M2 RESI (SIMEN)
+                            </div>
+                            <h3 class="star-project-title">Solution SSO Souveraine & Fédération d'Identités</h3>
+                            <p class="star-project-desc">
+                                Conception et déploiement d'une infrastructure d'authentification centralisée souveraine pour l'écosystème du Ministère de l'Éducation Nationale. Cluster Keycloak 24+ conteneurisé interconnecté à OpenLDAP et PostgreSQL. Mise en œuvre des protocoles SAML 2.0, OpenID Connect (OIDC / PKCE), jetons asymétriques JWT RS256, authentification multifacteur (MFA) et contrôle d'accès fin RBAC/ABAC.
+                            </p>
+
+                            <div class="star-metrics-strip">
+                                <div class="star-metric">
+                                    <div class="star-metric-val">100%</div>
+                                    <div class="star-metric-label">Souveraineté des Données</div>
+                                </div>
+                                <div class="star-metric">
+                                    <div class="star-metric-val">0 SPOF</div>
+                                    <div class="star-metric-label">Redondance & Résilience</div>
+                                </div>
+                                <div class="star-metric">
+                                    <div class="star-metric-val">RS256</div>
+                                    <div class="star-metric-label">Signatures Asymétriques</div>
+                                </div>
+                            </div>
+
+                            <div class="star-tech-tags">
+                                <span class="tech-chip" style="background: rgba(0, 240, 255, 0.15); color: #00f0ff; border-color: rgba(0, 240, 255, 0.4);">Keycloak 24+</span>
+                                <span class="tech-chip">OpenLDAP</span>
+                                <span class="tech-chip">PostgreSQL 16</span>
+                                <span class="tech-chip">Docker Compose</span>
+                                <span class="tech-chip">SAML 2.0</span>
+                                <span class="tech-chip">OIDC / PKCE</span>
+                                <span class="tech-chip">JWT RS256</span>
+                                <span class="tech-chip">MFA TOTP</span>
+                            </div>
+
+                            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                                <a href="https://github.com/Jiraya931/Professionnel/tree/main/01-SSO-Federation-Keycloak" target="_blank" rel="noopener noreferrer" class="btn btn-primary">
+                                    <i class="fab fa-github"></i> Dépôt & Docker Compose
+                                </a>
+                                <button class="btn btn-secondary btn-details" data-project="sso-project">
+                                    <i class="fas fa-file-lines"></i> Fiche d'Architecture Complète
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="star-visual-box">
+                            <img src="assets/project_cyber_security.png" alt="Architecture Keycloak SSO SIMEN" class="star-visual-img" onerror="this.onerror=null;this.src='assets/project_web_app.png';">
+                        </div>
+                    </div>
+
+                    <!-- PROJET 2 : RÉSEAUX RÉSILIENTS CISCO & HUAWEI -->
+                    <div class="project-card-bento" data-category="network">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="assets/project_network_cisco.png" alt="Ingénierie Réseaux Cisco & Huawei" class="bento-img" onerror="this.onerror=null;this.src='assets/project_web_app.png';">
+                            </div>
+                            <div class="bento-category-tag">RÉSEAUX & TÉLÉCOMS • CCNA / CCNP / HCIP</div>
+                            <h3 class="bento-title">Cœur de Réseau Résilient Cisco & Huawei</h3>
+                            <p class="bento-desc">
+                                Architecture d'entreprise multi-tiers (Cœur, Distribution, Accès). Routage dynamique OSPFv2 VLSM multi-zones, redondance de passerelle FHRP (HSRP/VRRP), agrégation EtherChannel LACP à 2 Gbps, segmentation multi-VLANs 802.1Q et priorisation de la voix sur IP (Cisco CME) par QoS DSCP/CoS.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">Cisco IOS</span>
+                                <span class="comp-tag">OSPFv2</span>
+                                <span class="comp-tag">HSRP / VRRP</span>
+                                <span class="comp-tag">LACP 2 Gbps</span>
+                                <span class="comp-tag">VoIP CME</span>
+                                <span class="comp-tag">QoS DSCP</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <a href="https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                                <i class="fab fa-github"></i> Fichiers .cfg & .pkt
+                            </a>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="cisco-network-project">
+                                <i class="fas fa-eye"></i> Spécifications
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJET 3 : CYBERSÉCURITÉ, FILTRAGE & DURCISSEMENT L2/L3 -->
+                    <div class="project-card-bento" data-category="security">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="assets/project_cyber_security.png" alt="Cybersécurité & Filtrage Avancé" class="bento-img" onerror="this.onerror=null;this.src='assets/project_web_app.png';">
+                            </div>
+                            <div class="bento-category-tag">CYBERSÉCURITÉ & DURCISSEMENT • MASTER 1 RESI</div>
+                            <h3 class="bento-title">Cybersécurité, Filtrage & Durcissement L2/L3</h3>
+                            <p class="bento-desc">
+                                Défense en profondeur : neutralisation des attaques de couche 2 sur commutateurs (Port-Security, DHCP Snooping anti-rogue, Dynamic ARP Inspection, STP Root Guard), tunnel chiffré VPN IPsec Site-à-Site (IKEv1/v2, AES-256 / SHA-256) et isolation étanche DMZ pare-feu.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">VPN IPsec AES-256</span>
+                                <span class="comp-tag">DHCP Snooping</span>
+                                <span class="comp-tag">Port-Security</span>
+                                <span class="comp-tag">DAI</span>
+                                <span class="comp-tag">DMZ Firewall</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <a href="https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                                <i class="fab fa-github"></i> Ateliers .pka & Docs
+                            </a>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="security-hardening-project">
+                                <i class="fas fa-eye"></i> Spécifications
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJET 4 : DEVOPS & CONTENEURISATION DURCIE -->
+                    <div class="project-card-bento" data-category="devops">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="assets/project_web_app.png" alt="DevOps Conteneurisation Multi-Tiers" class="bento-img">
+                            </div>
+                            <div class="bento-category-tag">DEVOPS & CLOUD • MASTER 2 RESI</div>
+                            <h3 class="bento-title">DevOps & Architecture Conteneurisée Multi-Tiers</h3>
+                            <p class="bento-desc">
+                                Conteneurisation durcie via multi-stage builds sous Alpine Linux et exécution sous compte de service non-root. Segmentation réseau bi-tiers sous Docker Compose (front-tier NGINX exposé et back-tier PostgreSQL/Redis isolé), avec pipeline CI/CD automatisé sous GitHub Actions.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">Docker Multi-Stage</span>
+                                <span class="comp-tag">Non-root User</span>
+                                <span class="comp-tag">Docker Compose</span>
+                                <span class="comp-tag">GitHub Actions</span>
+                                <span class="comp-tag">AWS IAM & VPC</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <a href="https://github.com/Jiraya931/Professionnel/tree/main/04-DevOps-Conteneurisation" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                                <i class="fab fa-github"></i> Dockerfile & CI/CD
+                            </a>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="devops-container-project">
+                                <i class="fas fa-eye"></i> Spécifications
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJET 5 : APPLICATION MOBILE FLUTTER & DART -->
+                    <div class="project-card-bento" data-category="mobile">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="05-Developpement-Mobile-Flutter/src/lib/assets/bienvenue.png" alt="Application Mobile Flutter Dart" class="bento-img" onerror="this.onerror=null;this.src='assets/project_web_app.png';">
+                            </div>
+                            <div class="bento-category-tag">DÉVELOPPEMENT MOBILE • FLUTTER & DART</div>
+                            <h3 class="bento-title">Application Mobile Multiplateforme (Flutter & Dart)</h3>
+                            <p class="bento-desc">
+                                Application mobile réactive conçue selon les spécifications Material Design 3 de Google. Découpage modulaire strict avec gestion d'état réactive via le patron Provider, thématisation dynamique jour/nuit persistante (themeProvider.dart) et compatibilité Android, iOS et Web.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">Flutter 3.x</span>
+                                <span class="comp-tag">Dart</span>
+                                <span class="comp-tag">Provider Pattern</span>
+                                <span class="comp-tag">Material Design 3</span>
+                                <span class="comp-tag">Dark/Light Theme</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <a href="https://github.com/Jiraya931/Professionnel/tree/main/05-Developpement-Mobile-Flutter" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                                <i class="fab fa-github"></i> Code Source Flutter
+                            </a>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="flutter-mobile-project">
+                                <i class="fas fa-eye"></i> Spécifications
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- PROJET 6 : INFRASTRUCTURE VIRTUALISÉE VMWARE VSPHERE HA -->
+                    <div class="project-card-bento" data-category="sys">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="assets/project_web_app.png" alt="Infrastructure VMware vSphere HA" class="bento-img">
+                            </div>
+                            <div class="bento-category-tag">SYSTÈMES & VIRTUALISATION • DATACENTER</div>
+                            <h3 class="bento-title">Infrastructure Virtualisée VMware vSphere HA</h3>
+                            <p class="bento-desc">
+                                Conception d'une grappe de virtualisation en haute disponibilité sous VMware vSphere. Clustering d'hôtes ESXi pilotés de manière centralisée par vCenter Server, stockage partagé SAN/iSCSI redondant, basculement automatique vSphere HA/DRS et tolérance aux pannes matérielles.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">VMware ESXi</span>
+                                <span class="comp-tag">vCenter Server</span>
+                                <span class="comp-tag">SAN / iSCSI</span>
+                                <span class="comp-tag">vMotion</span>
+                                <span class="comp-tag">High Availability (HA)</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <a href="https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm">
+                                <i class="fab fa-github"></i> Rapport d'Ingénierie
+                            </a>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="vmware-project">
+                                <i class="fas fa-eye"></i> Spécifications
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION TIMELINE : JOURNAL D'AUDIT & DÉPLOIEMENTS -->
+        <section id="timeline">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-history"></i> Parcours & Engagements</div>
+                    <h2 class="section-title">Expérience & <span class="gradient-text">Formation</span></h2>
+                    <p class="section-subtitle">Une trajectoire résolument axée sur la rigueur d'ingénierie, la validation de standards industriels et l'immersion opérationnelle en environnement critique.</p>
+                </div>
+
+                <div class="timeline-track-container">
+                    
+                    <!-- Étape 1 : Stage SIMEN (Actuel) -->
+                    <div class="timeline-entry-row current">
+                        <div class="timeline-node-dot"></div>
+                        <div class="timeline-card-box">
+                            <div class="timeline-meta-bar">
+                                <span class="timeline-date-tag"><i class="fas fa-calendar-check"></i> 14 Septembre 2026 — En cours (Actif)</span>
+                                <span class="node-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4);">
+                                    <i class="fas fa-briefcase"></i> IMMERSION MINISTÉRIELLE ACTUELLE
+                                </span>
+                            </div>
+                            <h3 class="timeline-role-title">Stage en Administration Systèmes, Réseaux & Sécurité</h3>
+                            <div class="timeline-institution">SIMEN (Système Intégré de Management de l'Éducation Nationale) — Dakar</div>
+                            <p class="timeline-details-text">
+                                Participation active au Maintien en Condition Opérationnelle (MCO), à la gestion, la sécurisation et la supervision des infrastructures serveurs et réseaux du ministère de l'Éducation nationale. Déploiement d'environnements virtualisés, contrôle des flux et administration des plateformes institutionnelles.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Étape 2 : Master 2 RESI (Groupe ISI) -->
+                    <div class="timeline-entry-row">
+                        <div class="timeline-node-dot"></div>
+                        <div class="timeline-card-box">
+                            <div class="timeline-meta-bar">
+                                <span class="timeline-date-tag"><i class="fas fa-graduation-cap"></i> 2025 — 2026 (En cours)</span>
+                                <span class="node-badge">DIPLÔME D'INGÉNIERIE</span>
+                            </div>
+                            <h3 class="timeline-role-title">Master 2 Réseaux & Systèmes Informatiques (RESI)</h3>
+                            <div class="timeline-institution">Groupe ISI (Institut Supérieur d'Informatique) — Dakar</div>
+                            <p class="timeline-details-text">
+                                <strong>Mémoire de fin d'études :</strong> Conception et implémentation d'une infrastructure d'authentification souveraine (Keycloak SSO / OpenLDAP).<br>
+                                Spécialisations : DevOps & MultiCloud, Cisco CCNP ENCOR, Huawei HCIP Datacenter, Big Data, Edge Computing et gouvernance ITIL.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Étape 3 : Master 1 RESI (Groupe ISI) -->
+                    <div class="timeline-entry-row">
+                        <div class="timeline-node-dot"></div>
+                        <div class="timeline-card-box">
+                            <div class="timeline-meta-bar">
+                                <span class="timeline-date-tag"><i class="fas fa-graduation-cap"></i> 2024 — 2025</span>
+                                <span class="node-badge">MASTER 1 VALIDÉ</span>
+                            </div>
+                            <h3 class="timeline-role-title">Master 1 Réseaux & Systèmes Informatiques (RESI)</h3>
+                            <div class="timeline-institution">Groupe ISI (Institut Supérieur d'Informatique) — Dakar</div>
+                            <p class="timeline-details-text">
+                                Administration avancée sous Linux et Windows Server (AD DS), sécurité des réseaux d'entreprise (durcissement L2, IPsec, DMZ), conteneurisation Docker, intelligence artificielle (Huawei HCIA) et développement mobile réactif Flutter.
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Étape 4 : Licence Informatique & Gestion -->
+                    <div class="timeline-entry-row">
+                        <div class="timeline-node-dot"></div>
+                        <div class="timeline-card-box">
+                            <div class="timeline-meta-bar">
+                                <span class="timeline-date-tag"><i class="fas fa-award"></i> 2021 — 2023 (Diplômé)</span>
+                                <span class="node-badge">LICENCE OBTENUE</span>
+                            </div>
+                            <h3 class="timeline-role-title">Licence Professionnelle Informatique & Gestion</h3>
+                            <div class="timeline-institution">Ensup'Afrique — Dakar</div>
+                            <p class="timeline-details-text">
+                                Socle académique fondamental : administration des systèmes, modélisation des bases de données relationnelles (SGBDR SQL), fondamentaux des réseaux informatiques et gestion de projets des systèmes d'information.
+                            </p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION DOSSIER & CERTIFICATIONS : VAULT OFFICIEL -->
+        <section id="vault">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-shield-halved"></i> Pièces Justificatives</div>
+                    <h2 class="section-title">Certifications & <span class="gradient-text">Dossier Officiel</span></h2>
+                    <p class="section-subtitle">Consultez directement en ligne dans le visualiseur intégré ou téléchargez les diplômes et certifications Cisco vérifiées.</p>
+                </div>
+
+                <div class="vault-cards-grid">
+                    
+                    <!-- Carte CV -->
+                    <div class="vault-cert-card">
+                        <span class="vault-cert-badge-ribbon">OFFICIEL</span>
+                        <div class="cert-icon-frame cert-icon-diploma"><i class="fas fa-id-card"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Curriculum Vitae Complet</h3>
+                            <div class="vault-cert-sub">CV_updated.pdf • Format PDF officiel</div>
+                            <p class="vault-cert-desc">Synthèse professionnelle complète intégrant le stage au SIMEN, le Master 2 RESI et la maîtrise des référentiels industriels.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CV_updated.pdf" data-title="Curriculum Vitae (Ababacar Ousmane Niang)"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/CV_updated.pdf" download="CV_Ababacar_Ousmane_Niang.pdf" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> PDF</a>
+                        </div>
+                    </div>
+
+                    <!-- Carte CCNA 1 -->
+                    <div class="vault-cert-card">
+                        <span class="vault-cert-badge-ribbon">CISCO VERIFIED</span>
+                        <div class="cert-icon-frame cert-icon-ccna"><i class="fas fa-shield-alt"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Cisco CCNA 1 (ITN)</h3>
+                            <div class="vault-cert-sub">CCNA1.pdf • Introduction to Networks</div>
+                            <p class="vault-cert-desc">Modèles OSI & TCP/IP, découpage d'adresses IPv4/IPv6, commutation de base et configuration des équipements Cisco IOS.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA1.pdf" data-title="Certification Cisco CCNA 1 (ITN)"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/CCNA1.pdf" download class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Certificat</a>
+                        </div>
+                    </div>
+
+                    <!-- Carte CCNA 2 -->
+                    <div class="vault-cert-card">
+                        <span class="vault-cert-badge-ribbon">CISCO VERIFIED</span>
+                        <div class="cert-icon-frame cert-icon-ccna"><i class="fas fa-network-wired"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Cisco CCNA 2 (SRWE)</h3>
+                            <div class="vault-cert-sub">CCNA2.pdf • Switching, Routing & Wireless</div>
+                            <p class="vault-cert-desc">VLANs 802.1Q, Trunking, agrégation EtherChannel LACP, routage inter-VLAN et sécurité de commutation L2.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA2.pdf" data-title="Certification Cisco CCNA 2 (SRWE)"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/CCNA2.pdf" download class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Certificat</a>
+                        </div>
+                    </div>
+
+                    <!-- Carte CCNA 3 -->
+                    <div class="vault-cert-card">
+                        <span class="vault-cert-badge-ribbon">CISCO VERIFIED</span>
+                        <div class="cert-icon-frame cert-icon-ccna"><i class="fas fa-project-diagram"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Cisco CCNA 3 (ENSA)</h3>
+                            <div class="vault-cert-sub">CCNA3.pdf • Enterprise Networking & Security</div>
+                            <p class="vault-cert-desc">Routage dynamique OSPFv2, concepts WAN, VPN IPsec, ACLs de sécurité, QoS et automatisation des architectures réseau.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA3.pdf" data-title="Certification Cisco CCNA 3 (ENSA)"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/CCNA3.pdf" download class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Certificat</a>
+                        </div>
+                    </div>
+
+                    <!-- Carte Diplôme Licence -->
+                    <div class="vault-cert-card">
+                        <span class="vault-cert-badge-ribbon">DIPLÔME D'ÉTAT</span>
+                        <div class="cert-icon-frame cert-icon-diploma"><i class="fas fa-graduation-cap"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Diplôme de Licence Universitaire</h3>
+                            <div class="vault-cert-sub">Diplome Licence.pdf • Ensup'Afrique</div>
+                            <p class="vault-cert-desc">Diplôme officiel sanctionnant les trois années universitaires de formation en Informatique et Gestion.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Diplome Licence.pdf" data-title="Diplôme de Licence Universitaire"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/Diplome Licence.pdf" download class="btn btn-primary btn-sm"><i class="fas fa-download"></i> Diplôme</a>
+                        </div>
+                    </div>
+
+                    <!-- Bannière Rapports Académiques ISI sur GitHub -->
+                    <div class="vault-cert-card" style="border-color: rgba(99, 102, 241, 0.4); background: linear-gradient(145deg, rgba(99, 102, 241, 0.1), rgba(15, 23, 42, 0.9));">
+                        <span class="vault-cert-badge-ribbon" style="background: rgba(99, 102, 241, 0.2); color: #818cf8; border-color: rgba(99, 102, 241, 0.4);">RAPPORTS TECHNIQUES</span>
+                        <div class="cert-icon-frame" style="background: rgba(99, 102, 241, 0.2); color: #a5b4fc; border: 1px solid rgba(99, 102, 241, 0.4);"><i class="fab fa-github"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Rapports d'Ingénierie ISI</h3>
+                            <div class="vault-cert-sub">Virtualisation • Supervision • ITSM</div>
+                            <p class="vault-cert-desc">Retrouvez les livrables détaillés Proxmox VE, métrologie Prometheus/Grafana, ITSM GLPI et configurations réseau directement sur le dépôt GitHub.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <a href="https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="width: 100%;">
+                                <i class="fab fa-github"></i> Consulter sur le Référentiel GitHub <i class="fas fa-arrow-up-right-from-square" style="font-size: 0.75rem;"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION CONTACT & DISPONIBILITÉ -->
+        <section id="contact">
+            <div class="container">
+                <div class="section-header">
+                    <div class="section-tag"><i class="fas fa-bolt"></i> Échanges & Recrutement</div>
+                    <h2 class="section-title">Canaux de <span class="gradient-text">Contact Direct</span></h2>
+                    <p class="section-subtitle">Pour un projet d'infrastructure, un audit de sécurité réseau ou une opportunité d'embauche, contactez-moi par le canal de votre choix.</p>
+                </div>
+
+                <div class="contact-grid-layout">
+                    
+                    <!-- Carte Canaux Directs -->
+                    <div class="contact-deck-card">
+                        <div class="deck-header-box">
+                            <div>
+                                <span class="node-badge" style="margin-bottom: 0.5rem; display: inline-block;">LIAISON DIRECTE</span>
+                                <h3 class="deck-title">Messageries & Lignes Directes</h3>
+                            </div>
+                        </div>
+
+                        <div class="contact-channels-stack">
+                            
+                            <!-- Email -->
+                            <div class="contact-channel-item">
+                                <div class="channel-top-info">
+                                    <div class="channel-icon-circle"><i class="fas fa-envelope"></i></div>
+                                    <div>
+                                        <div class="channel-label">ADRESSE EMAIL PROFESSIONNELLE</div>
+                                        <a href="mailto:ababacarousmane@outlook.com?subject=Contact%20Professionnel%20-%20Portfolio%20Ing%C3%A9nieur" class="channel-value-text">ababacarousmane@outlook.com</a>
+                                    </div>
+                                </div>
+                                <div class="channel-buttons-strip">
+                                    <a href="mailto:ababacarousmane@outlook.com?subject=Contact%20Professionnel%20-%20Portfolio%20Ing%C3%A9nieur" class="btn btn-primary btn-sm">
+                                        <i class="fas fa-paper-plane"></i> M'écrire par Email
+                                    </a>
+                                    <button class="btn btn-secondary btn-sm btn-copy" data-copy="ababacarousmane@outlook.com">
+                                        <i class="fas fa-copy"></i> Copier
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Téléphone & WhatsApp -->
+                            <div class="contact-channel-item">
+                                <div class="channel-top-info">
+                                    <div class="channel-icon-circle" style="color: #25D366; background: rgba(37, 211, 102, 0.12);"><i class="fab fa-whatsapp"></i></div>
+                                    <div>
+                                        <div class="channel-label">TÉLÉPHONE & WHATSAPP</div>
+                                        <a href="tel:+221781481291" class="channel-value-text">+221 78 148 12 91</a>
+                                    </div>
+                                </div>
+                                <div class="channel-buttons-strip">
+                                    <a href="https://wa.me/221781481291" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp btn-sm">
+                                        <i class="fab fa-whatsapp"></i> Échanger sur WhatsApp
+                                    </a>
+                                    <a href="tel:+221781481291" class="btn btn-secondary btn-sm">
+                                        <i class="fas fa-phone-alt"></i> Appeler
+                                    </a>
+                                    <button class="btn btn-secondary btn-sm btn-copy" data-copy="+221781481291">
+                                        <i class="fas fa-copy"></i> Copier
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Engagement réactivité -->
+                            <div style="background: rgba(0, 240, 255, 0.05); border: 1px solid rgba(0, 240, 255, 0.2); border-radius: var(--radius-sm); padding: 1rem 1.25rem; display: flex; align-items: center; gap: 1rem;">
+                                <i class="fas fa-clock" style="color: var(--accent-cyan); font-size: 1.5rem;"></i>
+                                <div style="font-size: 0.85rem; color: var(--text-secondary);">
+                                    <strong style="color: var(--text-primary); display: block;">Engagement de Disponibilité</strong>
+                                    Boîte email et WhatsApp consultés quotidiennement. Réponse garantie sous 24h ouvrées.
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!-- Carte Disponibilité, Mobilité & Réseaux -->
+                    <div class="contact-deck-card">
+                        <div class="deck-header-box">
+                            <div>
+                                <span class="node-badge" style="margin-bottom: 0.5rem; display: inline-block;">OPPORTUNITÉS</span>
+                                <h3 class="deck-title">Mobilité & Réseaux Professionnels</h3>
+                            </div>
+                            <div class="node-badge" style="background: rgba(16, 185, 129, 0.2); color: #10b981; border-color: rgba(16, 185, 129, 0.4);">
+                                <span class="pulse-indicator" style="display: inline-block; margin-right: 4px;"></span> DISPONIBLE
+                            </div>
+                        </div>
+
+                        <!-- Localisation & Mobilité -->
+                        <div class="contact-channel-item" style="margin-bottom: 1.5rem;">
+                            <div class="channel-top-info" style="margin-bottom: 0.5rem;">
+                                <div class="channel-icon-circle" style="color: #f59e0b; background: rgba(245, 158, 11, 0.12);"><i class="fas fa-location-dot"></i></div>
+                                <div>
+                                    <div class="channel-label">BASSIN GÉOGRAPHIQUE & MODALITÉS</div>
+                                    <div class="channel-value-text">Diamniadio / Dakar, Sénégal</div>
+                                </div>
+                            </div>
+                            <p style="font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6;">
+                                Mobile sur l'axe stratégique Diamniadio - Dakar. Ouvert aux opportunités locales (CDI, Missions de déploiement) ainsi qu'aux collaborations à distance (Full-Remote / International).
+                            </p>
+                        </div>
+
+                        <!-- Domaines d'intervention ciblés -->
+                        <div style="margin-bottom: 1.5rem;">
+                            <div class="channel-label" style="margin-bottom: 0.75rem;">DOMAINS D'INTERVENTION CIBLÉS :</div>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag" style="padding: 0.35rem 0.75rem;"><i class="fas fa-network-wired" style="color: var(--accent-cyan);"></i> Architecture Réseaux & Télécoms</span>
+                                <span class="comp-tag" style="padding: 0.35rem 0.75rem;"><i class="fas fa-shield-alt" style="color: #f43f5e;"></i> Cybersécurité & Durcissement</span>
+                                <span class="comp-tag" style="padding: 0.35rem 0.75rem;"><i class="fas fa-key" style="color: #fbbf24;"></i> IAM & Fédération Keycloak SSO</span>
+                                <span class="comp-tag" style="padding: 0.35rem 0.75rem;"><i class="fas fa-server" style="color: #818cf8;"></i> Virtualisation vSphere / Proxmox</span>
+                                <span class="comp-tag" style="padding: 0.35rem 0.75rem;"><i class="fas fa-boxes-packing" style="color: #34d399;"></i> DevOps & Conteneurisation</span>
+                            </div>
+                        </div>
+
+                        <!-- Boutons vers Réseaux -->
+                        <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+                            <a href="https://www.linkedin.com/in/ababacar-ousmane-niang-117419233/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content: space-between;">
+                                <span><i class="fab fa-linkedin-in" style="color: #0a66c2; margin-right: 8px;"></i> Consulter mon Profil <strong>LinkedIn</strong></span>
+                                <i class="fas fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--text-muted);"></i>
+                            </a>
+                            <a href="https://github.com/Jiraya931/Professionnel" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="justify-content: space-between;">
+                                <span><i class="fab fa-github" style="margin-right: 8px;"></i> Explorer le Dépôt <strong>GitHub</strong></span>
+                                <i class="fas fa-arrow-up-right-from-square" style="font-size: 0.8rem; color: var(--text-muted);"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modal Détails de Projet -->
+    <div class="modal-backdrop" id="project-modal">
+        <div class="modal-dialog">
+            <button class="modal-close-icon" aria-label="Fermer"><i class="fas fa-times"></i></button>
+            <div class="node-badge" id="modal-category" style="margin-bottom: 0.75rem;">Catégorie</div>
+            <h2 id="modal-title" style="font-size: 2rem; margin-bottom: 1.25rem;">Titre du Projet</h2>
+            
+            <img src="" id="modal-image" alt="Capture du projet" style="width: 100%; max-height: 350px; object-fit: cover; border-radius: var(--radius-md); margin-bottom: 1.5rem; border: 1px solid var(--border-subtle);">
+
+            <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--accent-cyan);">Description détaillée</h4>
+            <p id="modal-desc" style="color: var(--text-secondary); margin-bottom: 1.5rem; line-height: 1.7;"></p>
+
+            <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--accent-cyan);">Technologies & Protocoles</h4>
+            <div class="comp-tags-row" id="modal-techs" style="margin-bottom: 1.5rem;"></div>
+
+            <h4 style="margin-bottom: 0.5rem; font-size: 1.1rem; color: var(--accent-cyan);">Spécifications & Fonctionnalités clés</h4>
+            <ul id="modal-features" style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; color: var(--text-secondary); margin-bottom: 2rem;"></ul>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <a href="#" target="_blank" rel="noopener noreferrer" class="btn btn-primary" id="modal-github-btn"><i class="fab fa-github"></i> Consulter le Dépôt GitHub</a>
+                <button type="button" class="btn btn-secondary modal-close-btn-bottom"><i class="fas fa-times"></i> Fermer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Visualiseur PDF -->
+    <div class="modal-backdrop" id="pdf-modal">
+        <div class="modal-dialog" style="max-width: 980px; height: 90vh;">
+            <button class="modal-close-icon" aria-label="Fermer le document"><i class="fas fa-times"></i></button>
+            <h3 id="pdf-modal-title" style="margin-bottom: 1rem; font-size: 1.4rem;">Visualisation du Document</h3>
+            <iframe id="pdf-frame" src="" style="width: 100%; height: calc(100% - 60px); border: none; border-radius: var(--radius-md); background: #ffffff;"></iframe>
+        </div>
+    </div>
+
+    <!-- Palette de Commandes (Ctrl+K) -->
+    <div class="cmd-palette-backdrop" id="cmd-palette">
+        <div class="cmd-palette-modal">
+            <div class="cmd-input-bar">
+                <i class="fas fa-search" style="color: var(--accent-cyan);"></i>
+                <input type="text" id="cmd-search-input" class="cmd-search-input" placeholder="Tapez une action, section ou projet..." autocomplete="off">
+                <span class="kbd-shortcut">ESC</span>
+            </div>
+            <ul class="cmd-items-list" id="cmd-items-list">
+                <li class="cmd-item" data-action="goto-hero"><i class="fas fa-home"></i> Accueil / Haut de page <span class="kbd-shortcut">#hero</span></li>
+                <li class="cmd-item" data-action="goto-blueprint"><i class="fas fa-network-wired"></i> Schéma d'Architecture Interactif <span class="kbd-shortcut">#blueprint</span></li>
+                <li class="cmd-item" data-action="goto-skills"><i class="fas fa-layer-group"></i> Matrice des Compétences <span class="kbd-shortcut">#skills</span></li>
+                <li class="cmd-item" data-action="goto-projects"><i class="fas fa-cubes"></i> Démonstrateurs & Projets <span class="kbd-shortcut">#projects</span></li>
+                <li class="cmd-item" data-action="goto-timeline"><i class="fas fa-history"></i> Parcours Académique & Stage SIMEN <span class="kbd-shortcut">#timeline</span></li>
+                <li class="cmd-item" data-action="goto-vault"><i class="fas fa-shield-halved"></i> Certifications Cisco & Diplômes <span class="kbd-shortcut">#vault</span></li>
+                <li class="cmd-item" data-action="goto-contact"><i class="fas fa-paper-plane"></i> Coordonnées & Contact Direct <span class="kbd-shortcut">#contact</span></li>
+                <li class="cmd-item" data-action="open-cv"><i class="fas fa-file-pdf"></i> Ouvrir le CV PDF Officiel <span class="kbd-shortcut">CV</span></li>
+                <li class="cmd-item" data-action="toggle-theme"><i class="fas fa-moon"></i> Basculer le Thème Sombre / Clair <span class="kbd-shortcut">Theme</span></li>
+                <li class="cmd-item" data-action="open-terminal"><i class="fas fa-terminal"></i> Ouvrir la Console SysAdmin CLI <span class="kbd-shortcut">CLI</span></li>
+            </ul>
+        </div>
+    </div>
+
+    <!-- Footer d'Ingénierie -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner-content">
+                <div class="brand-logo">
+                    <div class="brand-node-indicator"><i class="fas fa-terminal"></i></div>
+                    <span>Ababacar Ousmane <span class="gradient-accent-text">Niang</span></span>
+                </div>
+
+                <p style="color: var(--text-muted); font-size: 0.88rem; text-align: center;">
+                    © 2026 Ababacar Ousmane Niang • Référentiel technique d'ingénierie Systèmes, Réseaux & Sécurité.<br>
+                    Stagiaire au SIMEN • Master 2 RESI (Groupe ISI Dakar) • Certifié Cisco CCNA
+                </p>
+
+                <a href="#hero" class="back-to-top-btn" aria-label="Retour au sommet de la page" title="Haut de page">
+                    <i class="fas fa-arrow-up"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Script JS -->
+    <script src="script.js"></script>
+</body>
+</html>
