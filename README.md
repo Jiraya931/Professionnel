@@ -49,10 +49,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ├── 05-Developpement-Mobile-Flutter/# Application mobile multiplateforme avec gestion d'état réactive
 ├── assets/                         # Schémas d'architecture et ressources graphiques
 ├── docs/                           # Justificatifs officiels et supports techniques
-├── index.html                      # Interface du portfolio statique (GitHub Pages)
-├── styles.css                      # Feuilles de styles du portfolio
-├── script.js                       # Moteur d'interactions et visualiseur de documents
-└── .github/workflows/deploy.yml    # Workflow de déploiement continu
+└── README.md                       # Spécifications et documentation d'ingénierie
 ```
 
 ---
@@ -60,7 +57,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ## Synthèse des Projets d'Ingénierie
 
 ### 1. [Solution SSO & Fédération d'Identités (Projet M2 RESI / SIMEN)](./01-SSO-Federation-Keycloak/)
-- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein du Système Intégré de Management de l'Éducation Nationale (SIMEN).
+- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein du Système d'Information et de Management de l'Éducation Nationale (SIMEN).
 - **Architecture** : Déploiement d'un cluster **Keycloak 24+** interconnecté à une base **PostgreSQL** et un annuaire **OpenLDAP**.
 - **Standards** : SAML 2.0, OpenID Connect, OAuth 2.0 avec chiffrement JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.
 - **Ressources** : Stack `docker-compose.yml` reproductible et documentation d'architecture cible.
@@ -86,6 +83,11 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ### 5. [Développement Mobile Flutter / Dart](./05-Developpement-Mobile-Flutter/)
 - **Architecture Applicative** : Gestion d'état réactive via le patron de conception `provider`.
 - **Interface & Expérience** : Prise en charge des modes clair et sombre (`themeProvider.dart`), écran d'onboarding et structure logicielle modulaire.
+
+### 6. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Dossier Académique ISI)
+- **Virtualisation Datacenter & Hyperviseurs** : Architecture VMware vSphere & Proxmox VE avec dimensionnement de datacenter virtuel et cluster haute disponibilité ([Rapport Proxmox VE](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/Rapport%20ProxMox.pdf) / [Rapport Datacenter Virtuel](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/RAPPORT-DATACENTER%20VIRTUEL.pdf)).
+- **Observabilité, Métrologie & SIEM** : Déploiement d'une chaîne de monitoring Prometheus/Grafana sous Linux Debian et cluster de centralisation de journaux SIEM Graylog avec OpenSearch ([Rapport Prometheus & Grafana](./docs/isi/M1/Sem2/Supervision%20des%20Syst%C3%A8mes%20et%20Services%20R%C3%A9seaux%20Avanc%C3%A9e/Rapport/PROMETHEUS%20&%20GRAFANA%20SUR%20DEBIAN.pdf) / [Rapport Installation Graylog](./docs/isi/M1/Sem2/Administration%20syst%C3%A8me%20avanc%C3%A9%20-%20LinuxWindows/Rapport/Rapport_Installation_Graylog.pdf)).
+- **Gestion des Services ITIL & Inventaire de Parc** : Implémentation d'une plateforme d'ITSM GLPI alignée ITIL v3 avec synchronisation d'annuaire Windows Server Active Directory en LDAP ([Guide GLPI & Active Directory](./docs/isi/M2/Sem1/Gestion%20des%20services%20%C3%A0%20l%E2%80%99aide%20du%20r%C3%A9f%C3%A9rentiel%20ITIL/MISE%20EN%20PLACE%20DE%20GLPI%20ET%20liaison%20avec%20AD.pdf)).
 
 ---
 

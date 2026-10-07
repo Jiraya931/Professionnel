@@ -3,7 +3,7 @@
 > **Projet de Fin d'Études — Master 2 RESI (Réseaux & Systèmes Informatiques)**  
 > **Auteur** : Ababacar Ousmane Niang  
 > **Institution** : Groupe ISI Dakar (Institut Supérieur d'Informatique)  
-> **Cadre Technique** : SIMEN (Système Intégré de Management de l'Éducation Nationale)
+> **Cadre Technique** : SIMEN (Système d'Information et de Management de l'Éducation Nationale)
 
 ---
 
