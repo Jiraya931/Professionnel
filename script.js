@@ -410,7 +410,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             title: `Solution SSO & Fédération d'Identités Souveraine`,
             category: `IAM & SÉCURITÉ (SIMEN / MÉMOIRE M2)`,
             image: `assets/project_cyber_security.png`,
-            desc: `Projet de fin d'études Master 2 RESI réalisé dans le cadre du SIMEN (Système Intégré de Management de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
+            desc: `Projet de fin d'études Master 2 RESI réalisé dans le cadre du SIMEN (Système d'Information et de Management de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
             techs: [`Keycloak 24+`, `OpenLDAP`, `PostgreSQL 16`, `Docker Compose`, `OpenID Connect (OIDC / PKCE)`, `SAML 2.0`, `JWT RS256`, `MFA / WebAuthn`],
             features: [
                 `Authentification unique (SSO) multi-applications sans rupture de session`,

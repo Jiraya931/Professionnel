@@ -57,7 +57,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ## Synthèse des Projets d'Ingénierie
 
 ### 1. [Solution SSO & Fédération d'Identités (Projet M2 RESI / SIMEN)](./01-SSO-Federation-Keycloak/)
-- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein du Système Intégré de Management de l'Éducation Nationale (SIMEN).
+- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein du Système d'Information et de Management de l'Éducation Nationale (SIMEN).
 - **Architecture** : Déploiement d'un cluster **Keycloak 24+** interconnecté à une base **PostgreSQL** et un annuaire **OpenLDAP**.
 - **Standards** : SAML 2.0, OpenID Connect, OAuth 2.0 avec chiffrement JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.
 - **Ressources** : Stack `docker-compose.yml` reproductible et documentation d'architecture cible.
