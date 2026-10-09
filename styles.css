@@ -1426,7 +1426,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 1.75rem;
 }
 
-/* Carte Projet Vedette (Star Project - Keycloak DPTIC / SIMEN) */
+/* Carte Projet Vedette (Star Project - Keycloak Mémoire M2 ISI) */
 .project-card-star {
     grid-column: span 12;
     background: var(--bg-card);

@@ -173,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
 • Diplôme : Licence en Informatique et Gestion (Ensup'Afrique)
 • Spécialisation : IAM Keycloak, Routage Cisco CCNA/CCNP, Cybersécurité L2/IPsec, Docker CI/CD`,
 
-        'cat-sso': `<span style="color:#fbbf24;">[CLUSTER KEYCLOAK 24+ SOUVERAIN - DPTIC / SIMEN / MÉMOIRE M2]</span>
+        'cat-sso': `<span style="color:#fbbf24;">[CLUSTER KEYCLOAK 24+ SOUVERAIN - MÉMOIRE M2 RESI (GROUPE ISI)]</span>
 {
   "node_id": "keycloak-simen-core-01",
   "auth_protocols": ["OpenID Connect (OIDC / PKCE)", "SAML 2.0"],
@@ -204,7 +204,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
 [✓] Tunnel IPsec Site-à-Site : Phase 1 ISAKMP DH Group 14, Phase 2 ESP AES-256 / SHA-256
 [✓] Cloisonnement DMZ : Règles d'état Stateful interdisant les flux initiés de DMZ vers LAN`,
 
-        'projects': `1. <span style="color:#00f0ff;">01-SSO-Federation-Keycloak</span> (DPTIC / SIMEN / Mémoire M2) - IAM Souverain & SAML/OIDC
+        'projects': `1. <span style="color:#00f0ff;">01-SSO-Federation-Keycloak</span> (Mémoire M2 RESI / Groupe ISI) - IAM Souverain & SAML/OIDC
 2. <span style="color:#00f0ff;">02-Reseaux-Cisco-Huawei</span> - Cœur OSPFv2, HSRP, LACP, VoIP CME, QoS
 3. <span style="color:#00f0ff;">03-Securite-Systemes-Reseaux</span> - Durcissement L2, VPN IPsec Site-à-Site, DMZ
 4. <span style="color:#00f0ff;">04-DevOps-Conteneurisation</span> - Docker Multi-Stage non-root, CI/CD Actions
@@ -300,7 +300,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
     const blueprintData = {
         'sso': {
             title: `<i class="fas fa-key" style="color: var(--accent-cyan);"></i> Cluster IAM Keycloak 24+ & Fédération d'Identités`,
-            desc: `Infrastructure d'authentification centralisée souveraine conçue pour l'écosystème de l'Éducation Nationale (DPTIC / SIMEN). Élimination des silos applicatifs, interconnexion aux annuaires OpenLDAP/Active Directory, émission de jetons JWT asymétriques signés par clé privée RS256 et imposition de l'authentification multifacteur (MFA / WebAuthn).`,
+            desc: `Infrastructure d'authentification centralisée souveraine conçue dans le cadre du mémoire de fin d'études Master 2 RESI (Groupe ISI Dakar). Élimination des silos applicatifs, interconnexion aux annuaires OpenLDAP/Active Directory, émission de jetons JWT asymétriques signés par clé privée RS256 et imposition de l'authentification multifacteur (MFA / WebAuthn).`,
             chips: ['Keycloak 24+', 'OpenLDAP', 'PostgreSQL 16', 'Docker Compose', 'JWT RS256', 'MFA / OTP'],
             specs: [
                 `Protocole d'échange : OpenID Connect (OIDC / PKCE) & SAML 2.0`,
@@ -408,9 +408,9 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
     const projectCatalog = {
         'sso-project': {
             title: `Solution SSO & Fédération d'Identités Souveraine`,
-            category: `IAM & SÉCURITÉ (DPTIC / SIMEN / MÉMOIRE M2)`,
+            category: `IAM & SÉCURITÉ (MÉMOIRE M2 RESI — GROUPE ISI)`,
             image: `assets/project_cyber_security.png`,
-            desc: `Projet de fin d'études Master 2 RESI réalisé dans le cadre de la DPTIC / SIMEN (Division de la Promotion des Technologies de l'Information et de la Communication — Ministère de l'Éducation Nationale) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
+            desc: `Projet de fin d'études Master 2 RESI (Groupe ISI Dakar) : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine. Déploiement d'un cluster Keycloak 24+ interconnecté à une base PostgreSQL et un annuaire OpenLDAP, avec jetons d'accès JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.`,
             techs: [`Keycloak 24+`, `OpenLDAP`, `PostgreSQL 16`, `Docker Compose`, `OpenID Connect (OIDC / PKCE)`, `SAML 2.0`, `JWT RS256`, `MFA / WebAuthn`],
             features: [
                 `Authentification unique (SSO) multi-applications sans rupture de session`,
