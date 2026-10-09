@@ -42,7 +42,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 
 ```text
 .
-├── 01-SSO-Federation-Keycloak/      # Solution SSO souveraine & Fédération d'identités (Keycloak / SIMEN)
+├── 01-SSO-Federation-Keycloak/      # Solution SSO souveraine & Fédération d'identités (Keycloak / DPTIC / SIMEN)
 ├── 02-Reseaux-Cisco-Huawei/        # Topologies de routage dynamique, commutation L2/L3 et ToIP
 ├── 03-Securite-Systemes-Reseaux/   # Durcissement L2, interconnexion VPN IPsec et filtrage DMZ
 ├── 04-DevOps-Conteneurisation/     # Multi-stage builds, isolation réseau multi-tiers et CI/CD
@@ -56,8 +56,8 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 
 ## Synthèse des Projets d'Ingénierie
 
-### 1. [Solution SSO & Fédération d'Identités (Projet M2 RESI / SIMEN)](./01-SSO-Federation-Keycloak/)
-- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein du Système d'Information et de Management de l'Éducation Nationale (SIMEN).
+### 1. [Solution SSO & Fédération d'Identités (Projet M2 RESI / DPTIC / SIMEN)](./01-SSO-Federation-Keycloak/)
+- **Contexte** : Conception et implémentation d'une infrastructure d'authentification centralisée souveraine au sein de la Division de la Promotion des Technologies de l'Information et de la Communication (DPTIC / SIMEN) du Ministère de l'Éducation Nationale.
 - **Architecture** : Déploiement d'un cluster **Keycloak 24+** interconnecté à une base **PostgreSQL** et un annuaire **OpenLDAP**.
 - **Standards** : SAML 2.0, OpenID Connect, OAuth 2.0 avec chiffrement JWT RS256, authentification multifacteur (MFA) et contrôle d'accès RBAC/ABAC.
 - **Ressources** : Stack `docker-compose.yml` reproductible et documentation d'architecture cible.
