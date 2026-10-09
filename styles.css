@@ -1,6 +1,6 @@
 /* ==========================================================================
    PORTFOLIO D'INGÉNIERIE SYSTÈMES, RÉSEAUX & CYBERSÉCURITÉ
-   Auteur : Ababacar Ousmane Niang (SIMEN / Master 2 RESI - ISI Dakar)
+   Auteur : Ababacar Ousmane Niang (DPTIC / SIMEN / Master 2 RESI - ISI Dakar)
    Design System : "Next-Gen Infrastructure & Cyber Command"
    ========================================================================== */
 
@@ -1426,7 +1426,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 1.75rem;
 }
 
-/* Carte Projet Vedette (Star Project - Keycloak SIMEN) */
+/* Carte Projet Vedette (Star Project - Keycloak DPTIC / SIMEN) */
 .project-card-star {
     grid-column: span 12;
     background: var(--bg-card);
