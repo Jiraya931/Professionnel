@@ -3,7 +3,7 @@
 > **Projet de Fin d'Études — Master 2 RESI (Réseaux & Systèmes Informatiques)**  
 > **Auteur** : Ababacar Ousmane Niang  
 > **Institution** : Groupe ISI Dakar (Institut Supérieur d'Informatique)  
-> **Cadre Technique** : SIMEN (Système d'Information et de Management de l'Éducation Nationale)
+> **Cadre Technique** : DPTIC / SIMEN (Division de la Promotion des Technologies de l'Information et de la Communication — Ministère de l'Éducation Nationale du Sénégal)
 
 ---
 
@@ -24,7 +24,7 @@ Ce projet apporte une réponse technique et souveraine via le déploiement d'une
 ```mermaid
 graph TD
     subgraph Clients & Utilisateurs
-        U1[Utilisateur / Agent SIMEN]
+        U1[Utilisateur / Agent DPTIC / SIMEN]
         AppWeb[Portail Web Institutionnel]
         AppMobile[Application Mobile]
         AppLegacy[Application SAML Patrimoniale]
