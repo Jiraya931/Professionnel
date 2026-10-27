@@ -284,6 +284,12 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
         // Traiter
         if (cmd === 'clear' || cmd === 'cls') {
             if (terminalOutput) terminalOutput.innerHTML = '';
+        } else if (cmd === 'ping 8.8.8.8' || cmd === 'ping' || cmd === 'ping-8888') {
+            printResponse(terminalCommands['ping-8888']);
+        } else if (cmd === 'homelab' || cmd === 'pve' || cmd === 'proxmox' || cmd === 'eve') {
+            printResponse(terminalCommands['homelab']);
+        } else if (cmd === 'forti' || cmd === 'fortigate' || cmd === 'forti-audit') {
+            printResponse(terminalCommands['forti-audit']);
         } else if (cmd === 'cat sso.spec' || cmd === 'cat-sso' || cmd === 'sso') {
             printResponse(terminalCommands['cat-sso']);
         } else if (cmd === 'show ip route' || cmd === 'show-ip-route' || cmd === 'ip route' || cmd === 'route') {
