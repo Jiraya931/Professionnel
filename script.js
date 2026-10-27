@@ -739,6 +739,9 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             case 'open-cv':
                 window.open('docs/CV_updated.pdf', '_blank');
                 break;
+            case 'open-recruiter':
+                if (recruiterModal) recruiterModal.classList.add('active');
+                break;
             case 'toggle-theme':
                 toggleTheme();
                 break;
