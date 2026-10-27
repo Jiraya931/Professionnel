@@ -12,6 +12,7 @@ $RECYCLE.BIN/
 # IDEs
 .vscode/
 .idea/
+.antigravity/
 *.swp
 *.swo
 
@@ -28,3 +29,6 @@ build/
 *.mp4
 *.mkv
 *.avi
+
+# Deployment worktree
+.deploy-gh-pages/

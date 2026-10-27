@@ -28,10 +28,10 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 
 | Domaine | Technologies et Protocoles |
 | :--- | :--- |
-| **Réseaux & Protocoles** | Cisco IOS, Huawei VRP, OSPFv2/v3, BGP, MPLS LDP, VRF, VLAN 802.1Q, EtherChannel (LACP), HSRP/VRRP, QoS, IPv4/IPv6 |
-| **Sécurité & IAM** | Keycloak IAM, OpenID Connect (OIDC), SAML 2.0, OAuth 2.0, LDAP / Active Directory, IPsec VPN, Port-Security, DHCP Snooping, DAI, DMZ |
+| **Réseaux & Protocoles** | Cisco IOS, Cisco IOL (L2/L3), Huawei VRP, OSPFv2/v3, BGP, MPLS LDP, VRF, VLAN 802.1Q, EtherChannel (LACP), HSRP/VRRP, QoS, IPv4/IPv6 |
+| **Sécurité & IAM** | Fortinet FortiGate 7.4 (NGFW / NAT / Inspection), Keycloak IAM, OpenID Connect (OIDC), SAML 2.0, OAuth 2.0, LDAP / Active Directory, IPsec VPN, Port-Security, DHCP Snooping, DAI, DMZ |
 | **DevOps & Cloud** | Docker, Docker Compose, Kubernetes, GitHub Actions (CI/CD), AWS (EC2, VPC, IAM), NGINX Reverse Proxy |
-| **Systèmes & Virtualisation** | Linux (Ubuntu, Debian, Alpine), Windows Server (AD DS, DNS, DHCP, IIS), VMware vSphere / ESXi, Proxmox VE |
+| **Systèmes & Virtualisation** | Proxmox VE 8.x (Bare-Metal & Nested KVM), EVE-NG Community, VMware vSphere / ESXi, Linux (Ubuntu, Debian, Alpine), Windows Server |
 | **Développement & Automatisation** | Python, Bash / Shell, PowerShell, Flutter / Dart, JavaScript / HTML5 / CSS3 |
 
 </div>
@@ -47,6 +47,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ├── 03-Securite-Systemes-Reseaux/   # Durcissement L2, interconnexion VPN IPsec et filtrage DMZ
 ├── 04-DevOps-Conteneurisation/     # Multi-stage builds, isolation réseau multi-tiers et CI/CD
 ├── 05-Developpement-Mobile-Flutter/# Application mobile multiplateforme avec gestion d'état réactive
+├── 06-Homelab-Proxmox-FortiGate-Cisco/# Homelab Bare-Metal PVE 8, Firewall FortiGate 7.4 & Cisco IOL
 ├── assets/                         # Schémas d'architecture et ressources graphiques
 ├── docs/                           # Justificatifs officiels et supports techniques
 └── README.md                       # Spécifications et documentation d'ingénierie
@@ -84,7 +85,21 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 - **Architecture Applicative** : Gestion d'état réactive via le patron de conception `provider`.
 - **Interface & Expérience** : Prise en charge des modes clair et sombre (`themeProvider.dart`), écran d'onboarding et structure logicielle modulaire.
 
-### 6. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Dossier Académique ISI)
+### 6. [Homelab Réseau & Sécurité Périmétrique (Proxmox VE 8, FortiGate 7.4 & Cisco IOL)](./06-Homelab-Proxmox-FortiGate-Cisco/)
+- **Contexte & Infrastructure** : Déploiement Bare-Metal sur **Proxmox VE 8.x** avec virtualisation imbriquée (*Nested KVM Intel VMX*).
+- **Architecture & Composants** :
+  - **Pare-feu NGFW Fortinet FortiGate 7.4.13** : Routage inter-VLANs, NAT dynamique WAN, règles de sécurité d'état et journalisation en temps réel.
+  - **Plateforme d'émulation EVE-NG Community** : Hébergement des routeurs et commutateurs virtuels **Cisco IOL (IOS on Linux)**.
+  - **Commutation & Routage Cisco** : Commutateur Cisco SW1 L2 (Trunk 802.1Q, VLANs 1 & 10) et Routeur Cisco R1 L3 (*Router-on-a-stick* sous-interface `e0/0.10`).
+- **Validation Opérationnelle & Performances** : 
+  - Connectivité de bout en bout validée vers l'Internet (100% succès ping vers 8.8.8.8, latence interne < 1 ms, RTT moyen WAN 62.9 ms).
+  - Inspection et translation des flux confirmées dans les tables de sessions FortiOS (`diagnose sys session list`).
+- **Livrables Inclus** :
+  - 5 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
+  - Fichiers de configuration CLI réels pour Cisco SW1, Cisco R1 et FortiGate 7.4 ([`configs/`](./06-Homelab-Proxmox-FortiGate-Cisco/configs/)).
+  - [Rapport d'Audit Technique Complet (1.45 Mo)](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
+
+### 7. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Dossier Académique ISI)
 - **Virtualisation Datacenter & Hyperviseurs** : Architecture VMware vSphere & Proxmox VE avec dimensionnement de datacenter virtuel et cluster haute disponibilité ([Rapport Proxmox VE](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/Rapport%20ProxMox.pdf) / [Rapport Datacenter Virtuel](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/RAPPORT-DATACENTER%20VIRTUEL.pdf)).
 - **Observabilité, Métrologie & SIEM** : Déploiement d'une chaîne de monitoring Prometheus/Grafana sous Linux Debian et cluster de centralisation de journaux SIEM Graylog avec OpenSearch ([Rapport Prometheus & Grafana](./docs/isi/M1/Sem2/Supervision%20des%20Syst%C3%A8mes%20et%20Services%20R%C3%A9seaux%20Avanc%C3%A9e/Rapport/PROMETHEUS%20&%20GRAFANA%20SUR%20DEBIAN.pdf) / [Rapport Installation Graylog](./docs/isi/M1/Sem2/Administration%20syst%C3%A8me%20avanc%C3%A9%20-%20LinuxWindows/Rapport/Rapport_Installation_Graylog.pdf)).
 - **Gestion des Services ITIL & Inventaire de Parc** : Implémentation d'une plateforme d'ITSM GLPI alignée ITIL v3 avec synchronisation d'annuaire Windows Server Active Directory en LDAP ([Guide GLPI & Active Directory](./docs/isi/M2/Sem1/Gestion%20des%20services%20%C3%A0%20l%E2%80%99aide%20du%20r%C3%A9f%C3%A9rentiel%20ITIL/MISE%20EN%20PLACE%20DE%20GLPI%20ET%20liaison%20avec%20AD.pdf)).
