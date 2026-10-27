@@ -598,12 +598,30 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             const pdfFrame = document.getElementById('pdf-frame');
             if (pdfFrame) pdfFrame.src = '';
         }
+        const recruiterModal = document.getElementById('recruiter-modal');
+        if (recruiterModal) {
+            recruiterModal.classList.remove('active');
+        }
     }
 
     modalCloseBtn?.addEventListener('click', closeModals);
     modalCloseBottomBtn?.addEventListener('click', closeModals);
 
-    // --- 9. MODAL VISUALISEUR PDF OFFICIEL ---
+    // --- 9. MODAL RECRUITER FAST-TRACK & VISUALISEUR PDF OFFICIEL ---
+    const recruiterModal = document.getElementById('recruiter-modal');
+    const recruiterCloseBtn = document.getElementById('recruiter-modal-close');
+    const recruiterCloseBottomBtn = document.getElementById('recruiter-modal-close-bottom');
+
+    document.querySelectorAll('.btn-recruiter-modal-trigger, #trigger-recruiter-pack').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (recruiterModal) recruiterModal.classList.add('active');
+        });
+    });
+
+    recruiterCloseBtn?.addEventListener('click', closeModals);
+    recruiterCloseBottomBtn?.addEventListener('click', closeModals);
+
     const pdfModal = document.getElementById('pdf-modal');
     const pdfFrame = document.getElementById('pdf-frame');
     const pdfTitle = document.getElementById('pdf-modal-title');
@@ -626,7 +644,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
 
     // Fermeture des modaux au clic extérieur ou touche Échap
     window.addEventListener('click', (e) => {
-        if (e.target === projectModal || e.target === pdfModal) {
+        if (e.target === projectModal || e.target === pdfModal || e.target === recruiterModal) {
             closeModals();
         }
     });
