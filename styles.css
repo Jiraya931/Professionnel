@@ -1911,6 +1911,14 @@ h1, h2, h3, h4, h5, h6 {
     transition: opacity var(--transition-smooth);
 }
 
+#recruiter-modal {
+    z-index: 2200;
+}
+
+#pdf-modal {
+    z-index: 3500;
+}
+
 .modal-backdrop.active {
     display: flex;
     opacity: 1;
