@@ -158,14 +158,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalCommands = {
         'help': `Commandes disponibles :
   <span style="color:#00f0ff;">whoami</span>          : Identité, formation M2 RESI et mission actuelle à la DPTIC / SIMEN
+  <span style="color:#00f0ff;">ping 8.8.8.8</span>    : Test de connectivité réelle (VPCS -> FortiGate 7.4 -> Internet)
+  <span style="color:#00f0ff;">homelab</span>         : Architecture Datacenter Proxmox VE 8, EVE-NG, Fortinet & Cisco IOL
+  <span style="color:#00f0ff;">forti-audit</span>     : Audit pare-feu Fortinet FortiOS 7.4 (NAT, règles, logs RAM)
   <span style="color:#00f0ff;">cat sso.spec</span>    : Spécifications techniques du cluster Keycloak SSO
   <span style="color:#00f0ff;">show ip route</span>   : Table de routage dynamique OSPFv2 (Cisco IOS)
   <span style="color:#00f0ff;">security-audit</span> : Rapport de durcissement L2, IPsec et DMZ
-  <span style="color:#00f0ff;">projects</span>        : Liste exhaustive des 6 projets documentés
+  <span style="color:#00f0ff;">projects</span>        : Liste exhaustive des projets documentés
   <span style="color:#00f0ff;">certs</span>           : Validation officielle des certifications Cisco CCNA
   <span style="color:#00f0ff;">contact</span>         : Coordonnées téléphoniques, WhatsApp et email
   <span style="color:#00f0ff;">download cv</span>     : Ouvre directement le CV officiel au format PDF
   <span style="color:#00f0ff;">clear</span>           : Réinitialise l'écran du terminal`,
+
+        'ping-8888': `<span style="color:#10b981;">[TEST DE CONNECTIVITÉ RÉELLE VPCS -> PARE-FEU FORTIGATE -> INTERNET]</span>
+VPCS> ping 10.10.10.1
+84 bytes from 10.10.10.1 icmp_seq=1 ttl=255 time=0.973 ms (Passerelle Cisco R1)
+VPCS> ping 172.16.1.1
+84 bytes from 172.16.1.1 icmp_seq=1 ttl=254 time=1.552 ms (Patte LAN FortiGate 7.4)
+VPCS> ping 8.8.8.8
+84 bytes from 8.8.8.8 icmp_seq=1 ttl=113 time=62.964 ms (VRAI INTERNET MONDIAL)
+84 bytes from 8.8.8.8 icmp_seq=2 ttl=113 time=65.156 ms
+[+] Résultat : 100% de paquets transmis, translation NAT active, latence inter-VLAN &lt; 1ms.`,
+
+        'homelab': `<span style="color:#00f0ff;">[LABORATOIRE PROXMOX VE 8 • FORTIGATE 7.4 • CISCO IOL]</span>
+{
+  "hyperviseur": "Proxmox VE 8.x (Kernel 7.0.14-pve)",
+  "virtualisation": "KVM imbriquée (nested Intel VT-x/AMD-V CPU Host)",
+  "lab_engine": "EVE-NG Community (VM 200, 4 vCPU, 8 Go RAM)",
+  "firewall": "Fortinet FortiGate-VM64 7.4.13 (Licence Permanente, NAT, Logs RAM)",
+  "commutation": "Cisco IOL L2 adventerprise (VLAN 10, Trunk 802.1Q)",
+  "routage": "Cisco IOL L3 (Router-on-a-stick, route par défaut 0.0.0.0/0)",
+  "rapport_audit": "Dossier Technique complet disponible (1.45 Mo / 9 captures réelles)",
+  "statut_operationnel": "100% Validé et Actif"
+}`,
+
+        'forti-audit': `<span style="color:#f87171;">[AUDIT PARE-FEU FORTINET FORTIOS 7.4]</span>
+FGVMEVKZWIWB8SDE # get system status
+Version: FortiGate-VM64-KVM v7.4.13, build2933 (GA.M)
+License Status: Valid (Evaluation Permanente)
+VM Resources: 1 CPU/1 allowed, 1992 MB RAM/2048 MB allowed
+Operation Mode: NAT | VDOM: root
+
+FGVMEVKZWIWB8SDE # show firewall policy 1
+config firewall policy
+    edit 1
+        set name "LAN_TO_INTERNET"
+        set srcintf "port2"
+        set dstintf "port1"
+        set action accept
+        set nat enable
+        set logtraffic all
+    next
+end
+[+] Statut inspection : Flux autorisés avec NAT dynamique et logs temps réel en RAM.`,
 
         'whoami': `<strong style="color:#38bdf8;">Ababacar Ousmane Niang</strong>
 • Rôle actuel : Stagiaire en Administration Systèmes, Réseaux & Sécurité à la DPTIC / SIMEN (depuis Sept. 2026)
