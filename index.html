@@ -50,6 +50,9 @@
             </ul>
 
             <div class="nav-right-controls">
+                <button class="btn-nav-recruiter btn-recruiter-modal-trigger" id="trigger-recruiter-pack" title="Dossier de Recrutement Express (1-Clic)">
+                    <i class="fas fa-briefcase"></i> <span>Recruiter Pack</span>
+                </button>
                 <button class="btn-nav-terminal" id="trigger-terminal-btn" title="Ouvrir la Console SysAdmin">
                     <i class="fas fa-terminal"></i> <span>CLI</span>
                 </button>
@@ -96,6 +99,9 @@
                         </p>
 
                         <div class="hero-actions-row">
+                            <button class="btn btn-emerald btn-recruiter-modal-trigger" title="Dossier de Recrutement Express & Synthèse (CV, Certifs, Homelab)">
+                                <i class="fas fa-briefcase"></i> Recruiter Pack (1-Clic)
+                            </button>
                             <a href="#projects" class="btn btn-primary">
                                 <i class="fas fa-cubes"></i> Explorer les Réalisations
                             </a>
@@ -217,7 +223,9 @@
                         <div class="terminal-actions-quick">
                             <button class="quick-cmd-pill" data-cmd="help">help</button>
                             <button class="quick-cmd-pill" data-cmd="whoami">whoami</button>
-                            <button class="quick-cmd-pill" data-cmd="cat-sso">cat sso.spec</button>
+                            <button class="quick-cmd-pill" data-cmd="ping-8888">ping 8.8.8.8</button>
+                            <button class="quick-cmd-pill" data-cmd="homelab">homelab</button>
+                            <button class="quick-cmd-pill" data-cmd="forti-audit">forti-audit</button>
                             <button class="quick-cmd-pill" data-cmd="show-ip-route">show ip route</button>
                             <button class="quick-cmd-pill" data-cmd="security-audit">security-audit</button>
                             <button class="quick-cmd-pill" data-cmd="clear">clear</button>
@@ -658,6 +666,40 @@
                         </div>
                     </div>
 
+                    <!-- PROJET HOMELAB VIRTUEL HYBRIDE : PROXMOX VE 8, FORTIGATE 7.4 & CISCO IOL -->
+                    <div class="project-card-bento" data-category="sys network security">
+                        <div class="bento-card-top">
+                            <div class="bento-img-frame">
+                                <img src="assets/project_homelab_network.png" alt="Homelab Réseau Proxmox VE 8, EVE-NG, FortiGate 7.4 & Cisco IOL" class="bento-img" onerror="this.onerror=null;this.src='assets/project_web_app.png';">
+                            </div>
+                            <div class="bento-category-tag" style="color: #34d399; border-color: rgba(16, 185, 129, 0.4);">
+                                <i class="fas fa-server"></i> VIRTUALISATION BARE-METAL & SÉCURITÉ PÉRIMÉTRIQUE
+                            </div>
+                            <h3 class="bento-title">Homelab Proxmox VE 8, FortiGate 7.4 & Cisco IOL</h3>
+                            <p class="bento-desc">
+                                Déploiement bare-metal et virtualisation nested KVM. Interconnexion d'un firewall FortiGate 7.4.13 (NAT WAN, inspection des flux, règles de sécurité) avec une topologie EVE-NG Cisco IOL (VLANs 802.1Q Trunk, Router-on-a-stick, DHCP). Connectivité WAN validée à 100% avec RTT moyen de 62.9ms et latence interne &lt; 1ms.
+                            </p>
+                            <div class="comp-tags-row">
+                                <span class="comp-tag">Proxmox VE 8.x</span>
+                                <span class="comp-tag">Nested KVM</span>
+                                <span class="comp-tag">FortiGate 7.4</span>
+                                <span class="comp-tag">EVE-NG</span>
+                                <span class="comp-tag">Cisco IOL L2/L3</span>
+                                <span class="comp-tag">VLAN 802.1Q</span>
+                                <span class="comp-tag">NAT / Inspection</span>
+                            </div>
+                        </div>
+
+                        <div class="bento-footer">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Technique Homelab (Proxmox VE 8, EVE-NG, FortiGate 7.4, Cisco IOL)">
+                                <i class="fas fa-file-pdf"></i> Rapport PDF (1.45 Mo)
+                            </button>
+                            <button class="btn btn-primary btn-sm btn-details" data-project="homelab-project">
+                                <i class="fas fa-eye"></i> Spécifications & Preuves
+                            </button>
+                        </div>
+                    </div>
+
                     <!-- PROJET 2 : RÉSEAUX RÉSILIENTS CISCO & HUAWEI -->
                     <div class="project-card-bento" data-category="network">
                         <div class="bento-card-top">
@@ -921,6 +963,21 @@
                         </div>
                     </div>
 
+                    <!-- Carte Dossier Technique Homelab Proxmox & FortiGate -->
+                    <div class="vault-cert-card" style="border-color: rgba(16, 185, 129, 0.4); background: linear-gradient(145deg, rgba(16, 185, 129, 0.08), rgba(15, 23, 42, 0.9));">
+                        <span class="vault-cert-badge-ribbon" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">AUDIT OPÉRATIONNEL</span>
+                        <div class="cert-icon-frame" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);"><i class="fas fa-server"></i></div>
+                        <div>
+                            <h3 class="vault-cert-title">Audit Technique Homelab Réseau</h3>
+                            <div class="vault-cert-sub">Rapport_Homelab_Proxmox_FortiGate.pdf • 1.45 Mo</div>
+                            <p class="vault-cert-desc">Dossier technique d'architecture et de validation opérationnelle : Proxmox VE 8.x, VM EVE-NG, Pare-feu FortiGate 7.4, Cisco IOL L2/L3, routage inter-VLAN et logs d'inspection de flux réels.</p>
+                        </div>
+                        <div class="vault-actions-row">
+                            <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Homelab (Proxmox VE 8, EVE-NG, FortiGate, Cisco)"><i class="fas fa-eye"></i> Aperçu Express</button>
+                            <a href="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" download="Rapport_Homelab_Proxmox_FortiGate_Niang.pdf" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> PDF (1.45 Mo)</a>
+                        </div>
+                    </div>
+
                     <!-- Carte CCNA 1 -->
                     <div class="vault-cert-card">
                         <span class="vault-cert-badge-ribbon">CISCO VERIFIED</span>
@@ -1167,6 +1224,62 @@
         </div>
     </div>
 
+    <!-- Modal Recruiter Fast-Track (1-Clic) -->
+    <div class="modal-backdrop" id="recruiter-modal">
+        <div class="modal-dialog" style="max-width: 840px;">
+            <button class="modal-close-icon" id="recruiter-modal-close" aria-label="Fermer"><i class="fas fa-times"></i></button>
+            <div class="node-badge" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border-color: rgba(16, 185, 129, 0.4); margin-bottom: 0.75rem;">
+                <i class="fas fa-briefcase"></i> DOSSIER DE RECRUTEMENT EXPRESS
+            </div>
+            <h2 style="font-size: 1.85rem; margin-bottom: 0.5rem;">Ababacar Ousmane <span class="gradient-text">Niang</span></h2>
+            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem;">
+                Ingénieur Systèmes, Réseaux & Sécurité • Stagiaire à la DPTIC / SIMEN • Master 2 RESI (Groupe ISI Dakar) • Certifié Cisco CCNA
+            </p>
+
+            <div class="recruiter-highlights-grid">
+                <div class="recruiter-highlight-card">
+                    <i class="fas fa-graduation-cap"></i>
+                    <h4>Diplôme & Formation</h4>
+                    <p>Master 2 Réseaux & Systèmes (RESI) — Groupe ISI Dakar</p>
+                </div>
+                <div class="recruiter-highlight-card">
+                    <i class="fas fa-certificate"></i>
+                    <h4>Certification Officielle</h4>
+                    <p>Cisco CCNA (ITN & SRWE) vérifiées avec justificatifs officiels</p>
+                </div>
+                <div class="recruiter-highlight-card">
+                    <i class="fas fa-briefcase"></i>
+                    <h4>Expérience Opérationnelle</h4>
+                    <p>Stage Ingénieur DPTIC / SIMEN (Ministère de l'Éducation Nationale)</p>
+                </div>
+                <div class="recruiter-highlight-card">
+                    <i class="fas fa-server"></i>
+                    <h4>Laboratoire & Preuves</h4>
+                    <p>Homelab actif : Proxmox VE 8, EVE-NG, FortiGate 7.4 & Cisco IOL</p>
+                </div>
+            </div>
+
+            <div style="background: rgba(2, 6, 23, 0.6); border: 1px solid var(--border-subtle); border-radius: var(--radius-md); padding: 1.25rem; margin-bottom: 1.5rem;">
+                <h4 style="margin-bottom: 0.75rem; font-size: 0.95rem; color: var(--accent-cyan);"><i class="fas fa-download"></i> Documents Justificatifs Disponibles Immédiatement :</h4>
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CV_updated.pdf" data-title="Curriculum Vitae (Ababacar Ousmane Niang)"><i class="fas fa-file-pdf"></i> CV Format PDF</button>
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Attestation_M1_RESI.pdf" data-title="Attestation Master 1 RESI"><i class="fas fa-award"></i> Attestation Master</button>
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA1.pdf" data-title="Certification Cisco CCNA 1"><i class="fas fa-shield-alt"></i> Cisco CCNA 1</button>
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA2.pdf" data-title="Certification Cisco CCNA 2"><i class="fas fa-shield-alt"></i> Cisco CCNA 2</button>
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Audit Homelab Proxmox & FortiGate"><i class="fas fa-network-wired"></i> Audit Homelab (1.45 Mo)</button>
+                </div>
+            </div>
+
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; justify-content: space-between; align-items: center;">
+                <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+                    <a href="mailto:ababacarousmane@outlook.com?subject=Opportunit%C3%A9%20de%20recrutement%20-%20Ing%C3%A9nieur%20Syst%C3%A8mes%20et%20R%C3%A9seaux" class="btn btn-primary"><i class="fas fa-envelope"></i> Proposer un Entretien</a>
+                    <a href="https://wa.me/221781481291" target="_blank" rel="noopener noreferrer" class="btn btn-emerald"><i class="fab fa-whatsapp"></i> Échanger sur WhatsApp</a>
+                </div>
+                <button type="button" class="btn btn-secondary" id="recruiter-modal-close-bottom"><i class="fas fa-times"></i> Fermer</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Palette de Commandes (Ctrl+K) -->
     <div class="cmd-palette-backdrop" id="cmd-palette">
         <div class="cmd-palette-modal">
@@ -1177,6 +1290,7 @@
             </div>
             <ul class="cmd-items-list" id="cmd-items-list">
                 <li class="cmd-item" data-action="goto-hero"><i class="fas fa-home"></i> Accueil / Haut de page <span class="kbd-shortcut">#hero</span></li>
+                <li class="cmd-item" data-action="open-recruiter"><i class="fas fa-briefcase"></i> Ouvrir le Recruiter Pack (1-Clic) <span class="kbd-shortcut">Pack</span></li>
                 <li class="cmd-item" data-action="goto-blueprint"><i class="fas fa-network-wired"></i> Schéma d'Architecture Interactif <span class="kbd-shortcut">#blueprint</span></li>
                 <li class="cmd-item" data-action="goto-skills"><i class="fas fa-layer-group"></i> Matrice des Compétences <span class="kbd-shortcut">#skills</span></li>
                 <li class="cmd-item" data-action="goto-projects"><i class="fas fa-cubes"></i> Démonstrateurs & Projets <span class="kbd-shortcut">#projects</span></li>

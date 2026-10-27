@@ -158,14 +158,59 @@ document.addEventListener('DOMContentLoaded', () => {
     const terminalCommands = {
         'help': `Commandes disponibles :
   <span style="color:#00f0ff;">whoami</span>          : Identité, formation M2 RESI et mission actuelle à la DPTIC / SIMEN
+  <span style="color:#00f0ff;">ping 8.8.8.8</span>    : Test de connectivité réelle (VPCS -> FortiGate 7.4 -> Internet)
+  <span style="color:#00f0ff;">homelab</span>         : Architecture Datacenter Proxmox VE 8, EVE-NG, Fortinet & Cisco IOL
+  <span style="color:#00f0ff;">forti-audit</span>     : Audit pare-feu Fortinet FortiOS 7.4 (NAT, règles, logs RAM)
   <span style="color:#00f0ff;">cat sso.spec</span>    : Spécifications techniques du cluster Keycloak SSO
   <span style="color:#00f0ff;">show ip route</span>   : Table de routage dynamique OSPFv2 (Cisco IOS)
   <span style="color:#00f0ff;">security-audit</span> : Rapport de durcissement L2, IPsec et DMZ
-  <span style="color:#00f0ff;">projects</span>        : Liste exhaustive des 6 projets documentés
+  <span style="color:#00f0ff;">projects</span>        : Liste exhaustive des projets documentés
   <span style="color:#00f0ff;">certs</span>           : Validation officielle des certifications Cisco CCNA
   <span style="color:#00f0ff;">contact</span>         : Coordonnées téléphoniques, WhatsApp et email
   <span style="color:#00f0ff;">download cv</span>     : Ouvre directement le CV officiel au format PDF
   <span style="color:#00f0ff;">clear</span>           : Réinitialise l'écran du terminal`,
+
+        'ping-8888': `<span style="color:#10b981;">[TEST DE CONNECTIVITÉ RÉELLE VPCS -> PARE-FEU FORTIGATE -> INTERNET]</span>
+VPCS> ping 10.10.10.1
+84 bytes from 10.10.10.1 icmp_seq=1 ttl=255 time=0.973 ms (Passerelle Cisco R1)
+VPCS> ping 172.16.1.1
+84 bytes from 172.16.1.1 icmp_seq=1 ttl=254 time=1.552 ms (Patte LAN FortiGate 7.4)
+VPCS> ping 8.8.8.8
+84 bytes from 8.8.8.8 icmp_seq=1 ttl=113 time=62.964 ms (VRAI INTERNET MONDIAL)
+84 bytes from 8.8.8.8 icmp_seq=2 ttl=113 time=65.156 ms
+[+] Résultat : 100% de paquets transmis, translation NAT active, latence inter-VLAN &lt; 1ms.`,
+
+        'homelab': `<span style="color:#00f0ff;">[LABORATOIRE PROXMOX VE 8 • FORTIGATE 7.4 • CISCO IOL]</span>
+{
+  "hyperviseur": "Proxmox VE 8.x (Kernel 7.0.14-pve)",
+  "virtualisation": "KVM imbriquée (nested Intel VT-x/AMD-V CPU Host)",
+  "lab_engine": "EVE-NG Community (VM 200, 4 vCPU, 8 Go RAM)",
+  "firewall": "Fortinet FortiGate-VM64 7.4.13 (Licence Permanente, NAT, Logs RAM)",
+  "commutation": "Cisco IOL L2 adventerprise (VLAN 10, Trunk 802.1Q)",
+  "routage": "Cisco IOL L3 (Router-on-a-stick, route par défaut 0.0.0.0/0)",
+  "rapport_audit": "Dossier Technique complet disponible (1.45 Mo / 9 captures réelles)",
+  "statut_operationnel": "100% Validé et Actif"
+}`,
+
+        'forti-audit': `<span style="color:#f87171;">[AUDIT PARE-FEU FORTINET FORTIOS 7.4]</span>
+FGVMEVKZWIWB8SDE # get system status
+Version: FortiGate-VM64-KVM v7.4.13, build2933 (GA.M)
+License Status: Valid (Evaluation Permanente)
+VM Resources: 1 CPU/1 allowed, 1992 MB RAM/2048 MB allowed
+Operation Mode: NAT | VDOM: root
+
+FGVMEVKZWIWB8SDE # show firewall policy 1
+config firewall policy
+    edit 1
+        set name "LAN_TO_INTERNET"
+        set srcintf "port2"
+        set dstintf "port1"
+        set action accept
+        set nat enable
+        set logtraffic all
+    next
+end
+[+] Statut inspection : Flux autorisés avec NAT dynamique et logs temps réel en RAM.`,
 
         'whoami': `<strong style="color:#38bdf8;">Ababacar Ousmane Niang</strong>
 • Rôle actuel : Stagiaire en Administration Systèmes, Réseaux & Sécurité à la DPTIC / SIMEN (depuis Sept. 2026)
@@ -239,6 +284,12 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
         // Traiter
         if (cmd === 'clear' || cmd === 'cls') {
             if (terminalOutput) terminalOutput.innerHTML = '';
+        } else if (cmd === 'ping 8.8.8.8' || cmd === 'ping' || cmd === 'ping-8888') {
+            printResponse(terminalCommands['ping-8888']);
+        } else if (cmd === 'homelab' || cmd === 'pve' || cmd === 'proxmox' || cmd === 'eve') {
+            printResponse(terminalCommands['homelab']);
+        } else if (cmd === 'forti' || cmd === 'fortigate' || cmd === 'forti-audit') {
+            printResponse(terminalCommands['forti-audit']);
         } else if (cmd === 'cat sso.spec' || cmd === 'cat-sso' || cmd === 'sso') {
             printResponse(terminalCommands['cat-sso']);
         } else if (cmd === 'show ip route' || cmd === 'show-ip-route' || cmd === 'ip route' || cmd === 'route') {
@@ -332,15 +383,15 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             link: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
         },
         'virt': {
-            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtualisé VMware vSphere HA & Proxmox`,
-            desc: `Clustering d'hyperviseurs de production ESXi administrés sous vCenter Server avec stockage centralisé partagé SAN/iSCSI. Tolérance aux pannes matérielles (vSphere HA), migration à chaud sans interruption vMotion et grappes Proxmox VE.`,
-            chips: ['VMware ESXi', 'vCenter Server', 'vSphere HA/DRS', 'vMotion', 'SAN / iSCSI', 'Proxmox VE', 'LXC'],
+            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtuel Proxmox VE 8, FortiGate 7.4 & EVE-NG`,
+            desc: `Infrastructure de virtualisation d'entreprise déployée en Bare-Metal sur Proxmox VE 8.x avec support KVM Nested (Intel VMX). Intégration d'un pare-feu NGFW FortiGate 7.4.13 assurant le routage inter-VLANs, le NAT dynamique WAN et la politique de sécurité pour un laboratoire d'émulation réseau EVE-NG composé de routeurs et commutateurs Cisco IOL (L2/L3). Connectivité WAN validée à 100% avec latence < 1ms en interne.`,
+            chips: ['Proxmox VE 8.x', 'Nested KVM', 'FortiGate 7.4.13', 'EVE-NG Community', 'Cisco IOL L2/L3', 'VLAN 802.1Q', 'NAT / Inspection'],
             specs: [
-                `Haute Disponibilité : Redémarrage automatique des VM en cas de crash hôte (HA)`,
-                `Stockage partagé : Baie SAN iSCSI multipathing pour tolérance de lien`,
-                `Segmentation réseau : Port groups dédiés Management, vMotion et Production`
+                `Hyperviseur Bare-Metal : Proxmox VE 8.x avec pont Linux vmbr0 et Nested Virtualization active`,
+                `Pare-feu NGFW : FortiGate 7.4.13 en coupure (WAN port1 DHCP, LAN port2 192.168.10.254/24)`,
+                `Commutation & Routage : Cisco IOL L2 Trunk 802.1Q + Router-on-a-Stick avec helper DHCP`
             ],
-            link: `https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi`
+            link: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         }
     };
 
@@ -437,6 +488,21 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             ],
             github: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
         },
+        'homelab-project': {
+            title: `Laboratoire Datacenter : Proxmox VE 8, FortiGate 7.4 & Cisco IOL`,
+            category: `VIRTUALISATION KVM, CYBERSÉCURITÉ FORTINET & RÉSEAUX CISCO`,
+            image: `assets/project_homelab_network.png`,
+            desc: `Conception, déploiement physique et audit complet d'un laboratoire d'ingénierie virtualisé d'entreprise : hyperviseur physique Proxmox VE 8 (CPU Host VT-x imbriqué, VirtIO SCSI), émulateur EVE-NG, pare-feu Fortinet FortiOS 7.4 (licence permanente, NAT, règles d'état, logs RAM), commutation Cisco IOL L2 (VLAN 10, Trunk 802.1Q) et routage Cisco IOL L3 (Router-on-a-stick). Tests réels validés de bout en bout avec latence < 1ms et rapport d'audit officiel téléchargeable.`,
+            techs: [`Proxmox VE 8.x`, `EVE-NG Community`, `Fortinet FortiOS 7.4`, `Cisco IOL L2/L3`, `Trunk 802.1Q`, `Inter-VLAN Routing`, `NAT Dynamique`, `Router-on-a-Stick`, `KVM / VirtIO SCSI`],
+            features: [
+                `Interconnexion complète client VPCS -> Switch L2 (VLAN 10) -> Routeur L3 -> FortiGate -> Sortie Internet (8.8.8.8)`,
+                `Politique de sécurité FortiGate avec NAT dynamique, inspection d'état et journalisation des sessions en mémoire RAM`,
+                `Commutateur Cisco L2 avec Trunking dot1q et routeur Cisco L3 avec sous-interfaces 802.1Q dédiées`,
+                `Serveur physique Proxmox VE 8 avec accélération CPU host KVM imbriquée et stockage VirtIO SCSI TRIM`,
+                `Dossier technique d'audit officiel complet (1.45 Mo) intégrant 9 captures réelles de terminaux et d'interfaces web`
+            ],
+            github: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
+        },
         'security-hardening-project': {
             title: `Cybersécurité, Filtrage Avancé & Durcissement L2/L3`,
             category: `CYBERSÉCURITÉ & DURCISSEMENT (MASTER 1 RESI)`,
@@ -532,12 +598,30 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             const pdfFrame = document.getElementById('pdf-frame');
             if (pdfFrame) pdfFrame.src = '';
         }
+        const recruiterModal = document.getElementById('recruiter-modal');
+        if (recruiterModal) {
+            recruiterModal.classList.remove('active');
+        }
     }
 
     modalCloseBtn?.addEventListener('click', closeModals);
     modalCloseBottomBtn?.addEventListener('click', closeModals);
 
-    // --- 9. MODAL VISUALISEUR PDF OFFICIEL ---
+    // --- 9. MODAL RECRUITER FAST-TRACK & VISUALISEUR PDF OFFICIEL ---
+    const recruiterModal = document.getElementById('recruiter-modal');
+    const recruiterCloseBtn = document.getElementById('recruiter-modal-close');
+    const recruiterCloseBottomBtn = document.getElementById('recruiter-modal-close-bottom');
+
+    document.querySelectorAll('.btn-recruiter-modal-trigger, #trigger-recruiter-pack').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            if (recruiterModal) recruiterModal.classList.add('active');
+        });
+    });
+
+    recruiterCloseBtn?.addEventListener('click', closeModals);
+    recruiterCloseBottomBtn?.addEventListener('click', closeModals);
+
     const pdfModal = document.getElementById('pdf-modal');
     const pdfFrame = document.getElementById('pdf-frame');
     const pdfTitle = document.getElementById('pdf-modal-title');
@@ -560,7 +644,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
 
     // Fermeture des modaux au clic extérieur ou touche Échap
     window.addEventListener('click', (e) => {
-        if (e.target === projectModal || e.target === pdfModal) {
+        if (e.target === projectModal || e.target === pdfModal || e.target === recruiterModal) {
             closeModals();
         }
     });
@@ -654,6 +738,9 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
                 break;
             case 'open-cv':
                 window.open('docs/CV_updated.pdf', '_blank');
+                break;
+            case 'open-recruiter':
+                if (recruiterModal) recruiterModal.classList.add('active');
                 break;
             case 'toggle-theme':
                 toggleTheme();
