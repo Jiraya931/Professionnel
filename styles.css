@@ -2178,3 +2178,47 @@ footer {
         left: 3px;
     }
 }
+
+/* --- RECRUITER FAST-TRACK & ENHANCED LAB STYLING --- */
+.btn-emerald {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff !important;
+    box-shadow: 0 4px 20px rgba(16, 185, 129, 0.35);
+    border: 1px solid rgba(52, 211, 153, 0.4);
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.btn-emerald:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(16, 185, 129, 0.5);
+    color: #ffffff !important;
+}
+
+.btn-nav-recruiter {
+    background: rgba(16, 185, 129, 0.15);
+    color: #34d399 !important;
+    border: 1px solid rgba(52, 211, 153, 0.35);
+    padding: 0.35rem 0.85rem;
+    border-radius: var(--radius-sm);
+    font-size: 0.8rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    transition: var(--transition-fast);
+}
+
+.btn-nav-recruiter:hover {
+    background: rgba(16, 185, 129, 0.25);
+    box-shadow: 0 0 15px rgba(16, 185, 129, 0.3);
+    color: #6ee7b7 !important;
+}
+
+.recruiter-highlights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
