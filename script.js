@@ -590,14 +590,16 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
         });
     });
 
-    function closeModals() {
-        projectModal?.classList.remove('active');
-        const pdfModal = document.getElementById('pdf-modal');
+    function closePdfModal() {
         if (pdfModal) {
             pdfModal.classList.remove('active');
-            const pdfFrame = document.getElementById('pdf-frame');
             if (pdfFrame) pdfFrame.src = '';
         }
+    }
+
+    function closeModals() {
+        projectModal?.classList.remove('active');
+        closePdfModal();
         const recruiterModal = document.getElementById('recruiter-modal');
         if (recruiterModal) {
             recruiterModal.classList.remove('active');
@@ -629,6 +631,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
     document.querySelectorAll('.btn-doc-view').forEach(btn => {
         btn.addEventListener('click', (e) => {
             e.preventDefault();
+            e.stopPropagation();
             const pdfUrl = btn.getAttribute('data-pdf');
             const title = btn.getAttribute('data-title') || 'Visualisation du Document';
             if (pdfUrl && pdfModal && pdfFrame) {
@@ -640,19 +643,29 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
     });
 
     const pdfCloseBtn = pdfModal?.querySelector('.modal-close-icon');
-    pdfCloseBtn?.addEventListener('click', closeModals);
+    pdfCloseBtn?.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        closePdfModal();
+    });
 
     // Fermeture des modaux au clic extérieur ou touche Échap
     window.addEventListener('click', (e) => {
-        if (e.target === projectModal || e.target === pdfModal || e.target === recruiterModal) {
+        if (e.target === pdfModal) {
+            closePdfModal();
+        } else if (e.target === projectModal || e.target === recruiterModal) {
             closeModals();
         }
     });
 
     window.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            closeModals();
-            closeCmdPalette();
+            if (pdfModal?.classList.contains('active')) {
+                closePdfModal();
+            } else {
+                closeModals();
+                closeCmdPalette();
+            }
         }
     });
 

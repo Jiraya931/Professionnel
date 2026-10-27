@@ -12,6 +12,7 @@ $RECYCLE.BIN/
 # IDEs
 .vscode/
 .idea/
+.antigravity/
 *.swp
 *.swo
 
