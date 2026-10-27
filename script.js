@@ -488,6 +488,21 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             ],
             github: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
         },
+        'homelab-project': {
+            title: `Laboratoire Datacenter : Proxmox VE 8, FortiGate 7.4 & Cisco IOL`,
+            category: `VIRTUALISATION KVM, CYBERSÉCURITÉ FORTINET & RÉSEAUX CISCO`,
+            image: `assets/project_homelab_network.png`,
+            desc: `Conception, déploiement physique et audit complet d'un laboratoire d'ingénierie virtualisé d'entreprise : hyperviseur physique Proxmox VE 8 (CPU Host VT-x imbriqué, VirtIO SCSI), émulateur EVE-NG, pare-feu Fortinet FortiOS 7.4 (licence permanente, NAT, règles d'état, logs RAM), commutation Cisco IOL L2 (VLAN 10, Trunk 802.1Q) et routage Cisco IOL L3 (Router-on-a-stick). Tests réels validés de bout en bout avec latence < 1ms et rapport d'audit officiel téléchargeable.`,
+            techs: [`Proxmox VE 8.x`, `EVE-NG Community`, `Fortinet FortiOS 7.4`, `Cisco IOL L2/L3`, `Trunk 802.1Q`, `Inter-VLAN Routing`, `NAT Dynamique`, `Router-on-a-Stick`, `KVM / VirtIO SCSI`],
+            features: [
+                `Interconnexion complète client VPCS -> Switch L2 (VLAN 10) -> Routeur L3 -> FortiGate -> Sortie Internet (8.8.8.8)`,
+                `Politique de sécurité FortiGate avec NAT dynamique, inspection d'état et journalisation des sessions en mémoire RAM`,
+                `Commutateur Cisco L2 avec Trunking dot1q et routeur Cisco L3 avec sous-interfaces 802.1Q dédiées`,
+                `Serveur physique Proxmox VE 8 avec accélération CPU host KVM imbriquée et stockage VirtIO SCSI TRIM`,
+                `Dossier technique d'audit officiel complet (1.45 Mo) intégrant 9 captures réelles de terminaux et d'interfaces web`
+            ],
+            github: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
+        },
         'security-hardening-project': {
             title: `Cybersécurité, Filtrage Avancé & Durcissement L2/L3`,
             category: `CYBERSÉCURITÉ & DURCISSEMENT (MASTER 1 RESI)`,
