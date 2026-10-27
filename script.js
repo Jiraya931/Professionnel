@@ -383,15 +383,15 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             link: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
         },
         'virt': {
-            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtualisé VMware vSphere HA & Proxmox`,
-            desc: `Clustering d'hyperviseurs de production ESXi administrés sous vCenter Server avec stockage centralisé partagé SAN/iSCSI. Tolérance aux pannes matérielles (vSphere HA), migration à chaud sans interruption vMotion et grappes Proxmox VE.`,
-            chips: ['VMware ESXi', 'vCenter Server', 'vSphere HA/DRS', 'vMotion', 'SAN / iSCSI', 'Proxmox VE', 'LXC'],
+            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtuel Proxmox VE 8, FortiGate 7.4 & EVE-NG`,
+            desc: `Infrastructure de virtualisation d'entreprise déployée en Bare-Metal sur Proxmox VE 8.x avec support KVM Nested (Intel VMX). Intégration d'un pare-feu NGFW FortiGate 7.4.13 assurant le routage inter-VLANs, le NAT dynamique WAN et la politique de sécurité pour un laboratoire d'émulation réseau EVE-NG composé de routeurs et commutateurs Cisco IOL (L2/L3). Connectivité WAN validée à 100% avec latence < 1ms en interne.`,
+            chips: ['Proxmox VE 8.x', 'Nested KVM', 'FortiGate 7.4.13', 'EVE-NG Community', 'Cisco IOL L2/L3', 'VLAN 802.1Q', 'NAT / Inspection'],
             specs: [
-                `Haute Disponibilité : Redémarrage automatique des VM en cas de crash hôte (HA)`,
-                `Stockage partagé : Baie SAN iSCSI multipathing pour tolérance de lien`,
-                `Segmentation réseau : Port groups dédiés Management, vMotion et Production`
+                `Hyperviseur Bare-Metal : Proxmox VE 8.x avec pont Linux vmbr0 et Nested Virtualization active`,
+                `Pare-feu NGFW : FortiGate 7.4.13 en coupure (WAN port1 DHCP, LAN port2 192.168.10.254/24)`,
+                `Commutation & Routage : Cisco IOL L2 Trunk 802.1Q + Router-on-a-Stick avec helper DHCP`
             ],
-            link: `https://github.com/Jiraya931/Professionnel#6-travaux-ding%C3%A9nierie-syst%C3%A8mes-virtualisation--supervision-dossier-acad%C3%A9mique-isi`
+            link: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         }
     };
 
