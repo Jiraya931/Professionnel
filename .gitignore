@@ -32,3 +32,6 @@ build/
 
 # Deployment worktree
 .deploy-gh-pages/
+
+# Local automation scripts
+scripts/

@@ -48,9 +48,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ├── 04-DevOps-Conteneurisation/     # Multi-stage builds, isolation réseau multi-tiers et CI/CD
 ├── 05-Developpement-Mobile-Flutter/# Application mobile multiplateforme avec gestion d'état réactive
 ├── 06-Homelab-Proxmox-FortiGate-Cisco/# Homelab Bare-Metal PVE 8, Firewall FortiGate 7.4 & Cisco IOL
-├── assets/                         # Schémas d'architecture et ressources graphiques
-├── docs/                           # Justificatifs officiels et supports techniques
-├── scripts/                        # Scripts d'automatisation et de synchronisation
+├── docs/                           # Justificatifs officiels et supports techniques (rapports d'audit PDF)
 └── README.md                       # Spécifications et documentation d'ingénierie
 ```
 
