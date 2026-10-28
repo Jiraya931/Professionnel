@@ -492,14 +492,14 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             title: `Laboratoire Datacenter : Proxmox VE 8, FortiGate 7.4 & Cisco IOL`,
             category: `VIRTUALISATION KVM, CYBERSÉCURITÉ FORTINET & RÉSEAUX CISCO`,
             image: `assets/project_homelab_network.png`,
-            desc: `Conception, déploiement physique et audit complet d'un laboratoire d'ingénierie virtualisé d'entreprise : hyperviseur physique Proxmox VE 8 (CPU Host VT-x imbriqué, VirtIO SCSI), émulateur EVE-NG, pare-feu Fortinet FortiOS 7.4 (licence permanente, NAT, règles d'état, logs RAM), commutation Cisco IOL L2 (VLAN 10, Trunk 802.1Q) et routage Cisco IOL L3 (Router-on-a-stick). Tests réels validés de bout en bout avec latence < 1ms et rapport d'audit officiel téléchargeable.`,
-            techs: [`Proxmox VE 8.x`, `EVE-NG Community`, `Fortinet FortiOS 7.4`, `Cisco IOL L2/L3`, `Trunk 802.1Q`, `Inter-VLAN Routing`, `NAT Dynamique`, `Router-on-a-Stick`, `KVM / VirtIO SCSI`],
+            desc: `Conception, déploiement physique et audit complet d'un datacenter d'ingénierie virtualisé d'entreprise : hyperviseur Proxmox VE 8, émulateur EVE-NG, pare-feu Fortinet FortiOS 7.4 (licence permanente, NAT, règles multi-zones, logs RAM), commutation Cisco IOL L2 et routage Cisco IOL L3. Inclut le Palier 1 (Zone DMZ étanche, serveur Web durci Alpine Linux & Virtual IP) et le Palier 2 (VPN IPsec Site-à-Site IKEv2 multi-constructeurs reliant le Siège Fortinet à une Succursale Cisco R2 avec PFS DH14). Tests réels validés à 100% de bout en bout et rapport d'audit officiel téléchargeable.`,
+            techs: [`Proxmox VE 8.x`, `EVE-NG Community`, `Fortinet FortiOS 7.4`, `Cisco IOL L2/L3`, `Zone DMZ`, `Virtual IP (VIP)`, `VPN IPsec IKEv2`, `PFS DH Group 14`, `Multi-Constructeurs`, `KVM / VirtIO SCSI`],
             features: [
                 `Interconnexion complète client VPCS -> Switch L2 (VLAN 10) -> Routeur L3 -> FortiGate -> Sortie Internet (8.8.8.8)`,
-                `Politique de sécurité FortiGate avec NAT dynamique, inspection d'état et journalisation des sessions en mémoire RAM`,
-                `Commutateur Cisco L2 avec Trunking dot1q et routeur Cisco L3 avec sous-interfaces 802.1Q dédiées`,
-                `Serveur physique Proxmox VE 8 avec accélération CPU host KVM imbriquée et stockage VirtIO SCSI TRIM`,
-                `Dossier technique d'audit officiel complet (1.45 Mo) intégrant 9 captures réelles de terminaux et d'interfaces web`
+                `Palier 1 : Architecture DMZ étanche sous FortiGate avec serveur Web Alpine Linux et publication externe sécurisée par Virtual IP (VIP 8080 -> 80)`,
+                `Palier 2 : Tunnel VPN IPsec Site-à-Site IKEv2 multi-constructeurs (Fortinet HQ <-> Cisco R2 Branch) avec chiffrement ESP, PFS DH14 et routage inter-sites`,
+                `Politique de sécurité FortiGate consolidée multi-interfaces (CORP_INTERNAL_INTERZONE) optimisée pour le quota de la licence d'évaluation (3 règles)`,
+                `Dossier technique d'audit officiel complet (2.97 Mo) intégrant 7 guides d'ingénierie pas à pas et 15 captures d'écran réelles de production`
             ],
             github: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         },
