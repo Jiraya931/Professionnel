@@ -268,7 +268,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
 • Profil LinkedIn : <a href="https://www.linkedin.com/in/ababacar-ousmane-niang-117419233/" target="_blank" style="color:#38bdf8;">linkedin.com/in/ababacar-ousmane-niang</a>
 • Localisation : Axe Diamniadio - Dakar, Sénégal (Disponible)`,
 
-        'download-cv': `Téléchargement du CV en cours... <br>Consultez directement le document : <a href="docs/CV_updated.pdf" target="_blank" style="color:#00f0ff; text-decoration:underline;">Ouvrir CV_updated.pdf</a>`
+        'download-cv': `Téléchargement du CV en cours... <br>Consultez directement le document : <a href="docs/CV_Ababacar_Ousmane_Niang.pdf" target="_blank" style="color:#00f0ff; text-decoration:underline;">Ouvrir CV_Ababacar_Ousmane_Niang.pdf</a>`
     };
 
     function executeCommand(rawCmd) {
@@ -298,7 +298,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             printResponse(terminalCommands['security-audit']);
         } else if (cmd === 'download cv' || cmd === 'download-cv' || cmd === 'cv') {
             printResponse(terminalCommands['download-cv']);
-            window.open('docs/CV_updated.pdf', '_blank');
+            window.open('docs/CV_Ababacar_Ousmane_Niang.pdf', '_blank');
         } else if (terminalCommands[cmd]) {
             printResponse(terminalCommands[cmd]);
         } else {
@@ -750,7 +750,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
                 document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
                 break;
             case 'open-cv':
-                window.open('docs/CV_updated.pdf', '_blank');
+                window.open('docs/CV_Ababacar_Ousmane_Niang.pdf', '_blank');
                 break;
             case 'open-recruiter':
                 if (recruiterModal) recruiterModal.classList.add('active');
