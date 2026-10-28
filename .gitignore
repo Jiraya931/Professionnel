@@ -38,3 +38,8 @@ scripts/
 
 # University internal course notes & drafts
 docs/isi/
+
+# Python bytecode
+__pycache__/
+*.py[cod]
+*$py.class
