@@ -32,3 +32,6 @@ build/
 
 # Deployment worktree
 .deploy-gh-pages/
+
+# University internal course notes & drafts
+docs/isi/
