@@ -14,7 +14,8 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 2. L'inspection des flux sortants et le masquage d'adresses réseau (NAT dynamique WAN).
 3. L'isolation d'une zone DMZ et la publication de services via Virtual IP (DNAT / Port Forwarding).
 4. L'interconnexion sécurisée de sites distants par tunnel VPN IPsec Site-à-Site IKEv2 multi-constructeurs (Fortinet HQ vers Cisco Branch).
-5. La validation opérationnelle de la connectivité WAN de bout en bout avec métrologie et journalisation des flux en temps réel.
+5. L'élévation de posture de sécurité NGFW (Palier 3) : inspection applicative L7 (Application Control), prévention d'intrusion sur mesure (Deep Packet Inspection / Custom IPS Sensor contre SQLi et Path Traversal) et atténuation d'attaques par déni de service (DoS Policy).
+6. La validation opérationnelle de la connectivité WAN de bout en bout avec métrologie et journalisation des flux en temps réel.
 
 ---
 
@@ -74,7 +75,7 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 
 ## 3. Guides Techniques Détaillés
 
-Le projet est documenté par 7 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
+Le projet est documenté par 8 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
 
 1. [**Guide 01 : Migration EVE-NG de VMware Workstation vers Proxmox VE**](./guides/01_MIGRATION_EVENG_PROXMOX.md)  
    Exportation des disques VMDK, transfert SSH/SCP, importation `qm disk import` sous Proxmox VE et activation du flag processeur `host` (Nested KVM).
@@ -90,6 +91,8 @@ Le projet est documenté par 7 guides pas-à-pas disponibles dans le dossier [`g
    Création de la zone DMZ étanche sur `port3` (172.16.50.254/24), déploiement du serveur Web Linux QEMU durci, politiques inter-zones LAN vers DMZ et publication WAN par Virtual IP (VIP Port Forwarding 8080 vers 80).
 7. [**Guide 07 : Palier 2 - VPN IPsec Site-à-Site IKEv2 Multi-Constructeurs (Fortinet & Cisco)**](./guides/07_PALIER_2_VPN_IPSEC_SITE_A_SITE_MULTI_CONSTRUCTEURS.md)  
    Interconnexion chiffrée entre Siège FortiGate et Succursale Cisco IOL L3, négociation IKEv2 / IPsec ESP, PFS DH14, gestion des contraintes cryptographiques d'évaluation, consolidation multi-interfaces pare-feu et routage inter-sites avec 100% de succès.
+8. [**Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d'Intrusion (IPS)**](./guides/08_PALIER_3_CYBERSECURITE_NGFW_INSPECTION_UTM_ET_IPS.md)  
+   Inspection DPI L7, compilation de signatures IPS F-SBID (blocage SQLi et Path Traversal), capteur IPS DMZ, filtrage applicatif (blocage P2P / Proxy) et atténuation d'attaques DoS/Flood sur l'interface WAN.
 
 ---
 
@@ -142,6 +145,15 @@ name=VPN_BRANCH ver=2 serial=1 192.168.1.4:0->192.168.1.250:0 status=up
 
 VPCS PC2-BRANCH> ping 172.16.50.10 (DMZ) -> 5/5 packets received (2.2 ms)
 VPCS PC2-BRANCH> ping 10.10.10.50 (Campus LAN) -> 5/5 packets received (2.8 ms)
+```
+
+### 5. Palier 3 : Cybersécurité NGFW Avancée (Inspection UTM & Filtrage Applicatif)
+```text
+Requête normale VIP (HTTP 200 OK) : curl http://192.168.1.4:8080/ -> Succès nominal
+Attaque SQLi interceptée (DPI) : curl "...?id=1%20UNION%20SELECT%20null" -> Dropped (0 bytes received)
+Attaque Path Traversal bloquée : curl "...?file=/etc/passwd" -> Dropped (0 bytes received)
+Attaque ICMP Flood atténuée : 80 paquets émis -> coupure stricte au seuil 50 pps (37.5% packet loss)
+Journaux d'audit IPS (attackid 3900 & 2906) et DoS Anomaly (attackid 16777316) générés avec sévérité critique
 ```
 
 ---

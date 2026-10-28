@@ -86,22 +86,22 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 
 ### 6. [Homelab Réseau & Sécurité Périmétrique (Proxmox VE 8, FortiGate 7.4 & Cisco IOL)](./06-Homelab-Proxmox-FortiGate-Cisco/)
 - **Contexte & Infrastructure** : Déploiement Bare-Metal sur **Proxmox VE 8.x** avec virtualisation imbriquée (*Nested KVM Intel VMX*).
-- **Architecture & Composants** :
+- **Architecture & Paliers Déployés** :
   - **Pare-feu NGFW Fortinet FortiGate 7.4.13** : Routage inter-VLANs, NAT dynamique WAN, règles de sécurité d'état et journalisation en temps réel.
-  - **Plateforme d'émulation EVE-NG Community** : Hébergement des routeurs et commutateurs virtuels **Cisco IOL (IOS on Linux)**.
-  - **Commutation & Routage Cisco** : Commutateur Cisco SW1 L2 (Trunk 802.1Q, VLANs 1 & 10) et Routeur Cisco R1 L3 (*Router-on-a-stick* sous-interface `e0/0.10`).
+  - **Palier 1 (DMZ & Publication Externe)** : Zone DMZ étanche sur `port3` (`172.16.50.254/24`), serveur Web Alpine Linux durci (`172.16.50.10:80`) et publication WAN par Virtual IP (`VIP_WEB_DMZ` port 8080 vers 80).
+  - **Palier 2 (VPN IPsec IKEv2 Multi-Constructeurs)** : Interconnexion chiffrée entre FortiGate HQ et routeur Cisco IOL L3 R2 Branch (`192.168.1.250`), négociation IKEv2 / IPsec ESP, PFS DH14 et routage inter-sites.
+  - **Palier 3 (Cybersécurité NGFW Avancée & Inspection UTM)** : Moteur IPS avec signatures F-SBID sur mesure (blocage d'injections SQL et traversées de répertoire), capteur IPS DMZ, filtrage applicatif L7 (Application Control bloquant P2P et proxies) et politique anti-DDoS (DoS Policy atténuant les inondations ICMP/SYN flood au niveau critique).
 - **Validation Opérationnelle & Performances** : 
   - Connectivité de bout en bout validée vers l'Internet (100% succès ping vers 8.8.8.8, latence interne < 1 ms, RTT moyen WAN 62.9 ms).
-  - Inspection et translation des flux confirmées dans les tables de sessions FortiOS (`diagnose sys session list`).
+  - Blocage et journalisation certifiés des tentatives d'intrusion et d'inondation volumétrique dans les journaux d'audit FortiOS.
 - **Livrables Inclus** :
-  - 5 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
-  - Fichiers de configuration CLI réels pour Cisco SW1, Cisco R1 et FortiGate 7.4 ([`configs/`](./06-Homelab-Proxmox-FortiGate-Cisco/configs/)).
-  - [Rapport d'Audit Technique Complet (1.45 Mo)](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
+  - 8 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
+  - [Rapport d'Audit Technique Complet](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
 
-### 7. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Dossier Académique ISI)
-- **Virtualisation Datacenter & Hyperviseurs** : Architecture VMware vSphere & Proxmox VE avec dimensionnement de datacenter virtuel et cluster haute disponibilité ([Rapport Proxmox VE](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/Rapport%20ProxMox.pdf) / [Rapport Datacenter Virtuel](./docs/isi/M1/Sem2/Virtualisation%20et%20Datacenter/Rapport/RAPPORT-DATACENTER%20VIRTUEL.pdf)).
-- **Observabilité, Métrologie & SIEM** : Déploiement d'une chaîne de monitoring Prometheus/Grafana sous Linux Debian et cluster de centralisation de journaux SIEM Graylog avec OpenSearch ([Rapport Prometheus & Grafana](./docs/isi/M1/Sem2/Supervision%20des%20Syst%C3%A8mes%20et%20Services%20R%C3%A9seaux%20Avanc%C3%A9e/Rapport/PROMETHEUS%20&%20GRAFANA%20SUR%20DEBIAN.pdf) / [Rapport Installation Graylog](./docs/isi/M1/Sem2/Administration%20syst%C3%A8me%20avanc%C3%A9%20-%20LinuxWindows/Rapport/Rapport_Installation_Graylog.pdf)).
-- **Gestion des Services ITIL & Inventaire de Parc** : Implémentation d'une plateforme d'ITSM GLPI alignée ITIL v3 avec synchronisation d'annuaire Windows Server Active Directory en LDAP ([Guide GLPI & Active Directory](./docs/isi/M2/Sem1/Gestion%20des%20services%20%C3%A0%20l%E2%80%99aide%20du%20r%C3%A9f%C3%A9rentiel%20ITIL/MISE%20EN%20PLACE%20DE%20GLPI%20ET%20liaison%20avec%20AD.pdf)).
+### 7. Travaux d'Ingénierie Systèmes, Virtualisation & Supervision (Cursus ISI)
+- **Virtualisation Datacenter & Hyperviseurs** : Architecture VMware vSphere & Proxmox VE avec dimensionnement de datacenter virtuel et cluster haute disponibilité.
+- **Observabilité, Métrologie & SIEM** : Déploiement d'une chaîne de monitoring Prometheus/Grafana sous Linux Debian et cluster de centralisation de journaux SIEM Graylog avec OpenSearch.
+- **Gestion des Services ITIL & Inventaire de Parc** : Implémentation d'une plateforme d'ITSM GLPI alignée ITIL v3 avec synchronisation d'annuaire Windows Server Active Directory en LDAP.
 
 ---
 
