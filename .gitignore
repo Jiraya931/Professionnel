@@ -35,3 +35,6 @@ build/
 
 # Local automation scripts
 scripts/
+
+# University internal course notes & drafts
+docs/isi/
