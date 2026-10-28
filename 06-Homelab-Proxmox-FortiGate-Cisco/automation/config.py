@@ -28,7 +28,8 @@ INVENTORY = {
         "port": 32771,
         "proto": "telnet",
         "expected_interfaces": ["Ethernet0/1", "Ethernet0/0.10"],
-        "expected_routes": ["0.0.0.0/0", "10.10.10.0/24", "172.16.1.0/30"]
+        "expected_routes": ["0.0.0.0/0", "10.10.10.0/24", "172.16.1.0/30"],
+        "expected_ospf_neighbors": ["172.16.1.1"]
     },
     "SW1_HQ": {
         "vendor": "cisco",
@@ -62,6 +63,8 @@ INVENTORY = {
         "expected_vips": ["VIP_WEB_DMZ"],
         "expected_policies": ["LAN_TO_INTERNET", "CORP_INTERNAL_INTERZONE", "WAN_TO_DMZ_VIP"],
         "expected_ips_sensors": ["IPS_SENSOR_DMZ"],
-        "expected_app_ctrl": ["APP_CTRL_ENTERPRISE"]
+        "expected_app_ctrl": ["APP_CTRL_ENTERPRISE"],
+        "expected_ospf_neighbors": ["1.1.1.1"],
+        "expected_routes": ["10.10.10.0/24"]
     }
 }

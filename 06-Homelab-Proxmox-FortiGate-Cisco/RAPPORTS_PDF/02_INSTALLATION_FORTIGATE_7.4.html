@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide 02 : Déploiement et Licence Fortinet FortiGate 7.4</title>
+  <style>
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 14mm 12mm;
+    @bottom-right {
+      content: counter(page) "/" counter(pages);
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.3px;
+  }
+
+  .header-card .subtitle {
+    margin: 0 0 14px 0;
+    font-size: 10.5pt;
+    color: #93c5fd;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 10px;
+    font-size: 8.5pt;
+    color: #cbd5e1;
+  }
+
+  .header-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(59, 130, 246, 0.2);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  h2 {
+    color: #0f172a;
+    font-size: 13pt;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    color: #1e3a8a;
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  ul, ol {
+    margin: 0 0 12px 0;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0 14px 0;
+    border: 1px solid #1e293b;
+    page-break-inside: avoid;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  blockquote {
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e3a8a;
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  /* Screenshot / Verification Box */
+  .screenshot-box {
+    margin: 16px 0 20px 0;
+    background: #fafaf9;
+    border: 2px dashed #0284c7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  .screenshot-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 6px;
+  }
+
+  .screenshot-tag {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .screenshot-target {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #0369a1;
+  }
+
+  .screenshot-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0 0 6px 0;
+  }
+
+  .screenshot-checklist {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
+    font-size: 8.5pt;
+    color: #334155;
+  }
+
+  .screenshot-checklist li {
+    margin-bottom: 3px;
+  }
+
+  .screenshot-preview {
+    margin-top: 8px;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    border: 1px solid #1e293b;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer-notice {
+    margin-top: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 7.5pt;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="header-card">
+    <div class="badge">DOCUMENTATION OFFICIELLE HOMELAB & RÉSEAU</div>
+    <h1>Guide 02 : Déploiement et Licence Fortinet FortiGate 7.4</h1>
+    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
+    <div class="header-meta">
+      <div class="header-meta-item"><strong>Date :</strong> 27 Octobre 2026</div>
+      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</div>
+      <div class="header-meta-item"><strong>Plateforme :</strong> EVE-NG Community (192.168.1.11)</div>
+      <div class="header-meta-item"><strong>Statut :</strong> Validé & Opérationnel ✅</div>
+    </div>
+  </div>
+
+  <p>Ce guide explique l'installation du pare-feu <strong>Fortinet FortiGate</strong> sous EVE-NG, la gestion des licences d'évaluation officielles et la mise en service de l'interface graphique FortiOS.</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>1. Comprendre la différence : FFW vs FGT</h2>
+<p>Lors du premier déploiement, une image <code>FFW</code> (FortiFirewall) avait été installée :</p>
+<ul><li><strong><code>FFW</code> (FortiFirewall) :</strong> Déclinaison opérateur télécoms/CGNAT. Elle n'inclut <strong>aucun mode d'évaluation gratuit</strong> et verrouille l'interface web tant qu'un fichier de licence payant (<code>.lic</code>) n'est pas fourni.</li><li><strong><code>FGT</code> (FortiGate) :</strong> Le modèle standard d'entreprise utilisé pour les certifications (<strong>NSE 4 / FCF</strong>). Il intègre la <strong>licence d'évaluation gratuite permanente</strong> de Fortinet.</li></ul>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>2. Téléchargement officiel de l'image KVM</h2>
+<ol start="1"><li>Rendez-vous sur le portail officiel : <a href="https://support.fortinet.com">https://support.fortinet.com</a> (inscription gratuite).</li><li>Menu : <strong><code>Support</code> ➔ <code>VM Images</code></strong>.</li><li>Sélectionner :</li></ol>
+<ul><li><strong>Product :</strong> <code>FortiGate</code></li><li><strong>Platform :</strong> <code>KVM</code></li><li><strong>Version :</strong> <code>7.4</code> (onglet <em>Earlier Versions</em>)</li></ul>
+<ol start="4"><li>Télécharger le package de déploiement x86_64 :</li></ol>
+<p>   <code>FGT_VM64_KVM-v7.4.13.M-build2933-FORTINET.out.kvm.zip</code></p>
+<ol start="5"><li>Extraire le fichier zip pour obtenir <strong><code>fortios.qcow2</code></strong>.</li></ol>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>3. Installation dans EVE-NG</h2>
+<p>Depuis PowerShell sur le PC portable :</p>
+<pre><code class="powershell">scp "fortios.qcow2" root@192.168.1.11:/tmp/virtioa.qcow2</code></pre>
+<p>Dans le terminal EVE-NG (<code>root@192.168.1.11</code>) :</p>
+<pre><code class="bash"># 1. Créer le dossier conforme EVE-NG
+mkdir -p /opt/unetlab/addons/qemu/fortinet-FGT-7.4.13
+
+# 2. Déplacer l'image
+mv /tmp/virtioa.qcow2 /opt/unetlab/addons/qemu/fortinet-FGT-7.4.13/
+
+# 3. Supprimer les anciennes images obsolètes (optionnel)
+find /opt/unetlab/addons/qemu/ -maxdepth 1 -type d -name "fortinet*" ! -name "fortinet-FGT-7.4.13" -exec rm -rf {} +
+
+# 4. Réparer les permissions EVE-NG
+/opt/unetlab/wrappers/unl_wrapper -a fixpermissions</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>4. Paramètres du Nœud dans EVE-NG</h2>
+<p>Lors de l'ajout du nœud <strong>Fortinet FortiGate</strong> sur le lab :</p>
+<ul><li><strong>CPU :</strong> <strong><code>1</code></strong> <em>(Impératif : la licence gratuite limite à 1 vCPU, 2 vCPUs bloqueraient la licence !)</em></li><li><strong>RAM :</strong> <strong><code>2048</code></strong> Mo <em>(Minimum requis pour FortiOS pour éviter l'erreur de mémoire out-of-memory)</em></li><li><strong>Ethernet Interfaces :</strong> <code>4</code> ou plus</li></ul>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>5. Premier démarrage et Activation de la Licence Gratuite</h2>
+<ol start="1"><li>Relier le <strong><code>port1</code></strong> au nuage <strong><code>Management (Cloud0)</code></strong> et démarrer le FortiGate.</li><li>Ouvrir la console CLI :</li></ol>
+<ul><li><strong>Login :</strong> <code>admin</code></li><li><strong>Password :</strong> (Appuyer sur Entrée car vide)</li><li><strong>Nouveau mot de passe :</strong> Respecter la politique de 12 caractères min avec majuscule, minuscule, chiffre et symbole (ex: <code>••••••••••••</code> / mot de passe robuste personnalisé).</li></ul>
+<ol start="3"><li>Activer le DHCP et l'accès web sur <code>port1</code> :</li></ol>
+<pre><code class="text">   config system interface
+       edit port1
+           set mode dhcp
+           set allowaccess ping https ssh http
+       next
+   end
+   config system dns
+       set primary 8.8.8.8
+       set secondary 1.1.1.1
+   end</code></pre>
+<ol start="4"><li>Obtenir l'IP : <code>diagnose ip address list</code> (ex: <code>192.168.1.4</code>).</li><li>Ouvrir dans le navigateur : <code>https://192.168.1.4</code>.</li><li>Sur la page d'activation de licence :</li></ol>
+<ul><li>Cliquer sur le bouton <strong><code>Evaluation license</code></strong>.</li><li>Renseigner ses identifiants FortiCloud (<code>email</code> et <code>mot de passe</code>).</li><li>Cliquer sur <strong><code>OK</code></strong> : le pare-feu contacte les serveurs Fortinet et redémarre automatiquement.</li></ul>
+
+  <div class="screenshot-box">
+    <div class="screenshot-box-header">
+      <span class="screenshot-tag">📸 Validation Visuelle en Direct</span>
+      <span class="screenshot-target">Console / Interface Web</span>
+    </div>
+    <div class="screenshot-title">CAPTURE RECOMMANDÉE 01</div>
+    <ul class="screenshot-checklist">
+      <li><strong>Écran cible :</strong> Interface de gestion du laboratoire</li>
+      <li><strong>Preuve à valider :</strong> Vérification du résultat conforme de la commande / statut</li>
+      <li><strong>Statut du test en direct :</strong> Test validé avec succès sur les équipements réels ✅</li>
+    </ul>
+    
+    <div style="margin-top: 10px; text-align: center;">
+      <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABQAAAAMgCAIAAADz+lisAAAQAElEQVR4nOzdf4ic9YHH8W80pimXgivJIssSeqXsFWvNWnJUDgoJOUIMGAT7x5k/TqHb/NEG5GjYEOUg0Ks5c4FeQCxoBC1H2j8aEFOiFxp3ab3DK+Gy1rTU4J1FZJFNcIXuUZtfe8/M7M5OdpOYmNl0Zz+vF7I788zzzOw/T3jefr/fZ5ZOTk4WAAAAWOxuKQAAABBAAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBBAAMAABBhaQHgpjh69GgBuJyNGzcWAOafAAa4efb859MF4FK7/mZ7AeCmMAUaAACACAIYAACACAIYAACACAIYAACACAIYAACACAIYAACACAIYAACACAIYAACACAIYAACACEsLAAvIVx/+u4c3rfyL5vOJ93/8nZd+WcpD39u+YfWsfc8ce+Qnh0r5+s6Bh+9a3tz6f++N/PgfX//vAgDApQQwwMLx1Z3bH9+0clnrpomJ2+u/e1ev7J0dwKW3/vP2O6uXZgK4rP7bx19c+eQjL2lgAIBLmAINsFCseXBgVv1+WstW9w/s/HwBAKCVAAZYIO7+xud7S9v09t93dwEAoIUABlggNqy+vbTRnSs3FAAAWlgDDLBAvPX6ydvunLN14v13r/jqR2/Vf737+slffLh8zpFTrwIAMEUAAywQrz3309c+1asnD/3s5KECAMAnEMAAC8Rf/vXdvSvmbD078fZ//H7sqgd2r/nSX90x95/zj98feufdAgDANAEMsEBs2f6NOd/0W8rE75974IXDVz3wa48++K3+uVOgzxwbenp/AQBgmptgAQAAEEEAAwAAEEEAAwAAEMEaYIAF4uzZ82fPztk6cf7cJx147uzHZ8/O/ef8/NkCAEALAQywQPzwW//0w/JpvLrzX18tAAB8ElOgAQAAiGAEGGCBeOh72y/3NUjv//g7L/3y8q+eOfbITw6V8vWdAw/fdbmvQaq/CgDAFAEMsEB03bmy9zIBPHF7/Xfv6su82lv/eXvtwLkBPPUqAABTTIEGWCBefudMaaMPPjhWAABoIYABFoixp46/NVHa5Pzbr/38ZAEAoIUABlgw3tj/wjvjbfjyovPjv/r5vzz3UQEAoJU1wAALx9ihf3tkpP/vv/HF7mXTmybef7f++63XT95256zdP3qr/uvd10/+4sPmGuDzY79640f//kEBAGAWAQywsPzPyI+eGpm7+bXn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7EyBBgAAIIIABgAAIIIABgAAIIIABigAACQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAEQQwAAAAET4fwAAAP//nFGImgAAAAZJREFUAwBXB3jOfs1WuQAAAABJRU5ErkJggg==" style="max-width: 98%; max-height: 240px; border: 1px solid #cbd5e1; border-radius: 6px; box-shadow: 0 2px 4px rgba(0,0,0,0.06);" />
+      <div style="font-size: 7.5pt; color: #64748b; margin-top: 5px; font-weight: 600;">Portail Web d'administration FortiOS 7.4 (192.168.1.4)</div>
+    </div>
+  </div>
+<p>Au redémarrage, l'interface graphique <strong>FortiOS 7.4 complète est active et utilisable sans limite de temps</strong> !</p>
+
+  <div class="footer-notice">
+    <span>Homelab Cybersécurité & Réseau — Documentation Technique Opérationnelle</span>
+    <span>Généré automatiquement au format d'audit PDF</span>
+  </div>
+</body>
+</html>

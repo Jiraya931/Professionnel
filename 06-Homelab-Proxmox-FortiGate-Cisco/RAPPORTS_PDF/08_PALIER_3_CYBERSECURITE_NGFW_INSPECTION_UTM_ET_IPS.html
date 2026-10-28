@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d'Intrusion (IPS)</title>
+  <style>
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 14mm 12mm;
+    @bottom-right {
+      content: counter(page) "/" counter(pages);
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.3px;
+  }
+
+  .header-card .subtitle {
+    margin: 0 0 14px 0;
+    font-size: 10.5pt;
+    color: #93c5fd;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 10px;
+    font-size: 8.5pt;
+    color: #cbd5e1;
+  }
+
+  .header-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(59, 130, 246, 0.2);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  h2 {
+    color: #0f172a;
+    font-size: 13pt;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    color: #1e3a8a;
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  ul, ol {
+    margin: 0 0 12px 0;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0 14px 0;
+    border: 1px solid #1e293b;
+    page-break-inside: avoid;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  blockquote {
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e3a8a;
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  /* Screenshot / Verification Box */
+  .screenshot-box {
+    margin: 16px 0 20px 0;
+    background: #fafaf9;
+    border: 2px dashed #0284c7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  .screenshot-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 6px;
+  }
+
+  .screenshot-tag {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .screenshot-target {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #0369a1;
+  }
+
+  .screenshot-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0 0 6px 0;
+  }
+
+  .screenshot-checklist {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
+    font-size: 8.5pt;
+    color: #334155;
+  }
+
+  .screenshot-checklist li {
+    margin-bottom: 3px;
+  }
+
+  .screenshot-preview {
+    margin-top: 8px;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    border: 1px solid #1e293b;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer-notice {
+    margin-top: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 7.5pt;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="header-card">
+    <div class="badge">DOCUMENTATION OFFICIELLE HOMELAB & RÉSEAU</div>
+    <h1>Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d'Intrusion (IPS)</h1>
+    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
+    <div class="header-meta">
+      <div class="header-meta-item"><strong>Date :</strong> 27 Octobre 2026</div>
+      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</div>
+      <div class="header-meta-item"><strong>Plateforme :</strong> EVE-NG Community (192.168.1.11)</div>
+      <div class="header-meta-item"><strong>Statut :</strong> Validé & Opérationnel ✅</div>
+    </div>
+  </div>
+
+  <p>Ce guide documente l'implementation complete du Palier 3 d'Ingenierie Reseau et Cybersecurite : le durcissement perimetrique et applicatif (L7) du pare-feu Fortinet FortiGate 7.4.13 dans un environnement virtuel hybride EVE-NG / Proxmox VE.</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>1. Contexte Operationnel et Objectifs de Securite</h2>
+<p>A la suite du deploiement de la zone DMZ (Palier 1) et de l'interconnexion VPN IPsec IKEv2 (Palier 2), l'infrastructure necessite une elevation de posture de securite pour contrer les menaces modernes :</p>
+<ol start="1"><li><strong>Inspection Applicative L7 (Application Control) :</strong> Identifier les applications independamment des ports TCP/UDP utilises et bloquer les protocoles a haut risque (P2P, tunnels anonymisateurs, acces non securises).</li><li><strong>Prevention d'Intrusion Personnalisee (Custom IPS DPI) :</strong> Inspecter en profondeur la charge utile (Deep Packet Inspection) du trafic HTTP a destination du serveur Web DMZ (<code>172.16.50.10:80</code>) publie via VIP, avec detection et blocage immediat d'injections SQL (SQLi) et de traversees de repertoire (Path Traversal).</li><li><strong>Protection contre les Denis de Service (Anti-DoS / DoS Policy) :</strong> Attenuer les attaques d'inondation volumetrique (ICMP Flood, TCP SYN Flood) et les balayages de ports (Port Scanning) ciblant l'adresse IP publique/WAN du pare-feu (<code>192.168.1.4</code>).</li></ol>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>2. Topologie de Securite NGFW / UTM</h2>
+<pre><code class="text">+-----------------------------------------------------------------------------------------+
+|                               WAN / Internet / Reseau Externe                          |
+|                       Source d'Attaque &amp; Trafic Legitime (192.168.1.3)                 |
++--------------------------------------------+--------------------------------------------+
+                                             | IP WAN : 192.168.1.4 (port1)
+                                             | [DoS Policy: Anti-Flood &amp; Anti-Scan]
++--------------------------------------------v--------------------------------------------+
+|                                FORTINET FORTIGATE 7.4.13                                |
+|                               Moteur NGFW / Inspection UTM                              |
+|                                                                                         |
+|  - Politiques DoS WAN       : tcp_syn_flood (100 pps), icmp_flood (50 pps), port_scan   |
+|  - Capteur IPS (IPS_SENSOR) : Custom.SQLi.Attack (3900), Custom.PathTraversal (2906)   |
+|  - Application Control      : APP_CTRL_ENTERPRISE (Blocage P2P / Proxy / Tunnels)       |
+|  - Virtual IP (VIP_WEB_DMZ) : Redirection WAN 8080 vers DMZ 80 avec inspection DPI      |
++---------------------+---------------------------------------------------+---------------+
+                      | port2 (172.16.1.1/30)                             | port3 (172.16.50.254/24)
+                      | Interconnexion Campus                              | Passerelle Zone DMZ
++---------------------v-------------------+             +-----------------v---------------+
+|        Routeur Cisco R1 (HQ Campus)     |             |         Serveur Web DMZ         |
+|      Passerelle VLAN 10 (10.10.10.1)    |             |       (Alpine Linux 3.20)       |
++---------------------+-------------------+             |       IP : 172.16.50.10/24      |
+                      | Trunk 802.1Q                            |       Port applicatif : 80      |
++---------------------v-------------------+             +---------------------------------+
+|        Switch Cisco SW1 (Acces)         |
++---------------------+-------------------+
+                      | Port Access VLAN 10
++---------------------v-------------------+
+|            Client Campus HQ             |
+|          IP : 10.10.10.50/24            |
++-----------------------------------------+</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>3. Configuration des Signatures IPS Personnalisees (Deep Packet Inspection)</h2>
+<p>Afin d'assurer une protection chirurgicale sur les requetes HTTP entrantes sans dependance exclusive a des abonnements externes, deux signatures d'inspection profonde ont ete compilees au format F-SBID dans le moteur IPS FortiOS.</p>
+<h3>3.1. Signature 1 : Detection d'Injection SQL (SQLi)</h3>
+<p>Cette regle inspecte les URIs HTTP a la recherche de motifs typiques d'injection SQL (<code>UNION SELECT</code>).</p>
+<pre><code class="text">config ips custom
+    edit "Custom.SQLi.Attack"
+        set signature "F-SBID( --name \"Custom.SQLi.Attack\"; --protocol tcp; --service HTTP; --pattern \"UNION SELECT\"; --context uri; --no_case; )"
+        set severity high
+        set action block
+    next
+end</code></pre>
+<h3>3.2. Signature 2 : Detection de Traversee de Repertoire (Path Traversal)</h3>
+<p>Cette regle identifie les tentatives d'acces aux fichiers systemes critiques (<code>/etc/passwd</code>).</p>
+<pre><code class="text">config ips custom
+    edit "Custom.PathTraversal.Attack"
+        set signature "F-SBID( --name \"Custom.PathTraversal.Attack\"; --protocol tcp; --service HTTP; --pattern \"/etc/passwd\"; --context uri; --no_case; )"
+        set severity high
+        set action block
+    next
+end</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>4. Creation du Capteur IPS (<code>IPS_SENSOR_DMZ</code>)</h2>
+<p>Les signatures compilees sont agregees dans un profil de capteur IPS dedie a la zone DMZ.</p>
+<pre><code class="text">config ips sensor
+    edit "IPS_SENSOR_DMZ"
+        set comment "Capteur IPS durci pour protection de la zone DMZ"
+        config entries
+            edit 1
+                set rule 3900
+                set status enable
+                set log-packet enable
+                set action block
+            next
+            edit 2
+                set rule 2906
+                set status enable
+                set log-packet enable
+                set action block
+            next
+        end
+    next
+end</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>5. Configuration du Controle Applicatif L7 (<code>APP_CTRL_ENTERPRISE</code>)</h2>
+<p>Le profil de filtrage applicatif analyse les flux L7 pour empecher l'usage abusif de bande passante et limiter les vecteurs d'exfiltration.</p>
+<pre><code class="text">config application list
+    edit "APP_CTRL_ENTERPRISE"
+        set comment "Filtrage et blocage applicatif L7 entreprise"
+        set deep-app-inspection enable
+        config entries
+            edit 1
+                set category 2 6
+                set action block
+                set log enable
+                set log-packet enable
+            next
+            edit 2
+                set action pass
+                set log enable
+            next
+        end
+    next
+end</code></pre>
+<p><em>Note : La categorie 2 correspond aux applications Peer-to-Peer (P2P/BitTorrent) et la categorie 6 aux serveurs mandataires (Proxy/Tunnels de contournement).</em></p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>6. Politique de Protection Anti-DDoS (<code>DoS-policy</code>)</h2>
+<p>Pour proteger le plan de controle du pare-feu et les ressources serveur contre le deni de service volumetrique, une politique DoS est appliquee directement sur l'interface externe (<code>port1</code>).</p>
+<pre><code class="text">config firewall DoS-policy
+    edit 1
+        set name "DOS_WAN_PROTECT"
+        set interface "port1"
+        set srcaddr "all"
+        set dstaddr "all"
+        set service "ALL"
+        config anomaly
+            edit "tcp_syn_flood"
+                set status enable
+                set log enable
+                set action block
+                set threshold 100
+            next
+            edit "icmp_flood"
+                set status enable
+                set log enable
+                set action block
+                set threshold 50
+            next
+            edit "tcp_port_scan"
+                set status enable
+                set log enable
+                set action block
+                set threshold 100
+            next
+        end
+    next
+end</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>7. Application des Profils UTM aux Politiques de Pare-feu</h2>
+<p>Les profils de securite sont associes aux regles de filtrage d'entreprise :</p>
+<pre><code class="text">config firewall policy
+    edit 20
+        set name "WAN_TO_DMZ_VIP"
+        set srcintf "port1"
+        set dstintf "port3"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "VIP_WEB_DMZ"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set ips-sensor "IPS_SENSOR_DMZ"
+        set logtraffic all
+    next
+    edit 10
+        set name "CORP_INTERNAL_INTERZONE"
+        set srcintf "port2" "VPN_BRANCH"
+        set dstintf "port3" "VPN_BRANCH" "port2"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set ips-sensor "IPS_SENSOR_DMZ"
+        set application-list "APP_CTRL_ENTERPRISE"
+        set logtraffic all
+    next
+    edit 1
+        set name "LAN_TO_INTERNET"
+        set srcintf "port2"
+        set dstintf "port1"
+        set action accept
+        set srcaddr "all"
+        set dstaddr "all"
+        set schedule "always"
+        set service "ALL"
+        set utm-status enable
+        set ssl-ssh-profile "certificate-inspection"
+        set application-list "APP_CTRL_ENTERPRISE"
+        set logtraffic all
+        set logtraffic-start enable
+        set nat enable
+    next
+end</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>8. Campagne de Tests et Preuves de Fonctionnement</h2>
+<h3>8.1. Test de Trafic Legitime vers le Portail DMZ</h3>
+<p>Requete HTTP normale via la VIP <code>http://192.168.1.4:8080/</code> :</p>
+<pre><code class="bash">curl -i -m 5 http://192.168.1.4:8080/</code></pre>
+<p><strong>Resultat :</strong></p>
+<pre><code class="http">HTTP/1.0 200 OK
+Server: SimpleHTTP/0.6 Python/3.12.3
+Content-type: text/html
+Content-Length: 1746
+
+&lt;!DOCTYPE html&gt;&lt;html lang="fr"&gt;&lt;head&gt;&lt;meta charset="UTF-8"&gt;&lt;title&gt;Portail DMZ - Ababacar Ousmane Niang&lt;/title&gt;&lt;/head&gt;...</code></pre>
+<p><em>Le flux traverse le pare-feu de maniere fluide, la VIP opere la translation DNAT vers 172.16.50.10:80.</em></p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h3>8.2. Test d'Attaque 1 : Injection SQL (SQLi)</h3>
+<p>Envoi d'un vecteur d'attaque SQLi dans les parametres d'URL :</p>
+<pre><code class="bash">curl -i -m 5 "http://192.168.1.4:8080/index.html?id=1%20UNION%20SELECT%20null"</code></pre>
+<p><strong>Resultat :</strong></p>
+<pre><code class="text">curl: (28) Operation timed out after 5000 milliseconds with 0 bytes received</code></pre>
+<p><em>Interception immediate par le moteur IPS : le paquet TCP est rejete avant d'atteindre le serveur DMZ.</em></p>
+<p><strong>Extrait du Journal d'Audit IPS FortiGate (<code>execute log filter category 4 ; execute log display</code>) :</strong></p>
+<pre><code class="text">date=2026-10-28 time=09:16:56 logid="0419016384" type="utm" subtype="ips" eventtype="signature" 
+level="alert" severity="critical" srcip=192.168.1.3 dstip=172.16.50.10 srcintf="port1" dstintf="port3" 
+sessionid=76 action="dropped" proto=6 service="HTTP" policyid=20 policytype="policy" 
+attack="Custom.SQLi.Attack" attackid=3900 profile="IPS_SENSOR_DMZ" 
+msg="custom: Custom.SQLi.Attack" crscore=50 craction=4096 crlevel="critical" 
+url="/index.html?id=1%20UNION%20SELECT%20null" agent="curl/7.81.0"</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h3>8.3. Test d'Attaque 2 : Traversee de Repertoire (Path Traversal)</h3>
+<p>Envoi d'un vecteur de ciblage du fichier d'identifiants systeme :</p>
+<pre><code class="bash">curl -i -m 5 "http://192.168.1.4:8080/index.html?file=/etc/passwd"</code></pre>
+<p><strong>Resultat :</strong></p>
+<pre><code class="text">curl: (28) Operation timed out after 5000 milliseconds with 0 bytes received</code></pre>
+<p><strong>Extrait du Journal d'Audit IPS FortiGate :</strong></p>
+<pre><code class="text">date=2026-10-28 time=09:18:44 logid="0419016384" type="utm" subtype="ips" eventtype="signature" 
+level="alert" severity="critical" srcip=192.168.1.3 dstip=172.16.50.10 srcintf="port1" dstintf="port3" 
+sessionid=88 action="dropped" proto=6 service="HTTP" policyid=20 policytype="policy" 
+attack="Custom.PathTraversal.Attack" attackid=2906 profile="IPS_SENSOR_DMZ" 
+msg="custom: Custom.PathTraversal.Attack" crscore=50 craction=4096 crlevel="critical" 
+url="/index.html?file=/etc/passwd" agent="curl/7.81.0"</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h3>8.4. Test d'Attaque 3 : Inondation ICMP (ICMP Flood)</h3>
+<p>Envoi d'une rafale de 80 paquets ICMP a haute frequence (intervalle 10 ms) vers l'adresse WAN du pare-feu (<code>threshold: 50</code>) :</p>
+<pre><code class="bash">ping -c 80 -i 0.01 192.168.1.4</code></pre>
+<p><strong>Resultat :</strong></p>
+<pre><code class="text">64 bytes from 192.168.1.4: icmp_seq=1 ttl=255 time=0.344 ms
+...
+64 bytes from 192.168.1.4: icmp_seq=50 ttl=255 time=0.434 ms
+
+--- 192.168.1.4 ping statistics ---
+80 packets transmitted, 50 received, 37.5% packet loss, time 1286ms</code></pre>
+<p><em>Exactement 50 paquets autorises. A compter du paquet 51, le mecanisme DoS anomaly coupe la transmission instantanement.</em></p>
+<p><strong>Extrait du Journal DoS Anomaly FortiGate (<code>execute log filter category 7 ; execute log display</code>) :</strong></p>
+<pre><code class="text">date=2026-10-28 time=09:19:19 logid="0720018433" type="utm" subtype="anomaly" eventtype="anomaly" 
+level="alert" severity="critical" srcip=192.168.1.3 dstip=192.168.1.4 srcintf="port1" 
+sessionid=0 action="clear_session" proto=1 service="PING" count=1 attack="icmp_flood" 
+attackid=16777316 policyid=1 policytype="DoS-policy" 
+msg="anomaly: icmp_flood, 51 &gt; threshold 50" crscore=50 craction=4096 crlevel="critical"</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>9. Synthese des Commandes de Diagnostic et de Supervision</h2>
+<table><thead><tr><th>Commande FortiOS</th><th>Role & Utilite Operationnelle</th></tr></thead><tbody><tr><td><code>execute log filter category 4 ; execute log display</code></td><td>Consulter les evenements et alertes critiques du capteur IPS</td></tr><tr><td><code>execute log filter category 7 ; execute log display</code></td><td>Consulter les alertes du moteur d'anomalie DoS / Flood</td></tr><tr><td><code>execute log filter category 10 ; execute log display</code></td><td>Visualiser les journaux de reconnaissance et de blocage applicatif L7</td></tr><tr><td><code>diagnose test application ipsmonitor 1</code></td><td>Afficher l'etat du moteur IPS et de l'allocation memoire</td></tr><tr><td><code>diagnose test application ipsmonitor 2</code></td><td>Forcer le rechargement des signatures IPS</td></tr><tr><td><code>diagnose firewall dos anomaly list</code></td><td>Lister les compteurs temps reel d'attaques DoS interceptees</td></tr></tbody></table>
+
+  <div class="footer-notice">
+    <span>Homelab Cybersécurité & Réseau — Documentation Technique Opérationnelle</span>
+    <span>Généré automatiquement au format d'audit PDF</span>
+  </div>
+</body>
+</html>

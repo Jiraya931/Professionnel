@@ -76,7 +76,7 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 
 ## 3. Guides Techniques Détaillés
 
-Le projet est documenté par 9 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
+Le projet est documenté par 10 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
 
 1. [**Guide 01 : Migration EVE-NG de VMware Workstation vers Proxmox VE**](./guides/01_MIGRATION_EVENG_PROXMOX.md)  
    Exportation des disques VMDK, transfert SSH/SCP, importation `qm disk import` sous Proxmox VE et activation du flag processeur `host` (Nested KVM).
@@ -94,8 +94,10 @@ Le projet est documenté par 9 guides pas-à-pas disponibles dans le dossier [`g
    Interconnexion chiffrée entre Siège FortiGate et Succursale Cisco IOL L3, négociation IKEv2 / IPsec ESP, PFS DH14, gestion des contraintes cryptographiques d'évaluation, consolidation multi-interfaces pare-feu et routage inter-sites avec 100% de succès.
 8. [**Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d'Intrusion (IPS)**](./guides/08_PALIER_3_CYBERSECURITE_NGFW_INSPECTION_UTM_ET_IPS.md)  
    Inspection DPI L7, compilation de signatures IPS F-SBID (blocage SQLi et Path Traversal), capteur IPS DMZ, filtrage applicatif (blocage P2P / Proxy) et atténuation d'attaques DoS/Flood sur l'interface WAN.
-9. [**Guide 09 : Palier 4 - NetDevOps, Automatisation Réseau & Audit de Conformité (Python)**](./guides/09_PALIER_4_NETDEVOPS_AUTOMATISATION_ET_AUDIT_PYTHON.md)  
-   Suite logicielle Python modulaire (`automation/`), extraction à chaud des running-configs (GitOps), détection différentielle de dérive (*drift*), moteur d'audit de 22 points de contrôle et génération de rapports structurés JSON/Markdown (score 100%).
+9. [**Guide 09 : Palier 4 - NetDevOps, Automatisation Reseau & Audit de Conformite (Python)**](./guides/09_PALIER_4_NETDEVOPS_AUTOMATISATION_ET_AUDIT_PYTHON.md)  
+   Suite logicielle Python modulaire (`automation/`), extraction a chaud des running-configs (GitOps), detection differentielle de derive (*drift*), moteur d'audit de 22 points de controle et generation de rapports structures JSON/Markdown (score 100%).
+10. [**Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)**](./guides/10_PALIER_5_ROUTAGE_DYNAMIQUE_OSPFV2_CISCO_FORTINET.md)  
+    Mise en place d'un domaine OSPFv2 multi-constructeurs (Cisco IOL L3 R1 et FortiGate 7.4), elimination du routage statique, injection de route par defaut externe O*E2, annonce LAN LSA Type 1, securisation par passive-interface, contournement MTU IOL et audit automatise 25/25 points.
 
 ---
 

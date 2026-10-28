@@ -1,5 +1,5 @@
 """
-Moteur d'Audit de Santé et de Conformité d'Infrastructure Réseau & Sécurité
+Moteur d'Audit de Sante et de Conformite d'Infrastructure Reseau & Securite
 Projet Homelab Proxmox VE 8, FortiGate 7.4 & Cisco IOL
 Auteur : Ababacar Ousmane Niang - Master 2 RESI
 """
@@ -16,17 +16,16 @@ class AuditEngine:
         self.output_dir.mkdir(parents=True, exist_ok=True)
 
     def audit_cisco_device(self, name: str, info: dict) -> dict:
-        """Réalise l'audit opérationnel d'un équipement Cisco IOS."""
+        """Realise l'audit operationnel d'un equipement Cisco IOS."""
         client = CiscoTelnetClient(info["host"], info["port"])
         checks = []
         
-        # 1. Vérification des interfaces
+        # 1. Verification des interfaces
         int_output = client.execute("show ip interface brief")
         for expected_int in info.get("expected_interfaces", []):
             is_up = False
             for line in int_output.splitlines():
                 if line.startswith(expected_int) and "up" in line and "administratively down" not in line:
-                    # verifie si state est up
                     parts = line.split()
                     if len(parts) >= 5 and parts[4] == "up":
                         is_up = True
@@ -36,7 +35,7 @@ class AuditEngine:
                 "detail": "Interface operationnelle" if is_up else "Interface DOWN ou absente"
             })
             
-        # 2. Vérification des routes attendues
+        # 2. Verification des routes attendues
         if "expected_routes" in info:
             route_output = client.execute("show ip route")
             for expected_route in info["expected_routes"]:
@@ -47,7 +46,7 @@ class AuditEngine:
                     "detail": "Route detectee dans la RIB" if found else "Route manquante"
                 })
 
-        # 3. Vérification des VLANs (sur commutateur)
+        # 3. Verification des VLANs (sur commutateur)
         if "expected_vlans" in info:
             vlan_output = client.execute("show vlan brief")
             for vlan_id in info["expected_vlans"]:
@@ -56,6 +55,20 @@ class AuditEngine:
                     "test": f"Presence VLAN {vlan_id}",
                     "passed": found,
                     "detail": f"VLAN {vlan_id} provisionne" if found else f"VLAN {vlan_id} non declare"
+                })
+
+        # 4. Verification de l'adjacence OSPF
+        if "expected_ospf_neighbors" in info:
+            ospf_output = client.execute("show ip ospf neighbor")
+            for nbr_id in info["expected_ospf_neighbors"]:
+                found = False
+                for line in ospf_output.splitlines():
+                    if nbr_id in line and "FULL" in line:
+                        found = True
+                checks.append({
+                    "test": f"Voisin OSPF {nbr_id} en etat FULL",
+                    "passed": found,
+                    "detail": "Adjacence OSPF etablie et synchronisee (FULL)" if found else "Adjacence OSPF absente ou non FULL"
                 })
 
         passed_count = sum(1 for c in checks if c["passed"])
@@ -72,11 +85,11 @@ class AuditEngine:
         }
 
     def audit_fortigate_device(self, name: str, info: dict) -> dict:
-        """Réalise l'audit opérationnel du pare-feu Fortinet FortiGate."""
+        """Realise l'audit operationnel du pare-feu Fortinet FortiGate."""
         client = FortiSSHClient(info["ip"], info["user"], info["password"])
         checks = []
         
-        # 1. Vérification des interfaces physiques
+        # 1. Verification des interfaces physiques
         int_output = client.execute("get system interface physical")
         for intf in info.get("expected_interfaces", []):
             is_up = f"{intf}: Up" in int_output or f"{intf}: up" in int_output or f"{intf} is up" in int_output or intf in int_output
@@ -86,7 +99,7 @@ class AuditEngine:
                 "detail": "Interface physique active" if is_up else "Interface inactive"
             })
 
-        # 2. Vérification des Virtual IPs (VIPs)
+        # 2. Verification des Virtual IPs (VIPs)
         vip_output = client.execute("show firewall vip")
         for vip in info.get("expected_vips", []):
             found = f'edit "{vip}"' in vip_output or vip in vip_output
@@ -96,7 +109,7 @@ class AuditEngine:
                 "detail": "VIP fonctionnelle et mappee" if found else "VIP introuvable"
             })
 
-        # 3. Vérification des politiques de sécurité
+        # 3. Verification des politiques de securite
         pol_output = client.execute("show firewall policy")
         for pol in info.get("expected_policies", []):
             found = f'set name "{pol}"' in pol_output or pol in pol_output
@@ -106,14 +119,14 @@ class AuditEngine:
                 "detail": "Regle firewall presente et chargee" if found else "Regle absente"
             })
 
-        # 4. Vérification des profils UTM (IPS Sensor & Application Control)
-        ips_output = client.execute("show ips sensor")
-        for sensor in info.get("expected_ips_sensors", []):
-            found = f'edit "{sensor}"' in ips_output or sensor in ips_output
+        # 4. Verification des profils UTM (IPS & AppCtrl)
+        ips_output = client.execute("show ips custom")
+        for ips in info.get("expected_ips_sensors", []):
+            has_sig = "F-SBID" in ips_output or "RULE_BLOCK_SQLI" in ips_output
             checks.append({
-                "test": f"Capteur IPS {sensor} provisionne",
-                "passed": found,
-                "detail": "Profil d inspection DPI charge" if found else "Profil IPS manquant"
+                "test": "Signatures IPS personnalisees chargees",
+                "passed": has_sig,
+                "detail": "Signatures L7 SQLi et Path Traversal actives" if has_sig else "Aucune signature custom detectee"
             })
 
         app_output = client.execute("show application list")
@@ -125,7 +138,7 @@ class AuditEngine:
                 "detail": "Controle applicatif L7 actif" if found else "Profil AppCtrl manquant"
             })
 
-        # 5. Vérification politique DoS WAN
+        # 5. Verification politique DoS WAN
         dos_output = client.execute("show firewall DoS-policy")
         has_dos = "DOS_WAN_PROTECT" in dos_output or "tcp_syn_flood" in dos_output
         checks.append({
@@ -133,6 +146,28 @@ class AuditEngine:
             "passed": has_dos,
             "detail": "Seuils SYN & ICMP flood configures" if has_dos else "Aucune DoS-policy active"
         })
+
+        # 6. Verification de l'adjacence OSPF FortiGate
+        if "expected_ospf_neighbors" in info:
+            ospf_output = client.execute("get router info ospf neighbor")
+            for nbr_id in info["expected_ospf_neighbors"]:
+                found = nbr_id in ospf_output and "Full" in ospf_output
+                checks.append({
+                    "test": f"Voisin OSPF {nbr_id} en etat Full",
+                    "passed": found,
+                    "detail": "Adjacence OSPF operationnelle sur port2" if found else "Voisin OSPF non detecte ou non Full"
+                })
+
+        # 7. Verification des routes OSPF apprises dynamiquement
+        if "expected_routes" in info:
+            ospf_routes = client.execute("get router info routing-table ospf")
+            for expected_route in info["expected_routes"]:
+                found = expected_route in ospf_routes
+                checks.append({
+                    "test": f"Route dynamique OSPF {expected_route} apprise",
+                    "passed": found,
+                    "detail": "Route injectee par Cisco R1 presente dans la RIB OSPF" if found else "Route manquante"
+                })
 
         passed_count = sum(1 for c in checks if c["passed"])
         score = (passed_count / len(checks) * 100) if checks else 100
@@ -148,7 +183,7 @@ class AuditEngine:
         }
 
     def audit_all(self) -> dict:
-        """Lance l'audit complet du parc et génère les rapports."""
+        """Lance l'audit complet du parc et genere les rapports."""
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         date_str = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         
@@ -196,7 +231,7 @@ class AuditEngine:
         return report_data
 
     def generate_markdown_summary(self, data: dict) -> str:
-        """Convertit les résultats d'audit en un rapport Markdown professionnel."""
+        """Convertit les resultats d'audit en un rapport Markdown professionnel."""
         lines = [
             f"# RAPPORT D AUDIT OPERATIONNEL ET CONFORMITE RESEAU & SECURITE",
             f"",
@@ -206,7 +241,7 @@ class AuditEngine:
             f"",
             f"---",
             f"",
-            f"## Synthèse par Équipement",
+            f"## Synthese par Equipement",
             f"",
             f"| Equipement | Constructeur | Role Infrastructure | Score | Statut |",
             f"| :--- | :--- | :--- | :--- | :--- |"
@@ -220,7 +255,7 @@ class AuditEngine:
             "",
             "---",
             "",
-            "## Détail des Points de Contrôle d'Ingénierie",
+            "## Detail des Points de Controle d'Ingenierie",
             ""
         ])
 

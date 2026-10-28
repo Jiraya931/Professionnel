@@ -1,10 +1,10 @@
 {
-  "audit_timestamp": "20261028_192730",
-  "audit_date": "28/10/2026 19:27:30",
+  "audit_timestamp": "20261028_222433",
+  "audit_date": "28/10/2026 22:24:33",
   "auditor": "Ababacar Ousmane Niang - Master 2 RESI",
   "global_score": 100.0,
-  "total_passed": 22,
-  "total_checks": 22,
+  "total_passed": 25,
+  "total_checks": 25,
   "devices": [
     {
       "device": "R1_HQ",
@@ -35,10 +35,15 @@
           "test": "Presence route 172.16.1.0/30",
           "passed": true,
           "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Voisin OSPF 172.16.1.1 en etat FULL",
+          "passed": true,
+          "detail": "Adjacence OSPF etablie et synchronisee (FULL)"
         }
       ],
-      "passed": 5,
-      "total": 5,
+      "passed": 6,
+      "total": 6,
       "score": 100.0
     },
     {
@@ -137,9 +142,9 @@
           "detail": "Regle firewall presente et chargee"
         },
         {
-          "test": "Capteur IPS IPS_SENSOR_DMZ provisionne",
+          "test": "Signatures IPS personnalisees chargees",
           "passed": true,
-          "detail": "Profil d inspection DPI charge"
+          "detail": "Signatures L7 SQLi et Path Traversal actives"
         },
         {
           "test": "Profil Application Control APP_CTRL_ENTERPRISE provisionne",
@@ -150,10 +155,20 @@
           "test": "Politique de protection Anti-DDoS active",
           "passed": true,
           "detail": "Seuils SYN & ICMP flood configures"
+        },
+        {
+          "test": "Voisin OSPF 1.1.1.1 en etat Full",
+          "passed": true,
+          "detail": "Adjacence OSPF operationnelle sur port2"
+        },
+        {
+          "test": "Route dynamique OSPF 10.10.10.0/24 apprise",
+          "passed": true,
+          "detail": "Route injectee par Cisco R1 presente dans la RIB OSPF"
         }
       ],
-      "passed": 10,
-      "total": 10,
+      "passed": 12,
+      "total": 12,
       "score": 100.0
     }
   ]

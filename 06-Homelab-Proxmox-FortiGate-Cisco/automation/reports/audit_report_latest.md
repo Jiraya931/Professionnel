@@ -1,12 +1,12 @@
 # RAPPORT D AUDIT OPERATIONNEL ET CONFORMITE RESEAU & SECURITE
 
-- **Date de l'Audit :** 28/10/2026 19:27:30
+- **Date de l'Audit :** 28/10/2026 22:24:33
 - **Auditeur :** Ababacar Ousmane Niang - Master 2 RESI
-- **Score de Conformite Globale :** **100.0 %** (22 / 22 tests valides)
+- **Score de Conformite Globale :** **100.0 %** (25 / 25 tests valides)
 
 ---
 
-## Synthèse par Équipement
+## Synthese par Equipement
 
 | Equipement | Constructeur | Role Infrastructure | Score | Statut |
 | :--- | :--- | :--- | :--- | :--- |
@@ -17,7 +17,7 @@
 
 ---
 
-## Détail des Points de Contrôle d'Ingénierie
+## Detail des Points de Controle d'Ingenierie
 
 ### R1_HQ (Routeur de Campus HQ / Passerelle VLAN 10)
 | Point de Controle | Resultat | Detail Technique |
@@ -27,6 +27,7 @@
 | Presence route 0.0.0.0/0 | **OK** | Route detectee dans la RIB |
 | Presence route 10.10.10.0/24 | **OK** | Route detectee dans la RIB |
 | Presence route 172.16.1.0/30 | **OK** | Route detectee dans la RIB |
+| Voisin OSPF 172.16.1.1 en etat FULL | **OK** | Adjacence OSPF etablie et synchronisee (FULL) |
 
 ### SW1_HQ (Commutateur d Acces Campus HQ)
 | Point de Controle | Resultat | Detail Technique |
@@ -53,6 +54,8 @@
 | Politique de securite LAN_TO_INTERNET active | **OK** | Regle firewall presente et chargee |
 | Politique de securite CORP_INTERNAL_INTERZONE active | **OK** | Regle firewall presente et chargee |
 | Politique de securite WAN_TO_DMZ_VIP active | **OK** | Regle firewall presente et chargee |
-| Capteur IPS IPS_SENSOR_DMZ provisionne | **OK** | Profil d inspection DPI charge |
+| Signatures IPS personnalisees chargees | **OK** | Signatures L7 SQLi et Path Traversal actives |
 | Profil Application Control APP_CTRL_ENTERPRISE provisionne | **OK** | Controle applicatif L7 actif |
 | Politique de protection Anti-DDoS active | **OK** | Seuils SYN & ICMP flood configures |
+| Voisin OSPF 1.1.1.1 en etat Full | **OK** | Adjacence OSPF operationnelle sur port2 |
+| Route dynamique OSPF 10.10.10.0/24 apprise | **OK** | Route injectee par Cisco R1 presente dans la RIB OSPF |

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)</title>
+  <style>
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 14mm 12mm;
+    @bottom-right {
+      content: counter(page) "/" counter(pages);
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.3px;
+  }
+
+  .header-card .subtitle {
+    margin: 0 0 14px 0;
+    font-size: 10.5pt;
+    color: #93c5fd;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 10px;
+    font-size: 8.5pt;
+    color: #cbd5e1;
+  }
+
+  .header-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(59, 130, 246, 0.2);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  h2 {
+    color: #0f172a;
+    font-size: 13pt;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    color: #1e3a8a;
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  ul, ol {
+    margin: 0 0 12px 0;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0 14px 0;
+    border: 1px solid #1e293b;
+    page-break-inside: avoid;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  blockquote {
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e3a8a;
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  /* Screenshot / Verification Box */
+  .screenshot-box {
+    margin: 16px 0 20px 0;
+    background: #fafaf9;
+    border: 2px dashed #0284c7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  .screenshot-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 6px;
+  }
+
+  .screenshot-tag {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .screenshot-target {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #0369a1;
+  }
+
+  .screenshot-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0 0 6px 0;
+  }
+
+  .screenshot-checklist {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
+    font-size: 8.5pt;
+    color: #334155;
+  }
+
+  .screenshot-checklist li {
+    margin-bottom: 3px;
+  }
+
+  .screenshot-preview {
+    margin-top: 8px;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    border: 1px solid #1e293b;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer-notice {
+    margin-top: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 7.5pt;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="header-card">
+    <div class="badge">DOCUMENTATION OFFICIELLE HOMELAB & RÉSEAU</div>
+    <h1>Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)</h1>
+    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
+    <div class="header-meta">
+      <div class="header-meta-item"><strong>Date :</strong> 27 Octobre 2026</div>
+      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</div>
+      <div class="header-meta-item"><strong>Plateforme :</strong> EVE-NG Community (192.168.1.11)</div>
+      <div class="header-meta-item"><strong>Statut :</strong> Validé & Opérationnel ✅</div>
+    </div>
+  </div>
+
+  <p>Ce guide documente l'implementation de reference du Palier 5 d'Ingenierie Reseau et Securite : la mise en oeuvre d'un domaine de routage dynamique d'entreprise OSPFv2 (Open Shortest Path First Version 2) multi-constructeurs, assurant l'interconnexion resiliente et la convergence automatique des tables de routage entre un routeur de coeur/distribution de campus Cisco IOL L3 (R1_HQ) et un pare-feu de perimetre Fortinet FortiGate 7.4.13 (FORTIGATE_HQ).</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>1. Contexte et Enjeux Industriels du Routage Dynamique</h2>
+<p>Dans une infrastructure d'entreprise distribuée, l'utilisation de routes statiques presente des vulnerabilites operationnelles majeures :</p>
+<ol start="1"><li><strong>Absence d'adaptabilite aux pannes :</strong> Une route statique demeure active dans la table de routage tant que l'interface de sortie reste electriquement active, meme si la connectivite effective en aval est rompue (trou noir de routage).</li><li><strong>Complexite d'exploitation exponentielle :</strong> Tout ajout de sous-reseau utilisateur ou de DMZ necessite la mise a jour manuelle de l'ensemble des passerelles du reseau, induisant un risque d'erreur humaine eleve.</li><li><strong>Impossibilite de convergence multi-chemins :</strong> Le routage statique ne gere pas nativement l'equilibrage de charge dynamique (ECMP) ni le reroutage automatique sans mecanismes additionnels de sondage (IP SLA / BFD).</li></ol>
+<p>Le <strong>Palier 5</strong> elimine integralement le routage statique entre le campus utilisateur et le perimetre de securite en deployant le protocole a etat de liens standardise <strong>OSPFv2 (RFC 2328)</strong> dans un environnement multi-constructeurs reel.</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>2. Architecture de Routage et Matrice d'Adressage</h2>
+<pre><code class="text">+--------------------------------------------------------------------------------------------------+
+|                                    ZONE PERIMETRIQUE &amp; ACCES WAN                                 |
+|                                                                                                  |
+|                                [ INTERNET / WAN EXTERNE ]                                        |
+|                                            ^                                                     |
+|                                            | port1 (192.168.1.4/24 - NAT Overload)               |
+|                           +----------------v------------------+                                  |
+|                           |      FORTINET FORTIGATE 7.4       |                                  |
+|                           |        Router-ID: 172.16.1.1      |                                  |
+|                           |  Injecte : O*E2 0.0.0.0/0 (LSA 5) |                                  |
+|                           +--------+-----------------+--------+                                  |
+|                                    | port3           | port2                                     |
+|                                    | 172.16.50.1/24  | 172.16.1.1/30                             |
++------------------------------------+-----------------+-------------------------------------------+
+                                     |                 |
+                   Liaison DMZ Isolee|                 | Liaison Point-a-Point OSPF Area 0
+                                     |                 | Reseau 172.16.1.0/30 (Hello 10s / Dead 40s)
+                                     v                 v
+                        +------------+----+       +----+-------------------------------------------+
+                        | SRV-WEB-DMZ     |       |               CISCO IOL L3 (R1)                |
+                        | 172.16.50.10/24 |       |             Router-ID: 1.1.1.1                 |
+                        | NGINX + App HTTP|       |  Annonce : 10.10.10.0/24 (VLAN 10 Clients)     |
+                        +-----------------+       +----+-------------------------------------------+
+                                                       | Ethernet0/0.10 (802.1Q - Passive Interface)
+                                                       | 10.10.10.1/24
+                                                       v
+                                          +------------+-------------------------------------------+
+                                          |          CISCO IOL L2 (SW1) - Access Switch            |
+                                          +------------+-------------------------------------------+
+                                                       | Port Access VLAN 10 (Ethernet0/1)
+                                                       v
+                                          +------------+-------------------------------------------+
+                                          |          CLIENT VPCS (VLAN 10 UTILISATEURS)            |
+                                          |          IP : 10.10.10.50/24                           |
+                                          |          Gateway : 10.10.10.1 (Cisco R1)               |
+                                          +--------------------------------------------------------+</code></pre>
+<h3>Matrice d'Adressage et Parametres OSPF</h3>
+<table><thead><tr><th>Equipement</th><th>Interface</th><th>Adresse IP / Masque</th><th>Zone OSPF (Area)</th><th>Type de Reseau OSPF</th><th>Role OSPF</th></tr></thead><tbody><tr><td><strong>FORTIGATE_HQ</strong></td><td><code>port2</code></td><td><code>172.16.1.1/30</code></td><td><code>0.0.0.0</code> (Backbone)</td><td>Broadcast / P2P</td><td>DR (Designated Router)</td></tr><tr><td><strong>FORTIGATE_HQ</strong></td><td><code>port1</code></td><td><code>192.168.1.4/24</code></td><td>Hors OSPF</td><td>WAN / Internet</td><td>ASBR (Autonomous System Boundary Router)</td></tr><tr><td><strong>FORTIGATE_HQ</strong></td><td><code>port3</code></td><td><code>172.16.50.1/24</code></td><td>Hors OSPF</td><td>DMZ Serveurs</td><td>Passerelle locale DMZ</td></tr><tr><td><strong>R1_HQ (Cisco)</strong></td><td><code>Ethernet0/1</code></td><td><code>172.16.1.2/30</code></td><td><code>0</code> (Backbone)</td><td>Broadcast</td><td>BDR (Backup Designated Router)</td></tr><tr><td><strong>R1_HQ (Cisco)</strong></td><td><code>Ethernet0/0.10</code></td><td><code>10.10.10.1/24</code></td><td><code>0</code> (Backbone)</td><td>Passive Interface</td><td>Passerelle VLAN 10 (LSA Type 1)</td></tr></tbody></table>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>3. Mecanismes Theoriques OSPFv2 en Contexte Heterogene</h2>
+<h3>Types de LSA (Link-State Advertisements) Deployes</h3>
+<ol start="1"><li><strong>LSA Type 1 (Router LSA) :</strong> Chaque routeur OSPF genere ce LSA pour decrire ses interfaces, ses etats de liens et ses couts intra-zone. Cisco R1 annonce le reseau d'interconnexion <code>172.16.1.0/30</code> et le prefixe utilisateur <code>10.10.10.0/24</code>.</li><li><strong>LSA Type 5 (AS-External LSA) :</strong> Emis exclusivement par le pare-feu FortiGate (agissant en tant qu'ASBR). FortiGate genere une route externe par defaut <code>0.0.0.0/0</code> de métrique E2 (cout fixe = 10), injectee vers Cisco R1 pour couvrir l'ensemble du trafic sortant vers Internet.</li></ol>
+<h3>Passive-Interface sur le Segment Utilisateur</h3>
+<p>L'interface <code>Ethernet0/0.10</code> de Cisco R1 est declaree en <code>passive-interface</code>. Cela garantit que :</p>
+<ul><li>Le sous-reseau <code>10.10.10.0/24</code> est injecte dans les annonces LSA Type 1 a destination du FortiGate.</li><li>Aucun paquet Hello OSPF n'est emis sur le VLAN utilisateur, neutralisant tout risque d'attaque par injection de faux paquets OSPF ou d'etablissement d'adjacence illegitime depuis les postes de travail.</li></ul>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>4. Defis d'Interoperabilite Multi-Constructeurs et Solutions Appliquees</h2>
+<p>L'interconnexion directe entre Cisco IOS et Fortinet FortiOS revele des particularites d'implementation qui necessitent un calibrage rigoureux :</p>
+<h3>1. Blocage en Etat ExStart / Exchange (MTU Mismatch)</h3>
+<ul><li><strong>Probleme constate :</strong> Lors de l'initialisation du voisinage OSPF, l'adjacence restait bloquee dans l'etat <code>ExStart/Exchange</code>.</li><li><strong>Analyse technique :</strong> Le protocole OSPF verifie que la taille du MTU annoncee dans les paquets DBD (<em>Database Description</em>) est strictement identique entre voisins. Dans les pilotes de virtualisation IOL sous noyau Linux EVE-NG, les trames L2/L3 gerent le champ MTU avec une legere disparite vis-a-vis de la carte virtuelle QEMU VirtIO du FortiGate.</li><li><strong>Solution appliquee :</strong> Configuration de la directive <code>ip ospf mtu-ignore</code> sur l'interface <code>Ethernet0/1</code> de Cisco R1. Cette commande desactive le controle strict du champ MTU dans les paquets DBD, declenchant le basculement immediat de l'etat d'adjacence vers <code>FULL</code>.</li></ul>
+<h3>2. Distance Administrative (AD) et Eviction des Routes Statiques</h3>
+<ul><li><strong>Probleme constate :</strong> Apres l'etablissement de l'adjacence, la table de routage active (RIB) continuait a preferer les anciennes routes statiques.</li><li><strong>Analyse technique :</strong></li><li>Sur Cisco IOS : Une route statique a une Distance Administrative de <strong>1</strong>, alors qu'une route externe OSPF (E2) a une AD de <strong>110</strong>.</li><li>Sur FortiOS : Une route statique a une Distance Administrative par defaut de <strong>10</strong>, alors qu'une route OSPF a une AD de <strong>110</strong>.</li><li><strong>Solution appliquee :</strong> Suppression explicite des routes statiques manuelles :</li><li>Sur Cisco R1 : <code>no ip route 0.0.0.0 0.0.0.0 172.16.1.1</code></li><li>Sur FortiGate : Suppression de la static-route pointant <code>10.10.10.0/24</code> vers <code>172.16.1.2</code>.</li><li><strong>Resultat :</strong> Les routes OSPF dynamiques sont immediatement elues et installees dans les tables de commutation CEF et kernel FortiOS.</li></ul>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>5. Configurations Realisees Pas a Pas</h2>
+<h3>A. Configuration du Routeur Cisco IOL L3 (R1_HQ)</h3>
+<pre><code class="cisco">! Activation du processus OSPF avec Router-ID fixe
+router ospf 1
+ router-id 1.1.1.1
+ ! Annonce de la liaison point-a-point d'interconnexion
+ network 172.16.1.0 0.0.0.3 area 0
+ ! Annonce du sous-reseau utilisateurs VLAN 10
+ network 10.10.10.0 0.0.0.255 area 0
+ ! Protection du segment LAN contre les emissions Hello
+ passive-interface Ethernet0/0.10
+ exit
+
+! Optimisation de l'interface d'interconnexion vers FortiGate
+interface Ethernet0/1
+ ip address 172.16.1.2 255.255.255.252
+ ip ospf mtu-ignore
+ exit
+
+! Suppression de la route statique d'origine pour forcer l'usage d'OSPF
+no ip route 0.0.0.0 0.0.0.0 172.16.1.1
+end
+write memory</code></pre>
+<h3>B. Configuration du Pare-Feu Fortinet (FORTIGATE_HQ)</h3>
+<pre><code class="fortios"># Configuration du processus OSPF FortiOS 7.4
+config router ospf
+    set router-id 172.16.1.1
+    config area
+        edit 0.0.0.0
+        next
+    end
+    config network
+        edit 1
+            set prefix 172.16.1.0 255.255.255.252
+            set area 0.0.0.0
+        next
+    end
+    # Injection continue de la route par defaut vers le domaine OSPF
+    config default-information
+        set originate always
+        set metric 10
+        set metric-type 2
+    end
+end
+
+# Suppression de la route statique historique vers le LAN 10.10.10.0/24
+config router static
+    purge
+end</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>6. Preuves de Validation et Resultats en Production</h2>
+<h3>1. Verification de l'Adjacence Voisin sur Cisco R1</h3>
+<pre><code class="text">R1#show ip ospf neighbor
+
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+172.16.1.1        1   FULL/DR         00:00:32    172.16.1.1      Ethernet0/1</code></pre>
+<blockquote><p><strong>Validation :</strong> L'adjacence est dans l'etat <code>FULL</code>. Le pare-feu FortiGate a ete elu <code>DR</code> (Designated Router) sur le segment partagé.</p></blockquote>
+<h3>2. Verification de l'Adjacence Voisin sur FortiGate 7.4</h3>
+<pre><code class="text">FGVMEVKZWIWB8SDE # get router info ospf neighbor
+OSPF process 0, VRF 0:
+Neighbor ID     Pri   State           Dead Time   Address         Interface
+1.1.1.1           1   Full/Backup     00:00:36    172.16.1.2      port2</code></pre>
+<blockquote><p><strong>Validation :</strong> FortiGate reconnait le voisin Cisco <code>1.1.1.1</code> en etat <code>Full/Backup</code> sur son interface <code>port2</code>.</p></blockquote>
+<h3>3. Verification de la Table de Routage Cisco R1 (Route par Defaut Dynamique)</h3>
+<pre><code class="text">R1#show ip route ospf
+      10.0.0.0/8 is variably subnetted, 2 subnets, 2 masks
+Gateway of last resort is 172.16.1.1 to network 0.0.0.0
+
+O*E2 0.0.0.0/0 [110/10] via 172.16.1.1, 00:23:45, Ethernet0/1</code></pre>
+<blockquote><p><strong>Validation :</strong> La route par defaut <code>0.0.0.0/0</code> est recue en OSPF Externe de Type 2 (<code>O*E2</code>) avec une distance administrative de 110 et un cout fixe de 10.</p></blockquote>
+<h3>4. Verification de la Table de Routage FortiGate (Route LAN Dynamique)</h3>
+<pre><code class="text">FGVMEVKZWIWB8SDE # get router info routing-table ospf
+Routing table for VRF=0
+O       10.10.10.0/24 [110/11] via 172.16.1.2, port2, 00:24:12, [1/0]</code></pre>
+<blockquote><p><strong>Validation :</strong> Le reseau <code>10.10.10.0/24</code> est appris dynamiquement via LSA Type 1 a travers le prochain saut <code>172.16.1.2</code> (port2).</p></blockquote>
+<h3>5. Tests de Connectivite Utilisateur Reel (Client VPCS VLAN 10)</h3>
+<p>Depuis le poste client <code>10.10.10.50</code> :</p>
+<ol start="1"><li><strong>Ping vers la passerelle perimetrique FortiGate (172.16.1.1) :</strong></li></ol>
+<pre><code class="text">VPCS&gt; ping 172.16.1.1
+84 bytes from 172.16.1.1 icmp_seq=1 ttl=254 time=1.399 ms
+84 bytes from 172.16.1.1 icmp_seq=2 ttl=254 time=1.259 ms
+84 bytes from 172.16.1.1 icmp_seq=3 ttl=254 time=1.440 ms</code></pre>
+<ol start="2"><li><strong>Ping vers le serveur Web de la DMZ (172.16.50.10) a travers le filtrage NGFW :</strong></li></ol>
+<pre><code class="text">VPCS&gt; ping 172.16.50.10
+84 bytes from 172.16.50.10 icmp_seq=1 ttl=62 time=7.646 ms
+84 bytes from 172.16.50.10 icmp_seq=2 ttl=62 time=3.137 ms
+84 bytes from 172.16.50.10 icmp_seq=3 ttl=62 time=2.377 ms</code></pre>
+<blockquote><p><strong>Analyse TTL :</strong> TTL initial 64 -> Hop 1 (Cisco R1) -> Hop 2 (FortiGate) -> Arrivee DMZ avec TTL 62. Routage multi-sauts valide.</p></blockquote>
+<ol start="3"><li><strong>Ping vers l'externe / Internet (8.8.8.8) avec NAT Overload applique :</strong></li></ol>
+<pre><code class="text">VPCS&gt; ping 8.8.8.8
+84 bytes from 8.8.8.8 icmp_seq=1 ttl=113 time=95.912 ms
+84 bytes from 8.8.8.8 icmp_seq=2 ttl=113 time=71.419 ms
+84 bytes from 8.8.8.8 icmp_seq=3 ttl=113 time=72.813 ms</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>7. Audit Automatise et Integration dans la Suite NetDevOps</h2>
+<p>Le moteur d'audit de conformite <code>automation/audit_engine.py</code> a ete enrichi pour integrer la validation programmatique du routage dynamique OSPF :</p>
+<ul><li>Controle de l'etat d'adjacence <code>FULL</code> sur Cisco R1.</li><li>Controle de l'etat d'adjacence <code>Full</code> sur FortiGate 7.4.</li><li>Verification de la presence de la route injectee <code>10.10.10.0/24</code> dans la RIB FortiOS.</li></ul>
+<h3>Resultats de l'Execution NetDevOps (25/25 Tests Reussis)</h3>
+<pre><code class="text">================================================================================
+RAPPORT GLOBAL : SCORE DE CONFORMITE = 100.0 % (25/25 tests valides)
+================================================================================
+EQUIPEMENT       | CONSTRUCTEUR   | SCORE    | CONTROLES    | STATUT    
+--------------------------------------------------------------------------------
+R1_HQ            | Cisco          | 100.0    % | 6/6          | CONFORME  
+SW1_HQ           | Cisco          | 100.0    % | 4/4          | CONFORME  
+R2_BRANCH        | Cisco          | 100.0    % | 3/3          | CONFORME  
+FORTIGATE_HQ     | Fortinet       | 100.0    % | 12/12        | CONFORME  
+================================================================================</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>8. Bilan Technique et Competences Validees</h2>
+<p>Ce Palier 5 acheve la modernisation de l'infrastructure de campus en apportant les benefices suivants :</p>
+<ol start="1"><li><strong>Convergence dynamique sans point de rupture :</strong> Suppression complete des dependances statiques entre le campus et le pare-feu.</li><li><strong>Cloisonnement securise des annonces :</strong> Mise en oeuvre de <code>passive-interface</code> limitant les flux de controle OSPF a la seule liaison point-a-point dediee.</li><li><strong>Maitrise de l'interoperabilite heterogene :</strong> Diagnostic et resolution du desaccord de MTU en environnement de virtualisation d'entreprise.</li><li><strong>Validation de bout en bout :</strong> Maintien integral de la continuite de service pour les postes utilisateurs vers la DMZ et vers l'exterieur.</li></ol>
+
+  <div class="footer-notice">
+    <span>Homelab Cybersécurité & Réseau — Documentation Technique Opérationnelle</span>
+    <span>Généré automatiquement au format d'audit PDF</span>
+  </div>
+</body>
+</html>

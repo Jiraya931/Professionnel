@@ -99,3 +99,4 @@ class FortiSSHClient:
             return "\n".join(lines).strip()
         except Exception as e:
             return f"ERREUR_FORTINET_SSH: {e}"
+

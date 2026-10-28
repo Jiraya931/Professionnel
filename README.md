@@ -91,12 +91,13 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
   - **Palier 1 (DMZ & Publication Externe)** : Zone DMZ étanche sur `port3` (`172.16.50.254/24`), serveur Web Alpine Linux durci (`172.16.50.10:80`) et publication WAN par Virtual IP (`VIP_WEB_DMZ` port 8080 vers 80).
   - **Palier 2 (VPN IPsec IKEv2 Multi-Constructeurs)** : Interconnexion chiffrée entre FortiGate HQ et routeur Cisco IOL L3 R2 Branch (`192.168.1.250`), négociation IKEv2 / IPsec ESP, PFS DH14 et routage inter-sites.
   - **Palier 3 (Cybersécurité NGFW Avancée & Inspection UTM)** : Moteur IPS avec signatures F-SBID sur mesure (blocage d'injections SQL et traversées de répertoire), capteur IPS DMZ, filtrage applicatif L7 (Application Control bloquant P2P et proxies) et politique anti-DDoS (DoS Policy atténuant les inondations ICMP/SYN flood au niveau critique).
-  - **Palier 4 (NetDevOps & Audit de Conformité Continue)** : Suite logicielle Python modulaire (`automation/`) pour l'extraction à chaud des running-configs (approche GitOps), la détection différentielle de dérive (*drift*) et l'évaluation automatisée de 22 points de contrôle (Score de conformité : 100.0 %).
+  - **Palier 4 (NetDevOps & Audit de Conformité Continue)** : Suite logicielle Python modulaire (`automation/`) pour l'extraction à chaud des running-configs (approche GitOps), la détection différentielle de dérive (*drift*) et l'évaluation automatisée de 25 points de contrôle (Score de conformité : 100.0 %).
+  - **Palier 5 (Routage Dynamique OSPFv2 Multi-Constructeurs)** : Domaine de routage dynamique d'entreprise OSPFv2 interconnectant Cisco IOL L3 (R1) et FortiGate 7.4, suppression intégrale des routes statiques, injection automatique de la route par défaut (LSA Type 5 External), annonce intra-zone du préfixe LAN (LSA Type 1), sécurisation par passive-interface et convergence instantanée.
 - **Validation Opérationnelle & Performances** : 
   - Connectivité de bout en bout validée vers l'Internet (100% succès ping vers 8.8.8.8, latence interne < 1 ms, RTT moyen WAN 62.9 ms).
   - Blocage certifié des cyberattaques L7/L4 et conformité totale d'infrastructure validée par audit programmatique.
 - **Livrables Inclus** :
-  - 9 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
+  - 10 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
   - Suite logicielle d'automatisation Python autonome ([`automation/`](./06-Homelab-Proxmox-FortiGate-Cisco/automation/)).
   - [Rapport d'Audit Technique Complet](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
 

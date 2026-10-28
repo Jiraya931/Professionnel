@@ -1,0 +1,160 @@
+{
+  "audit_timestamp": "20261028_222307",
+  "audit_date": "28/10/2026 22:23:07",
+  "auditor": "Ababacar Ousmane Niang - Master 2 RESI",
+  "global_score": 100.0,
+  "total_passed": 22,
+  "total_checks": 22,
+  "devices": [
+    {
+      "device": "R1_HQ",
+      "vendor": "cisco",
+      "role": "Routeur de Campus HQ / Passerelle VLAN 10",
+      "checks": [
+        {
+          "test": "Interface Ethernet0/1 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Interface Ethernet0/0.10 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Presence route 0.0.0.0/0",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Presence route 10.10.10.0/24",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Presence route 172.16.1.0/30",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        }
+      ],
+      "passed": 5,
+      "total": 5,
+      "score": 100.0
+    },
+    {
+      "device": "SW1_HQ",
+      "vendor": "cisco",
+      "role": "Commutateur d Acces Campus HQ",
+      "checks": [
+        {
+          "test": "Interface Ethernet0/0 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Interface Ethernet0/1 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Presence VLAN 1",
+          "passed": true,
+          "detail": "VLAN 1 provisionne"
+        },
+        {
+          "test": "Presence VLAN 10",
+          "passed": true,
+          "detail": "VLAN 10 provisionne"
+        }
+      ],
+      "passed": 4,
+      "total": 4,
+      "score": 100.0
+    },
+    {
+      "device": "R2_BRANCH",
+      "vendor": "cisco",
+      "role": "Routeur Succursale Distante (Branch)",
+      "checks": [
+        {
+          "test": "Interface Ethernet0/0 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Interface Ethernet0/1 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Presence route 192.168.1.0/24",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        }
+      ],
+      "passed": 3,
+      "total": 3,
+      "score": 100.0
+    },
+    {
+      "device": "FORTIGATE_HQ",
+      "vendor": "fortinet",
+      "role": "Next-Generation Firewall & Passerelle Perimetrique HQ",
+      "checks": [
+        {
+          "test": "Interface pare-feu port1 connectee",
+          "passed": true,
+          "detail": "Interface physique active"
+        },
+        {
+          "test": "Interface pare-feu port2 connectee",
+          "passed": true,
+          "detail": "Interface physique active"
+        },
+        {
+          "test": "Interface pare-feu port3 connectee",
+          "passed": true,
+          "detail": "Interface physique active"
+        },
+        {
+          "test": "Virtual IP VIP_WEB_DMZ declaree",
+          "passed": true,
+          "detail": "VIP fonctionnelle et mappee"
+        },
+        {
+          "test": "Politique de securite LAN_TO_INTERNET active",
+          "passed": true,
+          "detail": "Regle firewall presente et chargee"
+        },
+        {
+          "test": "Politique de securite CORP_INTERNAL_INTERZONE active",
+          "passed": true,
+          "detail": "Regle firewall presente et chargee"
+        },
+        {
+          "test": "Politique de securite WAN_TO_DMZ_VIP active",
+          "passed": true,
+          "detail": "Regle firewall presente et chargee"
+        },
+        {
+          "test": "Capteur IPS IPS_SENSOR_DMZ provisionne",
+          "passed": true,
+          "detail": "Profil d inspection DPI charge"
+        },
+        {
+          "test": "Profil Application Control APP_CTRL_ENTERPRISE provisionne",
+          "passed": true,
+          "detail": "Controle applicatif L7 actif"
+        },
+        {
+          "test": "Politique de protection Anti-DDoS active",
+          "passed": true,
+          "detail": "Seuils SYN & ICMP flood configures"
+        }
+      ],
+      "passed": 10,
+      "total": 10,
+      "score": 100.0
+    }
+  ]
+}
