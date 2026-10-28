@@ -1,4 +1,4 @@
-# ⚡ GUIDE 03 : INTÉGRATION ET ACTIVATION DES COMMUTATEURS ET ROUTEURS CISCO IOL (L2 & L3)
+# GUIDE 03 : INTÉGRATION ET ACTIVATION DES COMMUTATEURS ET ROUTEURS CISCO IOL (L2 & L3)
 
 Ce guide détaille la mise en place des images **Cisco IOL (IOS on Linux)** dans EVE-NG, la résolution des dépendances 32-bit sous Ubuntu 22.04 et la génération de la licence officielle `iourc`.
 
@@ -15,7 +15,7 @@ Ce guide détaille la mise en place des images **Cisco IOL (IOS on Linux)** dans
 ## 2. Emplacement des fichiers dans EVE-NG
 
 Les binaires Cisco IOL se placent obligatoirement dans :
-📁 `/opt/unetlab/addons/iol/bin/`
+ `/opt/unetlab/addons/iol/bin/`
 
 Images installées :
 1. **Switch L2 :** `i86bi-linux-l2-adventerprisek9-15.1a.bin`
@@ -86,7 +86,7 @@ echo "export IOURC=/opt/unetlab/addons/iol/bin/iourc" >> /etc/environment
 > `[license]`
 > `eve-ng = 972f30267ef51616;`
 
-> **📸 [CAPTURE RECOMMANDÉE 01] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console Cisco Switch L2 (`SW1# show interfaces trunk`)  
 > *Affichage :* Activation du Trunk 802.1Q et validation du VLAN 10 Utilisateurs.
 
@@ -97,6 +97,6 @@ echo "export IOURC=/opt/unetlab/addons/iol/bin/iourc" >> /etc/environment
 Lorsque tu ouvres la console HTML5 d'un switch ou routeur Cisco IOL pour la première fois, l'écran reste noir : **c'est normal !**  
 Il faut cliquer avec la souris dans le carré noir pour donner le focus, puis **appuyer 2 fois sur la touche Entrée** de ton clavier pour faire apparaître l'invite `Switch>` ou `Router>`.
 
-> **📸 [CAPTURE RECOMMANDÉE 02] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Portail Web EVE-NG (`http://192.168.1.3`)  
 > *Affichage :* Vue d'ensemble du laboratoire avec les commutateurs et routeurs Cisco opérationnels.

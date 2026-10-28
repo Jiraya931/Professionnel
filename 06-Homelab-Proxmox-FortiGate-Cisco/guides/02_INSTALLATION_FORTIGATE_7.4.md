@@ -1,4 +1,4 @@
-# 🛡️ GUIDE 02 : DÉPLOIEMENT ET LICENCE DU PARE-FEU FORTINET FORTIGATE 7.4
+# ️ GUIDE 02 : DÉPLOIEMENT ET LICENCE DU PARE-FEU FORTINET FORTIGATE 7.4
 
 Ce guide explique l'installation du pare-feu **Fortinet FortiGate** sous EVE-NG, la gestion des licences d'évaluation officielles et la mise en service de l'interface graphique FortiOS.
 
@@ -15,7 +15,7 @@ Lors du premier déploiement, une image `FFW` (FortiFirewall) avait été instal
 ## 2. Téléchargement officiel de l'image KVM
 
 1. Rendez-vous sur le portail officiel : [https://support.fortinet.com](https://support.fortinet.com) (inscription gratuite).
-2. Menu : **`Support` ➔ `VM Images`**.
+2. Menu : **`Support`  `VM Images`**.
 3. Sélectionner :
    * **Product :** `FortiGate`
    * **Platform :** `KVM`
@@ -86,11 +86,11 @@ Lors de l'ajout du nœud **Fortinet FortiGate** sur le lab :
    * Renseigner ses identifiants FortiCloud (`email` et `mot de passe`).
    * Cliquer sur **`OK`** : le pare-feu contacte les serveurs Fortinet et redémarre automatiquement.
 
-> **📸 [CAPTURE RECOMMANDÉE 01] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Interface Web FortiGate (`https://192.168.1.4`)  
 > *Affichage :* Portail d'authentification et tableau de bord FortiOS 7.4.
 
-> **📸 [CAPTURE RECOMMANDÉE 02] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console CLI FortiGate (`get system status`)  
 > *Affichage :* Confirmation de la licence valide (`License Status: Valid`), 1 vCPU et 2048 Mo de RAM.
 

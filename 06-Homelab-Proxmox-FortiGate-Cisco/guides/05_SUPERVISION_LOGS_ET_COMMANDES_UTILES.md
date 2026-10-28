@@ -1,4 +1,4 @@
-# 📊 GUIDE 05 : SUPERVISION, ANALYSE DES LOGS ET MÉMO DES COMMANDES UTILES
+# GUIDE 05 : SUPERVISION, ANALYSE DES LOGS ET MÉMO DES COMMANDES UTILES
 
 Ce guide constitue la référence opérationnelle pour surveiller le trafic, diagnostiquer les incidents réseau en temps réel, activer les journaux d'événements et maîtriser les commandes d'administration clés de chaque composant du Homelab (**FortiGate 7.4**, **Cisco IOL L2/L3**, **EVE-NG** et **Proxmox VE**).
 
@@ -37,7 +37,7 @@ config firewall policy
 end
 ```
 
-> **📸 [CAPTURE RECOMMANDÉE 01] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console CLI FortiGate  
 > *Affichage :* Sortie de la commande `get log memory setting` montrant `status: enable`.
 
@@ -48,13 +48,13 @@ end
 Une fois les logs mémoire activés et le trafic généré (ex: depuis le PC1 vers `8.8.8.8`) :
 
 1. Ouvre l'interface web : `https://192.168.1.4`
-2. Rendez-vous dans **`Log & Report`** ➔ **`Forward Traffic`** :
+2. Rendez-vous dans **`Log & Report`**  **`Forward Traffic`** :
    * Chaque ligne représente une session traversant le pare-feu.
    * Vérifie les colonnes : **Source** (`10.10.10.50`), **Destination** (`8.8.8.8`), **Service** (`PING / ICMP`), **Action** (`Accept`), **Sent/Received Bytes**, et **NAT IP** (`192.168.1.4`).
 3. Menu **`FortiView Sources`** ou **`FortiView Sessions`** :
    * Visualisation en temps réel de la bande passante consommée par adresse IP source.
 
-> **📸 [CAPTURE RECOMMANDÉE 02] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Menu Web FortiGate `Log & Report` > `Forward Traffic`  
 > *Affichage :* Tableau montrant les flux ICMP du client `10.10.10.50` sortant via le port WAN avec le statut `Accept`.
 
@@ -129,7 +129,7 @@ show ip interface brief
 show spanning-tree brief
 ```
 
-> **📸 [CAPTURE RECOMMANDÉE 03] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console Cisco SW1  
 > *Affichage :* Sortie de `show interfaces trunk` montrant `Et0/0` en mode `trunk` avec encapsulation `802.1q`.
 
@@ -210,20 +210,20 @@ En cas de coupure réseau, suivre systématiquement cette chaîne de contrôle :
 
 ```text
 [PC Client] 
-    └─► 1. `ping 10.10.10.1` (Passerelle Cisco locale)
+    └─> 1. `ping 10.10.10.1` (Passerelle Cisco locale)
             ├─ Échec : Vérifier le port Access VLAN 10 (SW1) et le Trunk (SW1 <-> R1).
             └─ Succès : Passer à l'étape 2.
 [Routeur R1]
-    └─► 2. `ping 172.16.1.1` (Patte LAN du FortiGate)
+    └─> 2. `ping 172.16.1.1` (Patte LAN du FortiGate)
             ├─ Échec : Vérifier l'interco /30 et la route par défaut 0.0.0.0/0 sur R1.
             └─ Succès : Passer à l'étape 3.
 [FortiGate]
-    └─► 3. `diagnose sniffer packet any 'icmp' 4 0 l`
+    └─> 3. `diagnose sniffer packet any 'icmp' 4 0 l`
             ├─ Les paquets arrivent sur port2 mais ne sortent pas sur port1 : 
             │    Vérifier la Firewall Policy (NAT enable, Action Accept).
             └─ Les paquets sortent mais pas de retour : 
                  Vérifier la route de retour FortiGate vers 10.10.10.0/24 via 172.16.1.2.
 [Internet]
-    └─► 4. `ping 8.8.8.8` depuis le client : Succès intégral !
+    └─> 4. `ping 8.8.8.8` depuis le client : Succès intégral !
 ```
 
