@@ -677,22 +677,22 @@
                             </div>
                             <h3 class="bento-title">Homelab Proxmox VE 8, FortiGate 7.4 & Cisco IOL</h3>
                             <p class="bento-desc">
-                                Déploiement bare-metal et virtualisation nested KVM. Interconnexion d'un firewall FortiGate 7.4.13 (NAT WAN, inspection, règles multi-zones) avec Cisco IOL (VLAN 10, Router-on-a-stick). <strong>Palier 1 :</strong> DMZ étanche & publication Virtual IP (VIP). <strong>Palier 2 :</strong> Tunnel VPN IPsec Site-à-Site IKEv2 multi-constructeurs (Fortinet & Cisco R2) validé à 100%.
+                                Déploiement bare-metal et virtualisation nested KVM. Interconnexion d'un firewall FortiGate 7.4.13 (NAT WAN, inspection des flux, règles de sécurité) avec une topologie EVE-NG Cisco IOL (VLANs 802.1Q Trunk, Router-on-a-stick, DHCP). Connectivité WAN validée à 100% avec RTT moyen de 62.9ms et latence interne &lt; 1ms.
                             </p>
                             <div class="comp-tags-row">
                                 <span class="comp-tag">Proxmox VE 8.x</span>
+                                <span class="comp-tag">Nested KVM</span>
                                 <span class="comp-tag">FortiGate 7.4</span>
+                                <span class="comp-tag">EVE-NG</span>
                                 <span class="comp-tag">Cisco IOL L2/L3</span>
-                                <span class="comp-tag">Zone DMZ & VIP</span>
-                                <span class="comp-tag">VPN IPsec IKEv2</span>
-                                <span class="comp-tag">PFS DH14</span>
-                                <span class="comp-tag">Multi-Constructeurs</span>
+                                <span class="comp-tag">VLAN 802.1Q</span>
+                                <span class="comp-tag">NAT / Inspection</span>
                             </div>
                         </div>
 
                         <div class="bento-footer">
                             <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Technique Homelab (Proxmox VE 8, EVE-NG, FortiGate 7.4, Cisco IOL)">
-                                <i class="fas fa-file-pdf"></i> Rapport PDF (2.97 Mo)
+                                <i class="fas fa-file-pdf"></i> Rapport PDF (1.45 Mo)
                             </button>
                             <button class="btn btn-primary btn-sm btn-details" data-project="homelab-project">
                                 <i class="fas fa-eye"></i> Spécifications & Preuves
