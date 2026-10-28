@@ -10,7 +10,7 @@
 
 <br/>
 
-[![Consulter le Rapport d'Audit PDF](https://img.shields.io/badge/Dossier_Technique-Rapport_d'Audit_PDF_(2.04_Mo)-2563eb?style=flat-square)](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+[![Consulter le Rapport d'Audit PDF](https://img.shields.io/badge/Dossier_Technique-Rapport_d'Audit_PDF_(2.97_Mo)-2563eb?style=flat-square)](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 [![Consulter le Portfolio](https://img.shields.io/badge/Démonstrateur-Portfolio_Interactif-00f0ff?style=flat-square)](https://jiraya931.github.io/Professionnel/)
 
 </div>
@@ -94,6 +94,8 @@ Le projet est documenté par 5 guides pas-à-pas disponibles dans le dossier [`g
    Outils de métrologie, analyse de traces ICMP/TCP, consultation des tables de sessions NAT et inspection des journaux de trafic en mémoire vive sur le pare-feu.
 6. [**Guide 06 : Palier 1 - Sécurité NGFW Avancée, Zone DMZ & Publication Externe VIP**](./guides/06_PALIER_1_DMZ_NGFW_ET_VIRTUAL_IP.md)  
    Création de la zone DMZ étanche sur `port3` (172.16.50.254/24), déploiement du serveur Web Linux QEMU durci, politiques inter-zones LAN ➔ DMZ et publication WAN par Virtual IP (VIP Port Forwarding 8080 ➔ 80).
+7. [**Guide 07 : Palier 2 - VPN IPsec Site-à-Site IKEv2 Multi-Constructeurs (Fortinet & Cisco)**](./guides/07_PALIER_2_VPN_IPSEC_SITE_A_SITE_MULTI_CONSTRUCTEURS.md)  
+   Interconnexion chiffrée entre Siège FortiGate et Succursale Cisco IOL L3, négociation IKEv2 / IPsec ESP, PFS DH14, gestion des contraintes cryptographiques d'évaluation, consolidation multi-interfaces pare-feu et routage inter-sites avec 100% de succès.
 
 ---
 
