@@ -50,6 +50,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 ├── 06-Homelab-Proxmox-FortiGate-Cisco/# Homelab Bare-Metal PVE 8, Firewall FortiGate 7.4 & Cisco IOL
 ├── assets/                         # Schémas d'architecture et ressources graphiques
 ├── docs/                           # Justificatifs officiels et supports techniques
+├── scripts/                        # Scripts d'automatisation et de synchronisation
 └── README.md                       # Spécifications et documentation d'ingénierie
 ```
 

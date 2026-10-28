@@ -1,4 +1,4 @@
-# 🛡️ GUIDE 06 : PALIER 1 - SÉCURITÉ NGFW AVANCÉE, ZONE DMZ & VIRTUAL IP (VIP)
+# ️ GUIDE 06 : PALIER 1 - SÉCURITÉ NGFW AVANCÉE, ZONE DMZ & VIRTUAL IP (VIP)
 
 Ce guide documente l'implémentation complète du **Palier 1 d'Ingénierie Réseau & Cybersécurité** : la création d'une zone démilitarisée (DMZ) étanche, le déploiement d'un serveur Web Linux QEMU durci, le filtrage granulaire inter-zones sur FortiGate 7.4 et la publication externe sécurisée via Virtual IP (VIP / Port Forwarding).
 
@@ -66,8 +66,7 @@ ip route add default via 172.16.50.254
 python3 -m http.server 80 &
 ```
 
-![Déploiement Serveur Web DMZ](../captures/capture_06_dmz_alpine_web.png)
-*Figure 6.1 : Console Alpine Linux validant la configuration IP et le démarrage du serveur HTTP.*
+> Note de validation : [Déploiement Serveur Web DMZ] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 
 ---
 
@@ -91,8 +90,7 @@ end
 diagnose ip address list
 ```
 
-![Inspection des adresses IP FortiGate](../captures/capture_07_forti_ip_list.png)
-*Figure 6.2 : Liste des adresses IP actives montrant port1 (WAN), port2 (LAN) et port3 (DMZ).*
+> Note de validation : [Inspection des adresses IP FortiGate] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 
 ---
 
@@ -117,7 +115,7 @@ config firewall address
 end
 ```
 
-### 5.2. Politique de Sécurité LAN ➔ DMZ (Règle 10)
+### 5.2. Politique de Sécurité LAN  DMZ (Règle 10)
 Autorise les postes clients du réseau interne à joindre le serveur Web en HTTP et ICMP :
 ```fortios
 config firewall policy
@@ -158,7 +156,7 @@ end
 ```
 
 ### 6.2. Résolution de la Contrainte de Quota Licence Fortinet (`vdom-max = 3`)
-Lors de la création de la politique WAN ➔ DMZ, le message d'erreur suivant est apparu :
+Lors de la création de la politique WAN  DMZ, le message d'erreur suivant est apparu :
 `Too many entries in all tables of 'firewall.policy' in vdom root: 3 / vdom-max = 3`
 
 **Analyse technique :** La licence gratuite d'évaluation FortiGate-VM restreint le nombre maximal de politiques à 3 par VDOM.
@@ -181,8 +179,7 @@ config firewall policy
 end
 ```
 
-![Configuration VIP et Quota Licence](../captures/capture_08_forti_vip_and_policy_limit.png)
-*Figure 6.3 : Définition de la Virtual IP et gestion du quota de politiques firewall.*
+> Note de validation : [Configuration VIP et Quota Licence] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 
 ---
 
@@ -190,8 +187,7 @@ end
 
 L'accès externe a été testé directement depuis le poste physique sur `http://192.168.1.4:8080`. Le portail d'ingénierie sécurisé personnalisé s'affiche instantanément :
 
-![Portail Web DMZ en Production](../captures/capture_09_vip_port_forward_portal.png)
-*Figure 6.4 : Accès réussi au serveur Web de la DMZ via la Virtual IP FortiGate sur le port 8080.*
+> Note de validation : [Portail Web DMZ en Production] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 
 ---
 

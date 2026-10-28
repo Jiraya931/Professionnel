@@ -1,4 +1,4 @@
-# 📦 GUIDE 01 : MIGRATION D'EVE-NG DE VMWARE VERS PROXMOX VE
+# GUIDE 01 : MIGRATION D'EVE-NG DE VMWARE VERS PROXMOX VE
 
 Ce guide décrit la procédure pas à pas ayant permis de migrer la machine virtuelle **EVE-NG** depuis VMware Workstation vers le serveur physique **Proxmox VE 8**.
 
@@ -54,7 +54,7 @@ rm -f /var/lib/vz/dump/EVE-NG.vmdk
 qm start 200
 ```
 
-> **📸 [CAPTURE RECOMMANDÉE 01] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Shell Proxmox VE (`>_ Shell`)  
 > *Affichage :* Sortie de `qm list` confirmant la VM 200 en statut `running` avec 8192 Mo de RAM et son disque de 60 Go sur `local-lvm`.
 
@@ -70,6 +70,6 @@ qm start 200
    * **Password :** `eve`
    * **Console mode :** `HTML5`
 
-> **📸 [CAPTURE RECOMMANDÉE 02] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Interface Web Proxmox VE (`https://192.168.1.200:8006`)  
 > *Affichage :* Tableau de bord de gestion Proxmox VE avec la VM 200 opérationnelle.

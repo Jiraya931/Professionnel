@@ -1,4 +1,4 @@
-# 🏢 GUIDE 04 : LE GRAND TP D'ENTREPRISE DE A À Z
+# GUIDE 04 : LE GRAND TP D'ENTREPRISE DE A À Z
 
 Ce guide documente l'architecture réseau et sécurité complète réalisée en travaux pratiques : du poste client isolé dans son VLAN jusqu'à la sortie sur Internet à travers le pare-feu Fortinet.
 
@@ -33,8 +33,8 @@ Ce guide documente l'architecture réseau et sécurité complète réalisée en 
 ┌─────────┴──────────┐
 │ Management(Cloud0) │ Réseau physique de la Box (vmbr0)
 └─────────┬──────────┘
-          ▼
-   🌐 VRAI INTERNET (8.8.8.8)
+          v
+    VRAI INTERNET (8.8.8.8)
 ```
 
 ---
@@ -188,10 +188,10 @@ ping 8.8.8.8
 # Résultat : 84 bytes from 8.8.8.8 icmp_seq=1 ttl=113 time=62.9 ms (SUCCÈS TOTAL)
 ```
 
-> **📸 [CAPTURE RECOMMANDÉE 01] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console Cisco Routeur L3 (`R1# show ip route`)  
 > *Affichage :* Table de routage avec sous-interface 802.1Q `e0/0.10` et route par défaut vers FortiGate.
 
-> **📸 [CAPTURE RECOMMANDÉE 02] :**  
+> ** [VERIFICATION] :**  
 > *Emplacement :* Console Client (`VPCS> ping 8.8.8.8`)  
 > *Affichage :* Test de bout en bout réussi confirmant l'accès Internet depuis le client VLAN 10.
