@@ -10,7 +10,7 @@
 
 <br/>
 
-[![Consulter le Rapport d'Audit PDF](https://img.shields.io/badge/Dossier_Technique-Rapport_d'Audit_PDF_(1.45_Mo)-2563eb?style=flat-square)](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+[![Consulter le Rapport d'Audit PDF](https://img.shields.io/badge/Dossier_Technique-Rapport_d'Audit_PDF_(2.04_Mo)-2563eb?style=flat-square)](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
 [![Consulter le Portfolio](https://img.shields.io/badge/Démonstrateur-Portfolio_Interactif-00f0ff?style=flat-square)](https://jiraya931.github.io/Professionnel/)
 
 </div>
@@ -92,6 +92,8 @@ Le projet est documenté par 5 guides pas-à-pas disponibles dans le dossier [`g
    Configuration de la commutation Cisco L2 (Trunk 802.1Q), sous-interfaces de routage L3 *Router-on-a-stick*, routes statiques bidirectionnelles et politique de filtrage/NAT sur FortiOS.
 5. [**Guide 05 : Supervision, Analyse des Logs & Commandes Utiles**](./guides/05_SUPERVISION_LOGS_ET_COMMANDES_UTILES.md)  
    Outils de métrologie, analyse de traces ICMP/TCP, consultation des tables de sessions NAT et inspection des journaux de trafic en mémoire vive sur le pare-feu.
+6. [**Guide 06 : Palier 1 - Sécurité NGFW Avancée, Zone DMZ & Publication Externe VIP**](./guides/06_PALIER_1_DMZ_NGFW_ET_VIRTUAL_IP.md)  
+   Création de la zone DMZ étanche sur `port3` (172.16.50.254/24), déploiement du serveur Web Linux QEMU durci, politiques inter-zones LAN ➔ DMZ et publication WAN par Virtual IP (VIP Port Forwarding 8080 ➔ 80).
 
 ---
 
@@ -125,6 +127,11 @@ state: dirty may_dirty
 statistic(bytes/packets): org: 420/5 reply: 420/5
 ```
 
+### 3. Palier 1 : Sécurité NGFW Avancée, DMZ & Publication Externe VIP
+Accès réussi au serveur Web de la DMZ (`172.16.50.10:80`) depuis le poste client physique externe via la Virtual IP FortiGate sur le port `8080` (`http://192.168.1.4:8080`) :
+
+![Publication Externe VIP](./captures/capture_09_vip_port_forward_portal.png)
+
 ---
 
 ## 📁 Configurations Sources Disponibles
@@ -132,6 +139,7 @@ statistic(bytes/packets): org: 420/5 reply: 420/5
 Les scripts d'injection CLI complets sont mis à disposition dans le répertoire [`configs/`](./configs/) :
 * [`cisco-sw1-iol-l2.cfg`](./configs/cisco-sw1-iol-l2.cfg) : Commutateur Cisco IOL L2.
 * [`cisco-r1-iol-l3.cfg`](./configs/cisco-r1-iol-l3.cfg) : Routeur Cisco IOL L3.
-* [`fortigate-7.4-firewall.cfg`](./configs/fortigate-7.4-firewall.cfg) : Pare-feu Fortinet FortiGate 7.4.13.
+* [`fortigate-7.4-firewall.cfg`](./configs/fortigate-7.4-firewall.cfg) : Pare-feu Fortinet FortiGate 7.4.13 (LAN, DMZ, VIP).
 
-Consultez également le [**Rapport d'Audit Technique Complet (1.45 Mo)**](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf) pour la version imprimable avec toutes les captures d'écran certifiées.
+Consultez également le [**Rapport d'Audit Technique Complet (2.04 Mo)**](../docs/Rapport_Homelab_Proxmox_FortiGate.pdf) pour la version imprimable avec toutes les captures d'écran certifiées.
+
