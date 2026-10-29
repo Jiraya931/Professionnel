@@ -586,7 +586,8 @@ const guides = [
   { id: '07', file: '07_PALIER_2_VPN_IPSEC_SITE_A_SITE_MULTI_CONSTRUCTEURS.md', title: 'Guide 07 : Palier 2 - VPN IPsec Site-à-Site IKEv2 Multi-Constructeurs (Fortinet & Cisco)' },
   { id: '08', file: '08_PALIER_3_CYBERSECURITE_NGFW_INSPECTION_UTM_ET_IPS.md', title: 'Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d\'Intrusion (IPS)' },
   { id: '09', file: '09_PALIER_4_NETDEVOPS_AUTOMATISATION_ET_AUDIT_PYTHON.md', title: 'Guide 09 : Palier 4 - NetDevOps, Automatisation Reseau et Audit de Conformite (Python)' },
-  { id: '10', file: '10_PALIER_5_ROUTAGE_DYNAMIQUE_OSPFV2_CISCO_FORTINET.md', title: 'Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)' }
+  { id: '10', file: '10_PALIER_5_ROUTAGE_DYNAMIQUE_OSPFV2_CISCO_FORTINET.md', title: 'Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)' },
+  { id: '11', file: '11_PALIER_6_SECURITE_L2_PORT_SECURITY_DHCP_SNOOPING_BPDUGUARD.md', title: 'Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)' }
 ];
 
 console.log('--- Démarrage de la génération des rapports HTML et PDF ---');

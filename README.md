@@ -93,11 +93,12 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
   - **Palier 3 (Cybersécurité NGFW Avancée & Inspection UTM)** : Moteur IPS avec signatures F-SBID sur mesure (blocage d'injections SQL et traversées de répertoire), capteur IPS DMZ, filtrage applicatif L7 (Application Control bloquant P2P et proxies) et politique anti-DDoS (DoS Policy atténuant les inondations ICMP/SYN flood au niveau critique).
   - **Palier 4 (NetDevOps & Audit de Conformité Continue)** : Suite logicielle Python modulaire (`automation/`) pour l'extraction à chaud des running-configs (approche GitOps), la détection différentielle de dérive (*drift*) et l'évaluation automatisée de 25 points de contrôle (Score de conformité : 100.0 %).
   - **Palier 5 (Routage Dynamique OSPFv2 Multi-Constructeurs)** : Domaine de routage dynamique d'entreprise OSPFv2 interconnectant Cisco IOL L3 (R1) et FortiGate 7.4, suppression intégrale des routes statiques, injection automatique de la route par défaut (LSA Type 5 External), annonce intra-zone du préfixe LAN (LSA Type 1), sécurisation par passive-interface et convergence instantanée.
+  - **Palier 6 (Cybersécurité Réseau L2 & Défense en Profondeur)** : Durcissement intégral du commutateur d'accès Cisco SW1 : Port-Security (sticky MAC, mode restrict et isolation automatique en état critique err-disabled par shutdown), protection contre les serveurs DHCP pirates via DHCP Snooping avec table de liaison dynamique (Binding Database), et sécurisation de la topologie Spanning-Tree par PortFast (zéro latence) et BPDU Guard (anti-boucles / anti-commutateurs pirates).
 - **Validation Opérationnelle & Performances** : 
   - Connectivité de bout en bout validée vers l'Internet (100% succès ping vers 8.8.8.8, latence interne < 1 ms, RTT moyen WAN 62.9 ms).
   - Blocage certifié des cyberattaques L7/L4 et conformité totale d'infrastructure validée par audit programmatique.
 - **Livrables Inclus** :
-  - 10 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
+  - 11 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
   - Suite logicielle d'automatisation Python autonome ([`automation/`](./06-Homelab-Proxmox-FortiGate-Cisco/automation/)).
   - [Rapport d'Audit Technique Complet](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
 

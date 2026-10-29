@@ -29,7 +29,8 @@ INVENTORY = {
         "proto": "telnet",
         "expected_interfaces": ["Ethernet0/1", "Ethernet0/0.10"],
         "expected_routes": ["0.0.0.0/0", "10.10.10.0/24", "172.16.1.0/30"],
-        "expected_ospf_neighbors": ["172.16.1.1"]
+        "expected_ospf_neighbors": ["172.16.1.1"],
+        "expected_dhcp_pools": ["POOL_VLAN10"]
     },
     "SW1_HQ": {
         "vendor": "cisco",
@@ -39,7 +40,10 @@ INVENTORY = {
         "port": 32770,
         "proto": "telnet",
         "expected_interfaces": ["Ethernet0/0", "Ethernet0/1"],
-        "expected_vlans": [1, 10]
+        "expected_vlans": [1, 10],
+        "expected_port_security": ["Ethernet0/1"],
+        "expected_dhcp_snooping_vlans": [10],
+        "expected_bpduguard": ["Ethernet0/1"]
     },
     "R2_BRANCH": {
         "vendor": "cisco",

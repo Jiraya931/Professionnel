@@ -71,6 +71,50 @@ class AuditEngine:
                     "detail": "Adjacence OSPF etablie et synchronisee (FULL)" if found else "Adjacence OSPF absente ou non FULL"
                 })
 
+        # 5. Verification du Pool DHCP sur le routeur
+        if "expected_dhcp_pools" in info:
+            dhcp_pool_output = client.execute("show ip dhcp pool")
+            for pool in info["expected_dhcp_pools"]:
+                found = f"Pool {pool}" in dhcp_pool_output or pool in dhcp_pool_output
+                checks.append({
+                    "test": f"Pool DHCP {pool} configure et actif",
+                    "passed": found,
+                    "detail": "Service d'attribution DHCP pret" if found else "Pool DHCP introuvable"
+                })
+
+        # 6. Verification de Port-Security (Commutateur L2)
+        if "expected_port_security" in info:
+            for psec_int in info["expected_port_security"]:
+                psec_output = client.execute(f"show port-security interface {psec_int}")
+                psec_active = "Port Security              : Enabled" in psec_output
+                checks.append({
+                    "test": f"Port-Security actif sur {psec_int}",
+                    "passed": psec_active,
+                    "detail": "Controle d'acces MAC sticky actif" if psec_active else "Port-Security non actif"
+                })
+
+        # 7. Verification de DHCP Snooping (Commutateur L2)
+        if "expected_dhcp_snooping_vlans" in info:
+            snoop_output = client.execute("show ip dhcp snooping")
+            for snoop_vlan in info["expected_dhcp_snooping_vlans"]:
+                snoop_active = f"{snoop_vlan}" in snoop_output and "enabled" in snoop_output.lower()
+                checks.append({
+                    "test": f"DHCP Snooping operationnel sur VLAN {snoop_vlan}",
+                    "passed": snoop_active,
+                    "detail": "Filtrage Rogue DHCP actif" if snoop_active else "DHCP Snooping inactif"
+                })
+
+        # 8. Verification de BPDU Guard (Commutateur L2)
+        if "expected_bpduguard" in info:
+            for bpdu_int in info["expected_bpduguard"]:
+                stp_output = client.execute(f"show spanning-tree interface {bpdu_int} detail")
+                bpdu_active = "Bpdu guard is enabled" in stp_output
+                checks.append({
+                    "test": f"BPDU Guard arme sur {bpdu_int}",
+                    "passed": bpdu_active,
+                    "detail": "Protection anti-commutateur pirate active" if bpdu_active else "BPDU Guard non arme"
+                })
+
         passed_count = sum(1 for c in checks if c["passed"])
         score = (passed_count / len(checks) * 100) if checks else 100
         

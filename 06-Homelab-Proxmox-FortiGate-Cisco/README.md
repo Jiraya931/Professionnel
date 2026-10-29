@@ -76,7 +76,7 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 
 ## 3. Guides Techniques Détaillés
 
-Le projet est documenté par 10 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
+Le projet est documenté par 11 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
 
 1. [**Guide 01 : Migration EVE-NG de VMware Workstation vers Proxmox VE**](./guides/01_MIGRATION_EVENG_PROXMOX.md)  
    Exportation des disques VMDK, transfert SSH/SCP, importation `qm disk import` sous Proxmox VE et activation du flag processeur `host` (Nested KVM).
@@ -98,6 +98,8 @@ Le projet est documenté par 10 guides pas-à-pas disponibles dans le dossier [`
    Suite logicielle Python modulaire (`automation/`), extraction a chaud des running-configs (GitOps), detection differentielle de derive (*drift*), moteur d'audit de 22 points de controle et generation de rapports structures JSON/Markdown (score 100%).
 10. [**Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)**](./guides/10_PALIER_5_ROUTAGE_DYNAMIQUE_OSPFV2_CISCO_FORTINET.md)  
     Mise en place d'un domaine OSPFv2 multi-constructeurs (Cisco IOL L3 R1 et FortiGate 7.4), elimination du routage statique, injection de route par defaut externe O*E2, annonce LAN LSA Type 1, securisation par passive-interface, contournement MTU IOL et audit automatise 25/25 points.
+11. [**Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)**](./guides/11_PALIER_6_SECURITE_L2_PORT_SECURITY_DHCP_SNOOPING_BPDUGUARD.md)  
+    Durcissement avance du commutateur d'acces Cisco IOL L2 SW1 : controle d'acces physique par adresse MAC Sticky, observation des modes restrict et shutdown (err-disabled), filtrage anti-serveur DHCP pirate (DHCP Snooping, ports Trusted/Untrusted, Option 82), et protection STP contre les boucles et commutateurs clandestins (PortFast & BPDU Guard).
 
 ---
 

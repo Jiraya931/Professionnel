@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <title>Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)</title>
+  <style>
+  @page {
+    size: A4 portrait;
+    margin: 14mm 12mm 14mm 12mm;
+    @bottom-right {
+      content: counter(page) "/" counter(pages);
+      font-size: 8pt;
+      color: #64748b;
+    }
+  }
+  
+  * {
+    box-sizing: border-box;
+    -webkit-print-color-adjust: exact !important;
+    print-color-adjust: exact !important;
+  }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-size: 10pt;
+    line-height: 1.55;
+    color: #1e293b;
+    background: #ffffff;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+    color: #ffffff;
+    padding: 20px 24px;
+    border-radius: 8px;
+    margin-bottom: 22px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+
+  .header-card h1 {
+    margin: 0 0 6px 0;
+    font-size: 18pt;
+    font-weight: 700;
+    color: #f8fafc;
+    letter-spacing: -0.3px;
+  }
+
+  .header-card .subtitle {
+    margin: 0 0 14px 0;
+    font-size: 10.5pt;
+    color: #93c5fd;
+    font-weight: 400;
+  }
+
+  .header-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 10px;
+    font-size: 8.5pt;
+    color: #cbd5e1;
+  }
+
+  .header-meta-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .badge {
+    display: inline-block;
+    padding: 2px 7px;
+    border-radius: 4px;
+    font-size: 7.5pt;
+    font-weight: 600;
+    text-transform: uppercase;
+    background: rgba(59, 130, 246, 0.2);
+    color: #bfdbfe;
+    border: 1px solid rgba(147, 197, 253, 0.3);
+  }
+
+  h2 {
+    color: #0f172a;
+    font-size: 13pt;
+    font-weight: 700;
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 5px;
+    margin-top: 22px;
+    margin-bottom: 12px;
+    page-break-after: avoid;
+  }
+
+  h3 {
+    color: #1e3a8a;
+    font-size: 11pt;
+    font-weight: 600;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    page-break-after: avoid;
+  }
+
+  p {
+    margin: 0 0 10px 0;
+  }
+
+  ul, ol {
+    margin: 0 0 12px 0;
+    padding-left: 22px;
+  }
+
+  li {
+    margin-bottom: 4px;
+  }
+
+  code {
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 9pt;
+    background: #f1f5f9;
+    color: #0f172a;
+    padding: 1.5px 5px;
+    border-radius: 4px;
+    border: 1px solid #e2e8f0;
+  }
+
+  pre {
+    background: #0f172a;
+    color: #f8fafc;
+    padding: 12px 14px;
+    border-radius: 6px;
+    font-family: Consolas, "Courier New", monospace;
+    font-size: 8.5pt;
+    line-height: 1.45;
+    overflow-x: auto;
+    margin: 8px 0 14px 0;
+    border: 1px solid #1e293b;
+    page-break-inside: avoid;
+  }
+
+  pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    font-size: inherit;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0 16px 0;
+    font-size: 8.5pt;
+    page-break-inside: avoid;
+  }
+
+  th {
+    background: #f1f5f9;
+    color: #0f172a;
+    font-weight: 600;
+    text-align: left;
+    padding: 8px 10px;
+    border: 1px solid #cbd5e1;
+  }
+
+  td {
+    padding: 7px 10px;
+    border: 1px solid #e2e8f0;
+    vertical-align: top;
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  blockquote {
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: #eff6ff;
+    border-left: 4px solid #3b82f6;
+    color: #1e3a8a;
+    border-radius: 0 6px 6px 0;
+    page-break-inside: avoid;
+  }
+
+  blockquote p {
+    margin: 0;
+  }
+
+  /* Screenshot / Verification Box */
+  .screenshot-box {
+    margin: 16px 0 20px 0;
+    background: #fafaf9;
+    border: 2px dashed #0284c7;
+    border-radius: 8px;
+    padding: 14px 16px;
+    page-break-inside: avoid;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+  }
+
+  .screenshot-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    border-bottom: 1px solid #e0f2fe;
+    padding-bottom: 6px;
+  }
+
+  .screenshot-tag {
+    background: #0284c7;
+    color: #ffffff;
+    font-size: 7.5pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 3px 8px;
+    border-radius: 4px;
+    letter-spacing: 0.5px;
+  }
+
+  .screenshot-target {
+    font-size: 8.5pt;
+    font-weight: 600;
+    color: #0369a1;
+  }
+
+  .screenshot-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: #0c4a6e;
+    margin: 0 0 6px 0;
+  }
+
+  .screenshot-checklist {
+    margin: 6px 0 0 0;
+    padding-left: 20px;
+    font-size: 8.5pt;
+    color: #334155;
+  }
+
+  .screenshot-checklist li {
+    margin-bottom: 3px;
+  }
+
+  .screenshot-preview {
+    margin-top: 8px;
+    background: #0f172a;
+    color: #38bdf8;
+    padding: 8px 12px;
+    border-radius: 4px;
+    font-family: Consolas, monospace;
+    font-size: 8pt;
+    border: 1px solid #1e293b;
+  }
+
+  .page-break {
+    page-break-before: always;
+  }
+
+  .footer-notice {
+    margin-top: 25px;
+    padding-top: 10px;
+    border-top: 1px solid #e2e8f0;
+    font-size: 7.5pt;
+    color: #64748b;
+    display: flex;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+  <div class="header-card">
+    <div class="badge">DOCUMENTATION OFFICIELLE HOMELAB & RÉSEAU</div>
+    <h1>Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)</h1>
+    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
+    <div class="header-meta">
+      <div class="header-meta-item"><strong>Date :</strong> 27 Octobre 2026</div>
+      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</div>
+      <div class="header-meta-item"><strong>Plateforme :</strong> EVE-NG Community (192.168.1.11)</div>
+      <div class="header-meta-item"><strong>Statut :</strong> Validé & Opérationnel ✅</div>
+    </div>
+  </div>
+
+  <p>Ce guide documente l'implementation de reference du Palier 6 d'Ingenierie Reseau et Securite : le durcissement complet de la couche d'acces (Commutateur Cisco IOL L2 SW1), articulant le controle d'acces physique par adresse MAC (Port-Security), la protection contre les serveurs DHCP pirates (DHCP Snooping) et la preservation de l'integrite de la topologie Spanning-Tree (PortFast & BPDU Guard).</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>1. Contexte et Enjeux Industriels de la Securite Couche 2</h2>
+<p>La majorite des cyberattaques internes et des incidents d'exploitation surviennent au niveau de la couche liaison de donnees (Couche 2 du modele OSI) :</p>
+<ol start="1"><li><strong>Saturation de la table CAM (<em>MAC Flooding</em>) & Usurpation (<em>MAC Spoofing</em>) :</strong> Un attaquant inonde le commutateur de fausses adresses MAC pour saturer sa memoire et transformer le commutateur en concentrateur (<em>hub</em>), rendant possible l'ecoute passive de l'ensemble des trames du VLAN.</li><li><strong>Serveurs DHCP pirates (<em>Rogue DHCP</em>) & Attaques Man-in-the-Middle :</strong> Tout equipement non autorise peut emettre des offres DHCP frauduleuses attribuant aux utilisateurs une fausse passerelle par defaut pour intercepter leurs flux ou un faux DNS pour le phishing.</li><li><strong>Boucles et compromissions Spanning-Tree :</strong> Le raccordement accidentel ou hostile d'un commutateur pirate sur une prise murale peut provoquer une tempete de diffusion (<em>Broadcast Storm</em>) ou usurper le role de pont racine (<em>Root Bridge</em>), destabilisant l'infrastructure.</li></ol>
+<p>Le <strong>Palier 6</strong> neutralise integralement ces vecteurs d'attaque sur le segment d'acces utilisateur (VLAN 10).</p>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>2. Architecture de Securite L2 et Topologie d'Acces</h2>
+<pre><code class="text">+--------------------------------------------------------------------------------------------------+
+|                                    ZONE DE DISTRIBUTION &amp; ROUTAGE                                |
+|                                                                                                  |
+|                                       [ ROUTEUR CISCO RL3 ]                                      |
+|                                          Serveur DHCP Officiel                                   |
+|                                        Pool : 10.10.10.0/24 (VLAN 10)                            |
+|                                     Passerelle : 10.10.10.1 (Sub-if e0/0.10)                     |
++--------------------------------------------------+-----------------------------------------------+
+                                                   |
+                                                   | Trunk 802.1Q (VLAN 10)
+                                                   | Port de Confiance DHCP &amp; ARP
+                                                   | [ Ethernet0/0 ]
+                                                   v
++--------------------------------------------------+-----------------------------------------------+
+|                                  COMMUTATEUR CISCO IOL L2 (SW1)                                  |
+|                                                                                                  |
+|  - Inspection DHCP Snooping : Filtre actif sur VLAN 10 (Option 82 desactivee)                   |
+|  - Table de liaison dynamique : Enregistre {MAC, IP, Bail, Port, VLAN}                           |
+|  - Protection Spanning-Tree : PortFast (Zero latence) &amp; BPDU Guard (Anti-Boucle/Commutateur)     |
+|  - Port-Security            : Verrouillage d'adresse MAC Sticky, limitation a 1 hote             |
++--------------------------------------------------+-----------------------------------------------+
+                                                   |
+                                                   | Port d'Acces VLAN 10 Durci (Untrusted)
+                                                   | [ Ethernet0/1 ]
+                                                   v
++--------------------------------------------------+-----------------------------------------------+
+|                                   POSTE CLIENT VPCS (VLAN 10)                                    |
+|                                       MAC : 0050.7966.6804                                       |
+|                                      IP Dynamique : 10.10.10.11                                  |
+|                                        Passerelle : 10.10.10.1                                   |
++--------------------------------------------------------------------------------------------------+</code></pre>
+<h3>Matrice de Securite des Ports du Commutateur SW1</h3>
+<table><thead><tr><th>Interface</th><th>Raccordement</th><th>Mode Switchport</th><th>Role Securite DHCP</th><th>Mecanismes L2 Actifs</th><th>Action en cas d'attaque</th></tr></thead><tbody><tr><td><strong><code>Ethernet0/0</code></strong></td><td>Routeur RL3</td><td>Trunk 802.1Q</td><td><strong><code>Trusted</code> (Oui)</strong></td><td>Liaison montante certifiee</td><td>N/A (Trafic d'infrastructure autorise)</td></tr><tr><td><strong><code>Ethernet0/1</code></strong></td><td>Client VPCS</td><td>Access VLAN 10</td><td><strong><code>Untrusted</code> (Non)</strong></td><td>Port-Security, PortFast, BPDU Guard</td><td>Blocage de trames non autorisees / err-disabled</td></tr></tbody></table>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>3. Implementation de Port-Security</h2>
+<h3>A. Conception Technique et Modes de Violation</h3>
+<p>Port-Security analyse l'adresse MAC source des trames entrantes sur l'interface :</p>
+<ul><li><strong><code>mac-address sticky</code> :</strong> Le commutateur convertit dynamiquement la premiere adresse MAC apprise en adresse securisee persistante inscrite dans la configuration active (<code>running-config</code>).</li><li><strong><code>maximum 1</code> :</strong> Interdit le raccordement de plusieurs equipements sur la meme prise physique (antidote aux commutateurs sauvages).</li><li><strong>Modes de violation :</strong></li><li><strong><code>restrict</code> :</strong> L'adresse non autorisee est silencieusement jetee, le compteur de violation <code>Security Violation Count</code> s'incremente et une alerte Syslog est envoyee au SIEM. Le port reste operationnel (<code>Secure-up</code>).</li><li><strong><code>shutdown</code> :</strong> Des la premiere trame frauduleuse, le commutateur desactive physiquement l'interface et la bascule dans l'etat critique <strong><code>err-disabled</code></strong> (<code>Secure-shutdown</code>).</li></ul>
+<h3>B. Configuration Cisco IOS sur SW1</h3>
+<pre><code class="cisco">interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security maximum 1
+ switchport port-security mac-address sticky
+ switchport port-security violation restrict
+ exit</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>4. Implementation du DHCP Snooping</h2>
+<h3>A. Mecanisme de Defense</h3>
+<ol start="1"><li><strong>Ports <code>Trusted</code> (De Confiance) :</strong> L'interface <code>Ethernet0/0</code> reliant le routeur RL3 est explicitee en <code>ip dhcp snooping trust</code>. Seul ce port est autorise a acheminer des reponses serveur <code>DHCP Offer</code> et <code>DHCP Ack</code>.</li><li><strong>Ports <code>Untrusted</code> (Non Fiables) :</strong> Le port <code>Ethernet0/1</code> est non fiable par defaut. Si un serveur pirate repond a une requete client, ses paquets sont detruits immediatement.</li><li><strong>Desactivation de l'Option 82 :</strong> Dans les reseaux locaux commutateur-routeur Cisco, l'insertion automatique du champ Relay Agent Information (Option 82) avec <code>giaddr 0.0.0.0</code> provoque le rejet des paquets par le routeur. La directive <code>no ip dhcp snooping information option</code> garantit l'interoperabilite.</li></ol>
+<h3>B. Configuration Cisco IOS</h3>
+<p>#### Sur le Routeur RL3 (Serveur DHCP Officiel) :</p>
+<pre><code class="cisco">ip dhcp excluded-address 10.10.10.1 10.10.10.10
+ip dhcp pool POOL_VLAN10
+ network 10.10.10.0 255.255.255.0
+ default-router 10.10.10.1
+ dns-server 8.8.8.8
+ exit</code></pre>
+<p>#### Sur le Commutateur SW1 :</p>
+<pre><code class="cisco">ip dhcp snooping
+ip dhcp snooping vlan 10
+no ip dhcp snooping information option
+
+interface Ethernet0/0
+ ip dhcp snooping trust
+ exit</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>5. Durcissement Spanning-Tree : PortFast & BPDU Guard</h2>
+<h3>A. Enjeux et Synergie</h3>
+<ul><li><strong><code>spanning-tree portfast</code> :</strong> Neutralise les 30 secondes d'attente (Listening/Learning) de STP lors du raccordement d'un poste, permettant au client d'obtenir instantanement son bail DHCP.</li><li><strong><code>spanning-tree bpduguard enable</code> :</strong> Si un commutateur pirate emet une trame BPDU sur ce port d'acces, le port est immediatement coupe en <code>err-disabled</code>.</li></ul>
+<h3>B. Configuration Cisco IOS sur SW1</h3>
+<pre><code class="cisco">interface Ethernet0/1
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+ exit</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>6. Preuves de Validation et Resultats Experimentaux en Production</h2>
+<h3>1. Enregistrement de l'Adresse MAC Legitime (Port-Security)</h3>
+<p>Apres emission du premier ping depuis VPCS (<code>0050.7966.6804</code>), SW1 a automatiquement enrichi sa configuration :</p>
+<pre><code class="cisco">SW1#show running-config interface Ethernet0/1
+interface Ethernet0/1
+ switchport access vlan 10
+ switchport mode access
+ switchport port-security
+ switchport port-security violation restrict
+ switchport port-security mac-address sticky
+ switchport port-security mac-address sticky 0050.7966.6804
+ duplex auto
+ spanning-tree portfast
+ spanning-tree bpduguard enable
+end</code></pre>
+<h3>2. Test d'Attaque et Observation de la Violation en Mode Restrict</h3>
+<p>Apres avoir defini une adresse autorisee factice (<code>0000.1111.2222</code>), VPCS tente d'emettre vers <code>10.10.10.1</code> :</p>
+<pre><code class="text">VPCS&gt; ping 10.10.10.1
+host (10.10.10.1) not reachable</code></pre>
+<p>Observation sur SW1 :</p>
+<pre><code class="text">SW1#show port-security interface Ethernet0/1
+Port Security              : Enabled
+Port Status                : Secure-up
+Violation Mode             : Restrict
+Maximum MAC Addresses      : 1
+Total MAC Addresses        : 1
+Sticky MAC Addresses       : 1
+Last Source Address:Vlan    : 0050.7966.6804:10
+Security Violation Count   : 3</code></pre>
+<blockquote><p><strong>Validation :</strong> Le pirate est bloque, l'adresse de l'attaquant est formellement consignee, et le compteur s'incremente a chaque tentative.</p></blockquote>
+<h3>3. Test de Violation en Mode Shutdown et Isolation <code>err-disabled</code></h3>
+<p>Configuration du mode <code>shutdown</code> sur <code>Ethernet0/1</code> :</p>
+<pre><code class="text">*Oct 29 12:00:29.754: %PM-4-ERR_DISABLE: psecure-violation error detected on Et0/1, putting Et0/1 in err-disable state
+*Oct 29 12:00:29.754: %PORT_SECURITY-2-PSECURE_VIOLATION: Security violation occurred, caused by MAC address 0050.7966.6804 on port Ethernet0/1.
+*Oct 29 12:00:30.754: %LINEPROTO-5-UPDOWN: Line protocol on Interface Ethernet0/1, changed state to down
+*Oct 29 12:00:31.754: %LINK-3-UPDOWN: Interface Ethernet0/1, changed state to down</code></pre>
+<p>Verification du diagnostic :</p>
+<pre><code class="text">SW1#show interfaces status err-disabled
+Port      Name      Status       Reason             Err-disabled Vlans
+Et0/1               err-disabled psecure-violation</code></pre>
+<blockquote><p><strong>Validation :</strong> L'interface a ete coupe physiquement. La procedure de rehabilitation (<code>shutdown</code> suivi de <code>no shutdown</code> avec la MAC legitime) a retabli le port en etat <code>Up/Up</code>.</p></blockquote>
+<h3>4. Attribution DHCP et Table de Liaison (DHCP Snooping Binding)</h3>
+<p>Sur VPCS :</p>
+<pre><code class="text">VPCS&gt; ip dhcp
+DDORA IP 10.10.10.11/24 GW 10.10.10.1</code></pre>
+<p>Sur SW1, la base de donnees de securite est generee en direct :</p>
+<pre><code class="text">SW1#show ip dhcp snooping binding
+MacAddress         IpAddress      Lease(sec)  Type            VLAN  Interface
+------------------ -------------- ----------- --------------- ----- -----------
+00:50:79:66:68:04  10.10.10.11    86365       dhcp-snooping   10    Ethernet0/1
+Total number of bindings: 1</code></pre>
+<h3>5. Verification de PortFast et BPDU Guard</h3>
+<pre><code class="text">SW1#show spanning-tree interface Ethernet0/1 detail
+Port 2 (Ethernet0/1) of VLAN0010 is designated forwarding
+  The port is in the portfast mode
+  Bpdu guard is enabled
+  BPDU: sent 88, received 0</code></pre>
+<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
+<h2>7. Bilan d'Ingenierie et Competences Acquises</h2>
+<p>Ce Palier 6 valide les standards industriels de securisation d'acces local :</p>
+<ol start="1"><li><strong>Controle d'acces granulaire (L2 NAC) :</strong> Neutralisation du spoofing et de l'adjonction de materiels non inventories.</li><li><strong>Protection des flux fondamentaux d'infrastructure :</strong> Immunisation contre les serveurs DHCP frauduleux et les attaques MitM.</li><li><strong>Resilience et stabilite Spanning-Tree :</strong> Suppression des delais d'attribution d'adresse IP tout en garantissant l'immunite contre les boucles pirates.</li><li><strong>Maitrise du cycle de vie operationnel :</strong> Diagnostic des pannes d'isolation en etat <code>err-disabled</code> et protocoles de remediation d'incident.</li></ol>
+
+  <div class="footer-notice">
+    <span>Homelab Cybersécurité & Réseau — Documentation Technique Opérationnelle</span>
+    <span>Généré automatiquement au format d'audit PDF</span>
+  </div>
+</body>
+</html>
