@@ -67,8 +67,7 @@ function Sync-And-Deploy {
         Write-Host $status -ForegroundColor DarkGray
         
         git -C $TargetDir add -A
-        $dateStr = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-        $commitMsg = "auto: mise a jour portfolio ($dateStr)"
+        $commitMsg = "Mise a jour du portfolio et des livrables techniques"
         
         git -C $TargetDir commit -m $commitMsg | Out-Null
         Write-Host "[$(Get-Date -Format 'HH:mm:ss')] Deploiement vers GitHub Pages (git push origin gh-pages)..." -ForegroundColor Cyan
