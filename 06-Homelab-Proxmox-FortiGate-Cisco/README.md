@@ -76,7 +76,7 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 
 ## 3. Guides Techniques Détaillés
 
-Le projet est documenté par 11 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
+Le projet est documenté par 12 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
 
 1. [**Guide 01 : Migration EVE-NG de VMware Workstation vers Proxmox VE**](./guides/01_MIGRATION_EVENG_PROXMOX.md)  
    Exportation des disques VMDK, transfert SSH/SCP, importation `qm disk import` sous Proxmox VE et activation du flag processeur `host` (Nested KVM).
@@ -100,6 +100,8 @@ Le projet est documenté par 11 guides pas-à-pas disponibles dans le dossier [`
     Mise en place d'un domaine OSPFv2 multi-constructeurs (Cisco IOL L3 R1 et FortiGate 7.4), elimination du routage statique, injection de route par defaut externe O*E2, annonce LAN LSA Type 1, securisation par passive-interface, contournement MTU IOL et audit automatise 25/25 points.
 11. [**Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)**](./guides/11_PALIER_6_SECURITE_L2_PORT_SECURITY_DHCP_SNOOPING_BPDUGUARD.md)  
     Durcissement avance du commutateur d'acces Cisco IOL L2 SW1 : controle d'acces physique par adresse MAC Sticky, observation des modes restrict et shutdown (err-disabled), filtrage anti-serveur DHCP pirate (DHCP Snooping, ports Trusted/Untrusted, Option 82), et protection STP contre les boucles et commutateurs clandestins (PortFast & BPDU Guard).
+12. [**Guide 12 : Palier 7 - Haute Disponibilité Réseau & Redondance FHRP / HSRP**](./guides/12_PALIER_7_HAUTE_DISPONIBILITE_FHRP_HSRP.md)  
+    Mise en place de la haute disponibilité de premier saut (FHRP) via HSRP sur le VLAN 10, élimination du point unique de défaillance (SPOF) par le cluster R1 (Maître Actif, priorité 110) et R_STANDBY (Secours, priorité 100), passerelle virtuelle partagée (VIP 10.10.10.254, VMAC 0000.0c07.ac01), basculement à chaud instantané (< 1 seconde) et préemption automatique.
 
 ---
 
@@ -169,6 +171,24 @@ Suite logicielle : python -m automation.netdevops --all
 Sauvegarde à chaud : R1_HQ (125 lignes), SW1_HQ (85 lignes), R2_BRANCH (2740 lignes), FORTIGATE_HQ (11126 lignes)
 Audit opérationnel : 22/22 points de contrôle validés (Score de conformité : 100.0 %)
 Rapports structurés : automation/reports/audit_report_latest.json et audit_report_latest.md
+```
+
+---
+
+
+### 7. Palier 7 : Haute Disponibilité Réseau FHRP / HSRP (Redondance de Passerelle)
+```text
+Cluster HSRP Groupe 1 (VLAN 10) :
+- Routeur Actif (Maître)    : R1 (IP 10.10.10.1, Priorité 110, Preempt P) -> State: Active (local)
+- Routeur Secours (Standby) : R_STANDBY (IP 10.10.10.2, Priorité 100, Preempt P) -> State: Standby (local)
+- Passerelle Virtuelle VIP   : 10.10.10.254
+- Adresse MAC Virtuelle HSRP : 00:00:0c:07:ac:01 (Groupe 1 en hex)
+
+Preuve du Basculement à Chaud (Live Failover) :
+- Flux de test continu émis depuis VPC (50 pings vers la VIP 10.10.10.254)
+- Coupure d'interface sur R1 (shutdown Ethernet0/0.10)
+- Continuité de service : 1 seul paquet perdu (icmp_seq=25 timeout), reprise immédiate au paquet 26 via R_STANDBY (< 1s)
+- Rétablissement de R1 (no shutdown) : Préemption automatique validée (R1 redevient Active, R_STANDBY repasse en Standby)
 ```
 
 ---
