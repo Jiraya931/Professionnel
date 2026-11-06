@@ -2,6 +2,7 @@
 
 > **Projets & Travaux d'Ingénierie Réseau — Master 1 & Master 2 RESI**  
 > **Auteur** : Ababacar Ousmane Niang  
+> **Institution** : Groupe ISI Dakar  
 > **Certifications associées** : Cisco CCNA (ENSA, SRWE, ITN), préparation CCNP ENCOR et Huawei HCIP Datacenter (DCN)
 
 ---
@@ -86,3 +87,7 @@ SW-DISTRIB-01# show standby brief
 # Vérification des translations NAT dynamiques
 R-EDGE-WAN-01# show ip nat translations
 ```
+
+---
+
+*Référentiel d'ingénierie réseaux — Topologies, protocoles de routage et commutation d'entreprise.*

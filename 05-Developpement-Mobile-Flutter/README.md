@@ -2,6 +2,7 @@
 
 > **Projet de Développement d'Application — Master 1 RESI**  
 > **Auteur** : Ababacar Ousmane Niang  
+> **Institution** : Groupe ISI Dakar  
 > **Stack Technique** : Flutter SDK, Dart, Provider (State Management), Material Design 3
 
 ---
@@ -41,3 +42,7 @@ flutter pub get
 # Lancement en environnement local de développement
 flutter run
 ```
+
+---
+
+*Référentiel de développement applicatif — Architecture logicielle Flutter et gestion d'état.*

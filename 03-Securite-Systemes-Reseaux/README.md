@@ -68,3 +68,7 @@ Conception d'une zone démilitarisée pour isoler les services publiquement acce
 - [`Ababacar_Ousmane_Niang_Site_to_Site_IPsec_VPN.pka`](./labs/Ababacar_Ousmane_Niang_Site_to_Site_IPsec_VPN.pka) : Déploiement CLI du tunnel IPsec et vérification des associations de sécurité (`show crypto isakmp sa`, `show crypto ipsec sa`).
 - [`DMZ_Architecture.pkt`](./labs/DMZ_Architecture.pkt) : Maquette réseau illustrant le cloisonnement multi-zones.
 - [`PROJET_SECURITE_RESEAUX.pdf`](./docs/PROJET_SECURITE_RESEAUX.pdf) : Rapport technique détaillé du projet de sécurisation.
+
+---
+
+*Référentiel de cybersécurité appliquée — Filtrage périmétrique, durcissement L2 et tunnels IPsec.*

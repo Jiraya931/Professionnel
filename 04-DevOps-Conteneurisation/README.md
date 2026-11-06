@@ -2,6 +2,7 @@
 
 > **Spécialisation Master 2 RESI (Réseaux & Systèmes Informatiques)**  
 > **Auteur** : Ababacar Ousmane Niang  
+> **Institution** : Groupe ISI Dakar  
 > **Outils & Technologies** : Docker, Docker Compose, Kubernetes, AWS (IAM, EC2, VPC), GitHub Actions, NGINX
 
 ---
@@ -53,3 +54,7 @@ docker compose logs -f webapp
 - **AWS IAM & Sécurité** : Gestion des politiques de moindre privilège, groupes d'utilisateurs, rôles d'instances EC2 et obligation du MFA.
 - **AWS Réseau** : Implémentation de VPCs, sous-réseaux publics et privés, passerelles Internet (IGW) et tables de routage associées.
 - **Automatisation CI/CD** : Conception de pipelines GitHub Actions validant le code source, construisant les artefacts et automatisant le déploiement sur GitHub Pages.
+
+---
+
+*Référentiel DevOps & Cloud — Déploiement d'architectures conteneurisées et automatisation CI/CD.*
