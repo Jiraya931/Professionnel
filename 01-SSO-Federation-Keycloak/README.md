@@ -101,3 +101,7 @@ Les supports d'architecture et documents de soutenance sont consultables dans le
 - [`SIMEN_Sovereign_SSO_Architecture.pptx`](./docs/SIMEN_Sovereign_SSO_Architecture.pptx) : Document d'architecture exécutive.
 - [`sso_ci_presentation.pptx`](./docs/sso_ci_presentation.pptx) : Support de présentation technique sur l'intégration continue et le SSO.
 - [`SSO_Cl.pdf`](./docs/SSO_Cl.pdf) : Fiche de synthèse technique du cas d'usage institutionnel.
+
+---
+
+*Référentiel de gestion des identités et des accès (IAM) — Architecture SSO souveraine et fédération d'identités Keycloak.*
