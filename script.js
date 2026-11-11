@@ -499,7 +499,7 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
                 `Prévention d'intrusion FortiGate (signatures F-SBID custom contre SQLi et Path Traversal) et politique Anti-DDoS`,
                 `Durcissement L2 (Port-Security Sticky/Shutdown, DHCP Snooping, BPDU Guard) et cluster HSRP VLAN 10 (failover < 1s)`,
                 `SIEM Wazuh v4.14.10 : collecte Syslog UDP/514 multi-constructeurs et 10 règles SOC corrélées MITRE ATT&CK (T1200, T1190, T1498)`,
-                `Suite NetDevOps Python : sauvegarde GitOps et audit automatisé à 40/40 points (100.0 %) compilé en rapport PDF de 4.04 Mo (13 modules, 20 captures réelles)`
+                `Suite NetDevOps Python : sauvegarde GitOps et audit automatisé à 40/40 points (100.0 %) compilé en rapport PDF de 4.24 Mo (85 pages, 13 modules, 2 schémas vectoriels et 22 captures réelles)`
             ],
             github: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         },
