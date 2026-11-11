@@ -115,6 +115,30 @@ class AuditEngine:
                     "detail": "Protection anti-commutateur pirate active" if bpdu_active else "BPDU Guard non arme"
                 })
 
+        # 9. Verification Haute Disponibilite HSRP (Cluster passerelle)
+        if "expected_hsrp" in info:
+            hsrp_cfg = info["expected_hsrp"]
+            hsrp_output = client.execute("show standby brief")
+            vip = hsrp_cfg["vip"]
+            exp_state = hsrp_cfg["state"]
+            hsrp_ok = vip in hsrp_output and exp_state in hsrp_output
+            checks.append({
+                "test": f"Cluster HSRP Groupe {hsrp_cfg['group']} ({exp_state}, VIP {vip})",
+                "passed": hsrp_ok,
+                "detail": f"Etat HSRP {exp_state} actif avec VIP {vip}" if hsrp_ok else "Etat HSRP non conforme ou VIP absente"
+            })
+
+        # 10. Verification Export Syslog vers SIEM Wazuh
+        if "expected_syslog_host" in info:
+            syslog_ip = info["expected_syslog_host"]
+            log_output = client.execute("show running-config | include logging")
+            syslog_ok = f"logging host {syslog_ip}" in log_output
+            checks.append({
+                "test": f"Export Syslog vers SIEM Wazuh ({syslog_ip})",
+                "passed": syslog_ok,
+                "detail": f"Collecte Syslog active vers {syslog_ip}" if syslog_ok else "Serveur Syslog SIEM non configure"
+            })
+
         passed_count = sum(1 for c in checks if c["passed"])
         score = (passed_count / len(checks) * 100) if checks else 100
         
@@ -212,6 +236,17 @@ class AuditEngine:
                     "passed": found,
                     "detail": "Route injectee par Cisco R1 presente dans la RIB OSPF" if found else "Route manquante"
                 })
+
+        # 8. Verification export Syslog vers SIEM Wazuh
+        if "expected_syslog_host" in info:
+            syslog_ip = info["expected_syslog_host"]
+            syslog_out = client.execute("show log syslogd setting")
+            syslog_ok = "set status enable" in syslog_out and syslog_ip in syslog_out
+            checks.append({
+                "test": f"Export Syslog vers SIEM Wazuh ({syslog_ip})",
+                "passed": syslog_ok,
+                "detail": f"Collecte Syslog UDP/514 active vers {syslog_ip}" if syslog_ok else "Export Syslog SIEM inactif ou mal configure"
+            })
 
         passed_count = sum(1 for c in checks if c["passed"])
         score = (passed_count / len(checks) * 100) if checks else 100

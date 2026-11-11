@@ -1,8 +1,8 @@
 # RAPPORT D AUDIT OPERATIONNEL ET CONFORMITE RESEAU & SECURITE
 
-- **Date de l'Audit :** 28/10/2026 22:24:33
+- **Date de l'Audit :** 11/11/2026 13:24:33
 - **Auditeur :** Ababacar Ousmane Niang - Master 2 RESI
-- **Score de Conformite Globale :** **100.0 %** (25 / 25 tests valides)
+- **Score de Conformite Globale :** **100.0 %** (40 / 40 tests valides)
 
 ---
 
@@ -10,7 +10,8 @@
 
 | Equipement | Constructeur | Role Infrastructure | Score | Statut |
 | :--- | :--- | :--- | :--- | :--- |
-| **R1_HQ** | Cisco | Routeur de Campus HQ / Passerelle VLAN 10 | 100.0 % | **CONFORME** |
+| **R1_HQ** | Cisco | Routeur de Campus HQ / Passerelle HSRP Active VLAN 10 | 100.0 % | **CONFORME** |
+| **R_STANDBY_HQ** | Cisco | Routeur de Secours Campus HQ / Passerelle HSRP Standby VLAN 10 | 100.0 % | **CONFORME** |
 | **SW1_HQ** | Cisco | Commutateur d Acces Campus HQ | 100.0 % | **CONFORME** |
 | **R2_BRANCH** | Cisco | Routeur Succursale Distante (Branch) | 100.0 % | **CONFORME** |
 | **FORTIGATE_HQ** | Fortinet | Next-Generation Firewall & Passerelle Perimetrique HQ | 100.0 % | **CONFORME** |
@@ -19,7 +20,7 @@
 
 ## Detail des Points de Controle d'Ingenierie
 
-### R1_HQ (Routeur de Campus HQ / Passerelle VLAN 10)
+### R1_HQ (Routeur de Campus HQ / Passerelle HSRP Active VLAN 10)
 | Point de Controle | Resultat | Detail Technique |
 | :--- | :--- | :--- |
 | Interface Ethernet0/1 active (UP/UP) | **OK** | Interface operationnelle |
@@ -28,14 +29,31 @@
 | Presence route 10.10.10.0/24 | **OK** | Route detectee dans la RIB |
 | Presence route 172.16.1.0/30 | **OK** | Route detectee dans la RIB |
 | Voisin OSPF 172.16.1.1 en etat FULL | **OK** | Adjacence OSPF etablie et synchronisee (FULL) |
+| Pool DHCP POOL_VLAN10 configure et actif | **OK** | Service d'attribution DHCP pret |
+| Cluster HSRP Groupe 1 (Active, VIP 10.10.10.254) | **OK** | Etat HSRP Active actif avec VIP 10.10.10.254 |
+| Export Syslog vers SIEM Wazuh (192.168.1.201) | **OK** | Collecte Syslog active vers 192.168.1.201 |
+
+### R_STANDBY_HQ (Routeur de Secours Campus HQ / Passerelle HSRP Standby VLAN 10)
+| Point de Controle | Resultat | Detail Technique |
+| :--- | :--- | :--- |
+| Interface Ethernet0/0.10 active (UP/UP) | **OK** | Interface operationnelle |
+| Presence route 0.0.0.0/0 | **OK** | Route detectee dans la RIB |
+| Presence route 10.10.10.0/24 | **OK** | Route detectee dans la RIB |
+| Cluster HSRP Groupe 1 (Standby, VIP 10.10.10.254) | **OK** | Etat HSRP Standby actif avec VIP 10.10.10.254 |
+| Export Syslog vers SIEM Wazuh (192.168.1.201) | **OK** | Collecte Syslog active vers 192.168.1.201 |
 
 ### SW1_HQ (Commutateur d Acces Campus HQ)
 | Point de Controle | Resultat | Detail Technique |
 | :--- | :--- | :--- |
 | Interface Ethernet0/0 active (UP/UP) | **OK** | Interface operationnelle |
 | Interface Ethernet0/1 active (UP/UP) | **OK** | Interface operationnelle |
+| Interface Vlan10 active (UP/UP) | **OK** | Interface operationnelle |
 | Presence VLAN 1 | **OK** | VLAN 1 provisionne |
 | Presence VLAN 10 | **OK** | VLAN 10 provisionne |
+| Port-Security actif sur Ethernet0/1 | **OK** | Controle d'acces MAC sticky actif |
+| DHCP Snooping operationnel sur VLAN 10 | **OK** | Filtrage Rogue DHCP actif |
+| BPDU Guard arme sur Ethernet0/1 | **OK** | Protection anti-commutateur pirate active |
+| Export Syslog vers SIEM Wazuh (192.168.1.201) | **OK** | Collecte Syslog active vers 192.168.1.201 |
 
 ### R2_BRANCH (Routeur Succursale Distante (Branch))
 | Point de Controle | Resultat | Detail Technique |
@@ -43,6 +61,7 @@
 | Interface Ethernet0/0 active (UP/UP) | **OK** | Interface operationnelle |
 | Interface Ethernet0/1 active (UP/UP) | **OK** | Interface operationnelle |
 | Presence route 192.168.1.0/24 | **OK** | Route detectee dans la RIB |
+| Export Syslog vers SIEM Wazuh (192.168.1.201) | **OK** | Collecte Syslog active vers 192.168.1.201 |
 
 ### FORTIGATE_HQ (Next-Generation Firewall & Passerelle Perimetrique HQ)
 | Point de Controle | Resultat | Detail Technique |
@@ -59,3 +78,4 @@
 | Politique de protection Anti-DDoS active | **OK** | Seuils SYN & ICMP flood configures |
 | Voisin OSPF 1.1.1.1 en etat Full | **OK** | Adjacence OSPF operationnelle sur port2 |
 | Route dynamique OSPF 10.10.10.0/24 apprise | **OK** | Route injectee par Cisco R1 presente dans la RIB OSPF |
+| Export Syslog vers SIEM Wazuh (192.168.1.201) | **OK** | Collecte Syslog UDP/514 active vers 192.168.1.201 |

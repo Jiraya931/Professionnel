@@ -29,7 +29,7 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
 | Domaine | Technologies et Protocoles |
 | :--- | :--- |
 | **Réseaux & Protocoles** | Cisco IOS, Cisco IOL (L2/L3), Huawei VRP, OSPFv2/v3, BGP, MPLS LDP, VRF, VLAN 802.1Q, EtherChannel (LACP), HSRP/VRRP, QoS, IPv4/IPv6 |
-| **Sécurité & IAM** | Fortinet FortiGate 7.4 (NGFW / NAT / Inspection), Keycloak IAM, OpenID Connect (OIDC), SAML 2.0, OAuth 2.0, LDAP / Active Directory, IPsec VPN, Port-Security, DHCP Snooping, DAI, DMZ |
+| **Sécurité & IAM** | Fortinet FortiGate 7.4 (NGFW / NAT / Inspection), Wazuh SIEM v4.14.10 (Syslog / OpenSearch / MITRE ATT&CK), Keycloak IAM, OpenID Connect (OIDC), SAML 2.0, OAuth 2.0, LDAP / Active Directory, IPsec VPN, Port-Security, DHCP Snooping, DAI, DMZ |
 | **DevOps & Cloud** | Docker, Docker Compose, Kubernetes, GitHub Actions (CI/CD), AWS (EC2, VPC, IAM), NGINX Reverse Proxy |
 | **Systèmes & Virtualisation** | Proxmox VE 8.x (Bare-Metal & Nested KVM), EVE-NG Community, VMware vSphere / ESXi, Linux (Ubuntu, Debian, Alpine), Windows Server |
 | **Développement & Automatisation** | Python, Bash / Shell, PowerShell, Flutter / Dart, JavaScript / HTML5 / CSS3 |
@@ -91,15 +91,16 @@ Ce dépôt fournit un accès direct, vérifiable et documenté aux livrables tec
   - **Palier 1 (DMZ & Publication Externe)** : Zone DMZ étanche sur `port3` (`172.16.50.254/24`), serveur Web Alpine Linux durci (`172.16.50.10:80`) et publication WAN par Virtual IP (`VIP_WEB_DMZ` port 8080 vers 80).
   - **Palier 2 (VPN IPsec IKEv2 Multi-Constructeurs)** : Interconnexion chiffrée entre FortiGate HQ et routeur Cisco IOL L3 R2 Branch (`192.168.1.250`), négociation IKEv2 / IPsec ESP, PFS DH14 et routage inter-sites.
   - **Palier 3 (Cybersécurité NGFW Avancée & Inspection UTM)** : Moteur IPS avec signatures F-SBID sur mesure (blocage d'injections SQL et traversées de répertoire), capteur IPS DMZ, filtrage applicatif L7 (Application Control bloquant P2P et proxies) et politique anti-DDoS (DoS Policy atténuant les inondations ICMP/SYN flood au niveau critique).
-  - **Palier 4 (NetDevOps & Audit de Conformité Continue)** : Suite logicielle Python modulaire (`automation/`) pour l'extraction à chaud des running-configs (approche GitOps), la détection différentielle de dérive (*drift*) et l'évaluation automatisée de 25 points de contrôle (Score de conformité : 100.0 %).
+  - **Palier 4 (NetDevOps & Audit de Conformité Continue)** : Suite logicielle Python modulaire (`automation/`) pour l'extraction à chaud des running-configs (approche GitOps), la détection différentielle de dérive (*drift*) et l'évaluation automatisée de 40 points de contrôle sur 5 équipements (Score de conformité : 100.0 %).
   - **Palier 5 (Routage Dynamique OSPFv2 Multi-Constructeurs)** : Domaine de routage dynamique d'entreprise OSPFv2 interconnectant Cisco IOL L3 (R1) et FortiGate 7.4, suppression intégrale des routes statiques, injection automatique de la route par défaut (LSA Type 5 External), annonce intra-zone du préfixe LAN (LSA Type 1), sécurisation par passive-interface et convergence instantanée.
   - **Palier 6 (Cybersécurité Réseau L2 & Défense en Profondeur)** : Durcissement intégral du commutateur d'accès Cisco SW1 : Port-Security (sticky MAC, mode restrict et isolation automatique en état critique err-disabled par shutdown), protection contre les serveurs DHCP pirates via DHCP Snooping avec table de liaison dynamique (Binding Database), et sécurisation de la topologie Spanning-Tree par PortFast (zéro latence) et BPDU Guard (anti-boucles / anti-commutateurs pirates).
   - **Palier 7 (Haute Disponibilité Réseau & Redondance FHRP / HSRP)** : Élimination du point unique de défaillance (SPOF) sur le VLAN 10 grâce au cluster HSRP Cisco R1 (Active, priorité 110) et R_STANDBY (Standby, priorité 100), partage de la passerelle virtuelle VIP 10.10.10.254 (VMAC 0000.0c07.ac01), basculement à chaud instantané (< 1 seconde, 1 seul paquet ICMP perdu sur 50) et préemption automatique.
+  - **Palier 8 (Supervision Centralisée, Corrélation SOC & SIEM Wazuh)** : Déploiement d'un serveur SIEM **Wazuh v4.14.10** (`192.168.1.201`, VM 101) sur Proxmox VE avec adressage statique durci (`.200` à `.203`), collecte Syslog UDP/514 multi-constructeurs (`FortiGate`, `R1`, `R_STANDBY`, `SW1`, `R2-BRANCH`), implémentation de 10 règles SOC sur mesure (`100101`-`100110`) mappées **MITRE ATT&CK** (`T1200`, `T1557`, `T1498`, `T1190`) et validation sur incidents réels (Port-Security violation, bascule HSRP, DoS ICMP Flood, IPS SQLi/Path Traversal).
 - **Validation Opérationnelle & Performances** : 
   - Connectivité de bout en bout validée vers l'Internet (100% succès ping vers 8.8.8.8, latence interne < 1 ms, RTT moyen WAN 62.9 ms).
-  - Blocage certifié des cyberattaques L7/L4 et conformité totale d'infrastructure validée par audit programmatique.
+  - Blocage certifié des cyberattaques L7/L4, corrélation SIEM SOC en temps réel et conformité totale d'infrastructure validée à 100.0 % (40/40) par audit programmatique.
 - **Livrables Inclus** :
-  - 12 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
+  - 13 guides techniques complets d'installation, configuration et supervision ([`guides/`](./06-Homelab-Proxmox-FortiGate-Cisco/guides/)).
   - Suite logicielle d'automatisation Python autonome ([`automation/`](./06-Homelab-Proxmox-FortiGate-Cisco/automation/)).
   - [Rapport d'Audit Technique Complet](./docs/Rapport_Homelab_Proxmox_FortiGate.pdf).
 

@@ -1,0 +1,95 @@
+<!-- Regles SOC personnalisees Wazuh - Homelab Proxmox / FortiGate / Cisco IOL -->
+<!-- Deploye sur /var/ossec/etc/rules/local_rules.xml (Wazuh v4.14.10) -->
+
+<group name="local,syslog,cisco_ios,homelab_soc,">
+
+  <rule id="100101" level="7">
+    <if_sid>4715</if_sid>
+    <field name="cisco.facility">^HSRP$</field>
+    <field name="cisco.mnemonic">^STATECHANGE$</field>
+    <description>Cisco IOS HSRP: Basculement d'etat haute disponibilite (Active/Standby)</description>
+    <group>hsrp,high_availability,</group>
+  </rule>
+
+  <rule id="100102" level="7">
+    <if_sid>4715</if_sid>
+    <field name="cisco.facility">^OSPF$</field>
+    <field name="cisco.mnemonic">^ADJCHG$</field>
+    <description>Cisco IOS OSPF: Changement d'etat d'adjacence de routage dynamique</description>
+    <group>ospf,routing,</group>
+  </rule>
+
+  <rule id="100103" level="9">
+    <if_sid>4712</if_sid>
+    <field name="cisco.facility">^PORT_SECURITY$</field>
+    <description>Cisco IOS L2: Violation Port-Security detectee (adresse MAC non autorisee)</description>
+    <mitre>
+      <id>T1200</id>
+    </mitre>
+    <group>port_security,layer2_security,intrusion_detection,</group>
+  </rule>
+
+  <rule id="100104" level="8">
+    <if_sid>4714</if_sid>
+    <field name="cisco.facility">^PM$</field>
+    <field name="cisco.mnemonic">^ERR_DISABLE$</field>
+    <description>Cisco IOS L2: Interface basculee en quarantaine securite (err-disable)</description>
+    <group>err_disable,layer2_security,</group>
+  </rule>
+
+  <rule id="100105" level="8">
+    <if_sid>4713,4714,4715,4716</if_sid>
+    <field name="cisco.facility">^DHCP_SNOOPING$</field>
+    <description>Cisco IOS L2: Alerte DHCP Snooping (serveur DHCP non fiable ou paquet rejete)</description>
+    <mitre>
+      <id>T1557</id>
+    </mitre>
+    <group>dhcp_snooping,layer2_security,</group>
+  </rule>
+
+  <rule id="100106" level="7">
+    <if_sid>4712,4713,4714,4715</if_sid>
+    <field name="cisco.facility">^SPANTREE$</field>
+    <description>Cisco IOS L2: Evenement critique Spanning-Tree (BPDU Guard / topologie)</description>
+    <group>spanning_tree,layer2_security,</group>
+  </rule>
+
+  <rule id="100107" level="5">
+    <if_sid>4713,4715</if_sid>
+    <field name="cisco.facility">^LINEPROTO$|^LINK$</field>
+    <description>Cisco IOS Interface: Changement d'etat de liaison reseau (UP/DOWN)</description>
+    <group>interface_state,</group>
+  </rule>
+
+  <rule id="100108" level="5">
+    <if_sid>4715,4716</if_sid>
+    <field name="cisco.facility">^CRYPTO$|^IKEV2$</field>
+    <description>Cisco IOS VPN IPsec/IKEv2: Evenement tunnel site-a-site</description>
+    <group>vpn,ipsec,</group>
+  </rule>
+
+</group>
+
+<group name="local,syslog,fortigate,homelab_soc,">
+
+  <rule id="100109" level="8">
+    <if_sid>81630</if_sid>
+    <field name="subtype">^anomaly$</field>
+    <description>FortiGate DoS Protection: Anomalie volumetrique bloquee ($(attack))</description>
+    <mitre>
+      <id>T1498</id>
+    </mitre>
+    <group>fortigate_dos,ddos,intrusion_detection,</group>
+  </rule>
+
+  <rule id="100110" level="10">
+    <if_sid>81629</if_sid>
+    <field name="attack">^Custom\.</field>
+    <description>FortiGate IPS L7 DMZ: Attaque applicative critique bloquee ($(attack))</description>
+    <mitre>
+      <id>T1190</id>
+    </mitre>
+    <group>fortigate_ips,web_attack,intrusion_detection,</group>
+  </rule>
+
+</group>

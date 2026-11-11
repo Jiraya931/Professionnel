@@ -559,10 +559,11 @@ function createFullHtml(title, guideNumber, mdText) {
     <h1>${title}</h1>
     <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
     <div class="header-meta">
-      <div class="header-meta-item"><strong>Date :</strong> 27 Octobre 2026</div>
-      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</div>
-      <div class="header-meta-item"><strong>Plateforme :</strong> EVE-NG Community (192.168.1.11)</div>
-      <div class="header-meta-item"><strong>Statut :</strong> Validé & Opérationnel ✅</div>
+      <div class="header-meta-item"><strong>Date :</strong> 11 Novembre 2026</div>
+      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE (192.168.1.200)</div>
+      <div class="header-meta-item"><strong>SIEM :</strong> Wazuh v4.14.10 (192.168.1.201)</div>
+      <div class="header-meta-item"><strong>Lab :</strong> EVE-NG Community (192.168.1.202)</div>
+      <div class="header-meta-item"><strong>Statut :</strong> Validé &amp; Opérationnel (Audit 40/40)</div>
     </div>
   </div>
 
@@ -587,7 +588,9 @@ const guides = [
   { id: '08', file: '08_PALIER_3_CYBERSECURITE_NGFW_INSPECTION_UTM_ET_IPS.md', title: 'Guide 08 : Palier 3 - Cybersécurité NGFW Avancée, Inspection UTM & Prévention d\'Intrusion (IPS)' },
   { id: '09', file: '09_PALIER_4_NETDEVOPS_AUTOMATISATION_ET_AUDIT_PYTHON.md', title: 'Guide 09 : Palier 4 - NetDevOps, Automatisation Reseau et Audit de Conformite (Python)' },
   { id: '10', file: '10_PALIER_5_ROUTAGE_DYNAMIQUE_OSPFV2_CISCO_FORTINET.md', title: 'Guide 10 : Palier 5 - Routage Dynamique OSPFv2 Multi-Constructeurs (Cisco & Fortinet)' },
-  { id: '11', file: '11_PALIER_6_SECURITE_L2_PORT_SECURITY_DHCP_SNOOPING_BPDUGUARD.md', title: 'Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)' }
+  { id: '11', file: '11_PALIER_6_SECURITE_L2_PORT_SECURITY_DHCP_SNOOPING_BPDUGUARD.md', title: 'Guide 11 : Palier 6 - Cybersecurite Reseau L2 (Port-Security, DHCP Snooping & BPDU Guard)' },
+  { id: '12', file: '12_PALIER_7_HAUTE_DISPONIBILITE_FHRP_HSRP.md', title: 'Guide 12 : Palier 7 - Haute Disponibilité Réseau & Redondance FHRP / HSRP' },
+  { id: '13', file: '13_PALIER_8_SUPERVISION_CENTRALISEE_ET_SIEM_WAZUH.md', title: 'Guide 13 : Palier 8 - Supervision Centralisée, Corrélation SOC & SIEM Wazuh' }
 ];
 
 console.log('--- Démarrage de la génération des rapports HTML et PDF ---');
@@ -618,7 +621,7 @@ guides.forEach(g => {
   masterHtmlSections.push(`
     <div class="guide-section ${masterHtmlSections.length > 0 ? 'page-break' : ''}">
       <div class="header-card">
-        <div class="badge">MODULE ${g.id} / 09</div>
+        <div class="badge">MODULE ${g.id} / 13</div>
         <h1>${g.title}</h1>
         <div class="subtitle">Documentation technique et procédures pas à pas</div>
       </div>
@@ -676,15 +679,16 @@ let masterHtml = `<!DOCTYPE html>
   <div class="cover-page">
     <div class="badge" style="background: #0284c7; color: white; padding: 6px 14px; font-size: 9pt;">DOSSIER TECHNIQUE GLOBAL D'EXPLOITATION</div>
     <div class="cover-title">HOMELAB CYBERSÉCURITÉ & INFRASTRUCTURE RÉSEAU</div>
-    <div class="cover-subtitle">Proxmox VE 8 • EVE-NG • Fortinet FortiGate 7.4 • Cisco IOL L2/L3</div>
+    <div class="cover-subtitle">Proxmox VE • EVE-NG • Wazuh SIEM v4.14.10 • Fortinet FortiGate 7.4 • Cisco IOL L2/L3</div>
     
     <div class="cover-meta">
-      <p><strong>Serveur Hôte :</strong> Proxmox VE 8.x (192.168.1.200)</p>
-      <p><strong>Plateforme de Lab :</strong> EVE-NG Community (192.168.1.11)</p>
-      <p><strong>Sécurité Périmétrique :</strong> Fortinet FortiOS 7.4 (192.168.1.13)</p>
-      <p><strong>Commutation & Routage :</strong> Cisco IOL (L2 adventerprise & L3 15.5)</p>
-      <p><strong>Date d'édition :</strong> 27 Octobre 2026</p>
-      <p><strong>Statut de conformité :</strong> Conforme, Testé et Validé (100% connectivité)</p>
+      <p><strong>Serveur Hôte :</strong> Proxmox VE (192.168.1.200)</p>
+      <p><strong>Serveur SIEM &amp; SOC :</strong> Wazuh v4.14.10 (192.168.1.201)</p>
+      <p><strong>Plateforme de Lab :</strong> EVE-NG Community (192.168.1.202)</p>
+      <p><strong>Sécurité Périmétrique :</strong> Fortinet FortiGate 7.4.13 (192.168.1.203)</p>
+      <p><strong>Commutation &amp; Routage :</strong> Cisco IOL L2/L3 (OSPFv2, HSRP, IPsec, Sec L2)</p>
+      <p><strong>Date d'édition :</strong> 11 Novembre 2026</p>
+      <p><strong>Statut de conformité :</strong> Conforme, Testé et Validé (Audit 40/40 - 100.0 %)</p>
     </div>
   </div>
 

@@ -1,15 +1,15 @@
 {
-  "audit_timestamp": "20261028_222433",
-  "audit_date": "28/10/2026 22:24:33",
+  "audit_timestamp": "20261111_132433",
+  "audit_date": "11/11/2026 13:24:33",
   "auditor": "Ababacar Ousmane Niang - Master 2 RESI",
   "global_score": 100.0,
-  "total_passed": 25,
-  "total_checks": 25,
+  "total_passed": 40,
+  "total_checks": 40,
   "devices": [
     {
       "device": "R1_HQ",
       "vendor": "cisco",
-      "role": "Routeur de Campus HQ / Passerelle VLAN 10",
+      "role": "Routeur de Campus HQ / Passerelle HSRP Active VLAN 10",
       "checks": [
         {
           "test": "Interface Ethernet0/1 active (UP/UP)",
@@ -40,10 +40,60 @@
           "test": "Voisin OSPF 172.16.1.1 en etat FULL",
           "passed": true,
           "detail": "Adjacence OSPF etablie et synchronisee (FULL)"
+        },
+        {
+          "test": "Pool DHCP POOL_VLAN10 configure et actif",
+          "passed": true,
+          "detail": "Service d'attribution DHCP pret"
+        },
+        {
+          "test": "Cluster HSRP Groupe 1 (Active, VIP 10.10.10.254)",
+          "passed": true,
+          "detail": "Etat HSRP Active actif avec VIP 10.10.10.254"
+        },
+        {
+          "test": "Export Syslog vers SIEM Wazuh (192.168.1.201)",
+          "passed": true,
+          "detail": "Collecte Syslog active vers 192.168.1.201"
         }
       ],
-      "passed": 6,
-      "total": 6,
+      "passed": 9,
+      "total": 9,
+      "score": 100.0
+    },
+    {
+      "device": "R_STANDBY_HQ",
+      "vendor": "cisco",
+      "role": "Routeur de Secours Campus HQ / Passerelle HSRP Standby VLAN 10",
+      "checks": [
+        {
+          "test": "Interface Ethernet0/0.10 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
+          "test": "Presence route 0.0.0.0/0",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Presence route 10.10.10.0/24",
+          "passed": true,
+          "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Cluster HSRP Groupe 1 (Standby, VIP 10.10.10.254)",
+          "passed": true,
+          "detail": "Etat HSRP Standby actif avec VIP 10.10.10.254"
+        },
+        {
+          "test": "Export Syslog vers SIEM Wazuh (192.168.1.201)",
+          "passed": true,
+          "detail": "Collecte Syslog active vers 192.168.1.201"
+        }
+      ],
+      "passed": 5,
+      "total": 5,
       "score": 100.0
     },
     {
@@ -62,6 +112,11 @@
           "detail": "Interface operationnelle"
         },
         {
+          "test": "Interface Vlan10 active (UP/UP)",
+          "passed": true,
+          "detail": "Interface operationnelle"
+        },
+        {
           "test": "Presence VLAN 1",
           "passed": true,
           "detail": "VLAN 1 provisionne"
@@ -70,10 +125,30 @@
           "test": "Presence VLAN 10",
           "passed": true,
           "detail": "VLAN 10 provisionne"
+        },
+        {
+          "test": "Port-Security actif sur Ethernet0/1",
+          "passed": true,
+          "detail": "Controle d'acces MAC sticky actif"
+        },
+        {
+          "test": "DHCP Snooping operationnel sur VLAN 10",
+          "passed": true,
+          "detail": "Filtrage Rogue DHCP actif"
+        },
+        {
+          "test": "BPDU Guard arme sur Ethernet0/1",
+          "passed": true,
+          "detail": "Protection anti-commutateur pirate active"
+        },
+        {
+          "test": "Export Syslog vers SIEM Wazuh (192.168.1.201)",
+          "passed": true,
+          "detail": "Collecte Syslog active vers 192.168.1.201"
         }
       ],
-      "passed": 4,
-      "total": 4,
+      "passed": 9,
+      "total": 9,
       "score": 100.0
     },
     {
@@ -95,10 +170,15 @@
           "test": "Presence route 192.168.1.0/24",
           "passed": true,
           "detail": "Route detectee dans la RIB"
+        },
+        {
+          "test": "Export Syslog vers SIEM Wazuh (192.168.1.201)",
+          "passed": true,
+          "detail": "Collecte Syslog active vers 192.168.1.201"
         }
       ],
-      "passed": 3,
-      "total": 3,
+      "passed": 4,
+      "total": 4,
       "score": 100.0
     },
     {
@@ -165,10 +245,15 @@
           "test": "Route dynamique OSPF 10.10.10.0/24 apprise",
           "passed": true,
           "detail": "Route injectee par Cisco R1 presente dans la RIB OSPF"
+        },
+        {
+          "test": "Export Syslog vers SIEM Wazuh (192.168.1.201)",
+          "passed": true,
+          "detail": "Collecte Syslog UDP/514 active vers 192.168.1.201"
         }
       ],
-      "passed": 12,
-      "total": 12,
+      "passed": 13,
+      "total": 13,
       "score": 100.0
     }
   ]

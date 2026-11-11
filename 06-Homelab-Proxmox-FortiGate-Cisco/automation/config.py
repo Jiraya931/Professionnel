@@ -11,8 +11,13 @@ BASE_DIR = Path(__file__).resolve().parent
 BACKUP_DIR = BASE_DIR / "backups"
 REPORTS_DIR = BASE_DIR / "reports"
 
+# Plan d'adressage fixe de l'infrastructure (Proxmox / Wazuh / EVE-NG)
+PROXMOX_HOST = "192.168.1.200"
+WAZUH_HOST = "192.168.1.201"
+EVE_HOST = "192.168.1.202"
+FORTIGATE_HOST = "192.168.1.203"
+
 # Passerelle EVE-NG
-EVE_HOST = "192.168.1.3"
 EVE_USER = "root"
 EVE_PASS = "eve"
 PLINK_PATH = r"C:\Program Files\PuTTY\plink.exe"
@@ -23,14 +28,28 @@ INVENTORY = {
     "R1_HQ": {
         "vendor": "cisco",
         "model": "Cisco IOL L3 (15.7M)",
-        "role": "Routeur de Campus HQ / Passerelle VLAN 10",
+        "role": "Routeur de Campus HQ / Passerelle HSRP Active VLAN 10",
         "host": EVE_HOST,
         "port": 32771,
         "proto": "telnet",
         "expected_interfaces": ["Ethernet0/1", "Ethernet0/0.10"],
         "expected_routes": ["0.0.0.0/0", "10.10.10.0/24", "172.16.1.0/30"],
         "expected_ospf_neighbors": ["172.16.1.1"],
-        "expected_dhcp_pools": ["POOL_VLAN10"]
+        "expected_dhcp_pools": ["POOL_VLAN10"],
+        "expected_hsrp": {"group": 1, "vip": "10.10.10.254", "state": "Active"},
+        "expected_syslog_host": WAZUH_HOST
+    },
+    "R_STANDBY_HQ": {
+        "vendor": "cisco",
+        "model": "Cisco IOL L3 (15.5T)",
+        "role": "Routeur de Secours Campus HQ / Passerelle HSRP Standby VLAN 10",
+        "host": EVE_HOST,
+        "port": 32776,
+        "proto": "telnet",
+        "expected_interfaces": ["Ethernet0/0.10"],
+        "expected_routes": ["0.0.0.0/0", "10.10.10.0/24"],
+        "expected_hsrp": {"group": 1, "vip": "10.10.10.254", "state": "Standby"},
+        "expected_syslog_host": WAZUH_HOST
     },
     "SW1_HQ": {
         "vendor": "cisco",
@@ -39,11 +58,12 @@ INVENTORY = {
         "host": EVE_HOST,
         "port": 32770,
         "proto": "telnet",
-        "expected_interfaces": ["Ethernet0/0", "Ethernet0/1"],
+        "expected_interfaces": ["Ethernet0/0", "Ethernet0/1", "Vlan10"],
         "expected_vlans": [1, 10],
         "expected_port_security": ["Ethernet0/1"],
         "expected_dhcp_snooping_vlans": [10],
-        "expected_bpduguard": ["Ethernet0/1"]
+        "expected_bpduguard": ["Ethernet0/1"],
+        "expected_syslog_host": WAZUH_HOST
     },
     "R2_BRANCH": {
         "vendor": "cisco",
@@ -53,13 +73,14 @@ INVENTORY = {
         "port": 32774,
         "proto": "telnet",
         "expected_interfaces": ["Ethernet0/0", "Ethernet0/1"],
-        "expected_routes": ["192.168.1.0/24"]
+        "expected_routes": ["192.168.1.0/24"],
+        "expected_syslog_host": WAZUH_HOST
     },
     "FORTIGATE_HQ": {
         "vendor": "fortinet",
         "model": "FortiGate-VM64-KVM (FortiOS 7.4.13)",
         "role": "Next-Generation Firewall & Passerelle Perimetrique HQ",
-        "ip": "192.168.1.4",
+        "ip": FORTIGATE_HOST,
         "user": "admin",
         "password": "Fortinet2026!",
         "proto": "ssh",
@@ -69,6 +90,7 @@ INVENTORY = {
         "expected_ips_sensors": ["IPS_SENSOR_DMZ"],
         "expected_app_ctrl": ["APP_CTRL_ENTERPRISE"],
         "expected_ospf_neighbors": ["1.1.1.1"],
-        "expected_routes": ["10.10.10.0/24"]
+        "expected_routes": ["10.10.10.0/24"],
+        "expected_syslog_host": WAZUH_HOST
     }
 }

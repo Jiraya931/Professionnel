@@ -15,8 +15,9 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 3. L'isolation d'une zone DMZ et la publication de services via Virtual IP (DNAT / Port Forwarding).
 4. L'interconnexion sécurisée de sites distants par tunnel VPN IPsec Site-à-Site IKEv2 multi-constructeurs (Fortinet HQ vers Cisco Branch).
 5. L'élévation de posture de sécurité NGFW (Palier 3) : inspection applicative L7 (Application Control), prévention d'intrusion sur mesure (Deep Packet Inspection / Custom IPS Sensor contre SQLi et Path Traversal) et atténuation d'attaques par déni de service (DoS Policy).
-6. L'automatisation logicielle NetDevOps (Palier 4) : suite Python autonome pour la sauvegarde des configurations à chaud, la détection différentielle de dérive (*drift*) et l'audit continu d'intégrité opérationnelle.
-7. La validation opérationnelle de la connectivité WAN de bout en bout avec métrologie et journalisation des flux en temps réel.
+6. L'automatisation logicielle NetDevOps (Palier 4 étendu) : suite Python autonome pour la sauvegarde des configurations à chaud sur 5 équipements, la détection différentielle de dérive (*drift*) et l'audit continu de 40 points de contrôle.
+7. La haute disponibilité de passerelle (Palier 7) : cluster FHRP/HSRP VLAN 10 (`R1` / `R_STANDBY`, VIP `10.10.10.254`).
+8. La supervision centralisée et corrélation SOC (Palier 8) : collecte Syslog UDP/514 sur **Wazuh SIEM v4.14.10** (`192.168.1.201`), 10 règles analytiques sur mesure mappées **MITRE ATT&CK** et détection d'incidents en temps réel.
 
 ---
 
@@ -24,59 +25,63 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
 
 ```text
        [ BOX INTERNET / WAN FAI ]
-                    │  (DHCP: 192.168.1.0/24)
-  ┌─────────────────┴───────────────────────────────┐
-  │  PROXMOX VE 8.x (Hôte Bare-Metal : 192.168.1.200)│
-  │  Pont Linux vmbr0 (Intel VMX Nested KVM activé) │
-  └────────┬─────────────────────────┬──────────────┘
-           │                         │
-  ┌────────┴────────┐       ┌────────┴────────┐
-  │ VM 100          │       │ VM 200          │
-  │ FortiGate 7.4   │       │ EVE-NG Lab      │
-  │ (port1: WAN)    │       │ (IP: 192.168.1.3│
-  └────────┬────────┘       └────────┬────────┘
-           │ (172.16.1.1/30)         │
-           └────────────┬────────────┘
-                        │
+                    │  (192.168.1.0/24 - GW: 192.168.1.1)
+  ┌─────────────────┴─────────────────────────────────────────────┐
+  │  PROXMOX VE 8.x (Hôte Bare-Metal : 192.168.1.200)             │
+  │  Pont Linux vmbr0 (Intel VMX Nested KVM activé)               │
+  └────────┬─────────────────────────┬──────────────────────┬─────┘
+           │                         │                      │
+  ┌────────┴────────┐       ┌────────┴────────┐    ┌────────┴────────┐
+  │ VM 100          │       │ VM 200          │    │ VM 101          │
+  │ FortiGate 7.4   │       │ EVE-NG Lab      │    │ Wazuh SIEM      │
+  │ port1: .203/24  │       │ IP: .202/24     │    │ v4.14.10 (.201) │
+  └────────┬────────┘       └────────┬────────┘    │ Collecteur SOC  │
+           │ (172.16.1.1/30)         │             │ Syslog UDP/514  │
+           └────────────┬────────────┘             └─────────────────┘
+                        │  OSPFv2 (Area 0)                ^
+           ┌────────────┴──────────────────────────┐      │ Logs Syslog
+           │ Cluster HSRP VLAN 10 (VIP 10.10.10.254│──────┘ (tous nœuds)
+           │ R1 (Active .1, Prio 110)              │
+           │ R_STANDBY (Standby .2, Prio 100)      │
+           └────────────┬──────────────────────────┘
+                        │  Trunks 802.1Q (VLAN 1, 10)
            ┌────────────┴────────────┐
-           │ Cisco R1 (IOL L3)       │  e0/1 : 172.16.1.2/30 (Interco)
-           │ Router-on-a-stick       │  e0/0.10 : 10.10.10.1/24 (Gateway VLAN 10)
-           └────────────┬────────────┘
-                        │  Trunk 802.1Q (VLAN 1, 10)
-           ┌────────────┴────────────┐
-           │ Cisco SW1 (IOL L2)      │  e0/0 : Trunk
-           │ Commutateur d'accès     │  e0/1 : Access VLAN 10
+           │ Cisco SW1 (IOL L2)      │  Vlan10 Mgmt : 10.10.10.10/24
+           │ Port-Security, DHCP     │  e0/1 : Access VLAN 10
+           │ Snooping, BPDU Guard    │
            └────────────┬────────────┘
                         │
            ┌────────────┴────────────┐
            │ Client VPCS             │  IP : 10.10.10.50/24
-           │ Poste utilisateur       │  Gateway : 10.10.10.1
+           │ Poste utilisateur       │  Gateway : 10.10.10.254 (VIP HSRP)
            └─────────────────────────┘
 ```
 
-### Table de Correspondance des Équipements
+### Table de Correspondance des Équipements (Adressage Fixe Actualisé)
 
 | Nœud | Modèle / Image | Interface | Rôle & Adressage | Passerelle |
 | :--- | :--- | :--- | :--- | :--- |
 | **Proxmox VE** | PVE 8.x Bare-Metal | `vmbr0` | Hyperviseur hôte (`192.168.1.200/24`) | `192.168.1.1` |
-| **EVE-NG** | Community 5.0.1 | `pnet0` | Plateforme d'émulation réseau (`192.168.1.3/24`) | `192.168.1.1` |
-| **FortiGate HQ** | FortiOS 7.4.13 | `port1` | WAN Uplink FAI (DHCP `192.168.1.4/24`) | `192.168.1.1` |
-| **FortiGate HQ** | FortiOS 7.4.13 | `port2` | Interco LAN HQ (`172.16.1.1/30`) | - |
+| **Wazuh SIEM** | Wazuh v4.14.10 (VM 101) | `ens18` / `UDP 514` | Collecteur SOC, OpenSearch & Dashboard (`192.168.1.201/24`) | `192.168.1.1` |
+| **EVE-NG** | Community 5.0.1 (VM 200) | `pnet0` | Plateforme d'émulation réseau (`192.168.1.202/24`) | `192.168.1.1` |
+| **FortiGate HQ** | FortiOS 7.4.13 | `port1` | WAN Uplink FAI (Statique `192.168.1.203/24`) | `192.168.1.1` |
+| **FortiGate HQ** | FortiOS 7.4.13 | `port2` | Interco LAN HQ OSPFv2 (`172.16.1.1/30`) | - |
 | **FortiGate HQ** | FortiOS 7.4.13 | `port3` | Zone DMZ Serveur Web (`172.16.50.254/24`) | - |
-| **Cisco R1** | Cisco IOL L3 (15.7M) | `e0/1` | Uplink vers FortiGate (`172.16.1.2/30`) | `172.16.1.1` |
-| **Cisco R1** | Cisco IOL L3 (15.7M) | `e0/0.10` | Passerelle de sous-réseau VLAN 10 (`10.10.10.1/24`) | - |
-| **Cisco SW1** | Cisco IOL L2 (15.2d) | `e0/0` | Trunk dot1q vers R1 | - |
-| **Cisco SW1** | Cisco IOL L2 (15.2d) | `e0/1` | Port d'accès VLAN 10 vers client | - |
-| **VPCS Client (PC1)** | Virtual PC Simulator | `eth0` | Poste utilisateur VLAN 10 (`10.10.10.50/24`) | `10.10.10.1` |
+| **Cisco R1** | Cisco IOL L3 (15.7M) | `e0/1` | Uplink OSPFv2 vers FortiGate (`172.16.1.2/30`) | `172.16.1.1` |
+| **Cisco R1** | Cisco IOL L3 (15.7M) | `e0/0.10` | Passerelle HSRP Active VLAN 10 (`10.10.10.1/24`, Prio 110) | `VIP 10.10.10.254` |
+| **Cisco R_STANDBY** | Cisco IOL L3 (15.5T) | `e0/0.10` | Passerelle HSRP Standby VLAN 10 (`10.10.10.2/24`, Prio 100) | `VIP 10.10.10.254` |
+| **Cisco SW1** | Cisco IOL L2 (15.2d) | `e0/0`, `e0/2`, `Vlan10` | Trunks dot1q & Management (`10.10.10.10/24`) | `10.10.10.254` |
+| **Cisco SW1** | Cisco IOL L2 (15.2d) | `e0/1` | Port d'accès durci VLAN 10 (Port-Security, BPDU Guard) | - |
+| **VPCS Client (PC1)** | Virtual PC Simulator | `eth0` | Poste utilisateur VLAN 10 (`10.10.10.50/24`) | `10.10.10.254` |
 | **SRV-WEB-DMZ** | Alpine Linux 3.20 | `eth0` | Serveur Web DMZ (`172.16.50.10/24`) | `172.16.50.254` |
-| **Cisco R2-BRANCH** | Cisco IOL L3 (15.5) | `e0/0` & `e0/1` | WAN (`192.168.1.250/24`) & LAN (`192.168.20.1/24`) | `192.168.1.1` |
+| **Cisco R2-BRANCH** | Cisco IOL L3 (15.5T) | `e0/0` & `e0/1` | WAN (`192.168.1.250/24`) & LAN (`192.168.20.1/24`) | `192.168.1.1` |
 | **PC2-BRANCH** | Virtual PC Simulator | `eth0` | Poste Succursale (`192.168.20.50/24`) | `192.168.20.1` |
 
 ---
 
 ## 3. Guides Techniques Détaillés
 
-Le projet est documenté par 12 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
+Le projet est documenté par 13 guides pas-à-pas disponibles dans le dossier [`guides/`](./guides/) :
 
 1. [**Guide 01 : Migration EVE-NG de VMware Workstation vers Proxmox VE**](./guides/01_MIGRATION_EVENG_PROXMOX.md)  
    Exportation des disques VMDK, transfert SSH/SCP, importation `qm disk import` sous Proxmox VE et activation du flag processeur `host` (Nested KVM).
@@ -102,6 +107,8 @@ Le projet est documenté par 12 guides pas-à-pas disponibles dans le dossier [`
     Durcissement avance du commutateur d'acces Cisco IOL L2 SW1 : controle d'acces physique par adresse MAC Sticky, observation des modes restrict et shutdown (err-disabled), filtrage anti-serveur DHCP pirate (DHCP Snooping, ports Trusted/Untrusted, Option 82), et protection STP contre les boucles et commutateurs clandestins (PortFast & BPDU Guard).
 12. [**Guide 12 : Palier 7 - Haute Disponibilité Réseau & Redondance FHRP / HSRP**](./guides/12_PALIER_7_HAUTE_DISPONIBILITE_FHRP_HSRP.md)  
     Mise en place de la haute disponibilité de premier saut (FHRP) via HSRP sur le VLAN 10, élimination du point unique de défaillance (SPOF) par le cluster R1 (Maître Actif, priorité 110) et R_STANDBY (Secours, priorité 100), passerelle virtuelle partagée (VIP 10.10.10.254, VMAC 0000.0c07.ac01), basculement à chaud instantané (< 1 seconde) et préemption automatique.
+13. [**Guide 13 : Palier 8 - Supervision Centralisée, Corrélation SOC & SIEM Wazuh**](./guides/13_PALIER_8_SUPERVISION_CENTRALISEE_ET_SIEM_WAZUH.md)  
+    Déploiement du serveur SIEM **Wazuh v4.14.10** (`192.168.1.201`), collecte Syslog UDP/514 sur l'ensemble du parc (FortiGate + Cisco R1, R_STANDBY, SW1, R2-BRANCH), 10 règles SOC sur mesure (`100101`-`100110`) mappées MITRE ATT&CK, détection d'incidents en direct et extension de la suite NetDevOps à 5 équipements (40/40 contrôles conformes).
 
 ---
 
@@ -165,11 +172,11 @@ Attaque ICMP Flood atténuée : 80 paquets émis -> coupure stricte au seuil 50 
 Journaux d'audit IPS (attackid 3900 & 2906) et DoS Anomaly (attackid 16777316) générés avec sévérité critique
 ```
 
-### 6. Palier 4 : NetDevOps & Audit de Conformité Continue (Python)
+### 6. Palier 4 (Étendu Palier 8) : NetDevOps & Audit de Conformité Continue (Python)
 ```text
-Suite logicielle : python -m automation.netdevops --all
-Sauvegarde à chaud : R1_HQ (125 lignes), SW1_HQ (85 lignes), R2_BRANCH (2740 lignes), FORTIGATE_HQ (11126 lignes)
-Audit opérationnel : 22/22 points de contrôle validés (Score de conformité : 100.0 %)
+Suite logicielle : py -m automation.netdevops --all
+Sauvegarde à chaud : R1_HQ (147 lignes), R_STANDBY_HQ (134 lignes), SW1_HQ (111 lignes), R2_BRANCH (3132 lignes), FORTIGATE_HQ (11143 lignes)
+Audit opérationnel : 40/40 points de contrôle validés sur 5 équipements (Score de conformité : 100.0 %)
 Rapports structurés : automation/reports/audit_report_latest.json et audit_report_latest.md
 ```
 
@@ -189,6 +196,17 @@ Preuve du Basculement à Chaud (Live Failover) :
 - Coupure d'interface sur R1 (shutdown Ethernet0/0.10)
 - Continuité de service : 1 seul paquet perdu (icmp_seq=25 timeout), reprise immédiate au paquet 26 via R_STANDBY (< 1s)
 - Rétablissement de R1 (no shutdown) : Préemption automatique validée (R1 redevient Active, R_STANDBY repasse en Standby)
+```
+
+### 8. Palier 8 : Supervision Centralisée, Corrélation SOC & SIEM Wazuh
+```text
+Serveur SIEM : Wazuh v4.14.10 (192.168.1.201) -> wazuh-manager / indexer / filebeat / dashboard (active)
+Collecte Syslog UDP/514 active sur FortiGate (192.168.1.203) et Cisco IOL (R1, R_STANDBY, SW1, R2-BRANCH)
+Incidents réels corrélés dans /var/ossec/logs/alerts/alerts.json (11/11/2026) :
+- Rule 100101 (x3, lvl 7)         : Bascule cluster HSRP Groupe 1 (R1 <-> R_STANDBY)
+- Rule 100103 (x1, lvl 9, T1200)  : Violation Port-Security sur SW1 Ethernet0/1 (MAC 0050.7966.6804)
+- Rule 100110 (x2, lvl 10, T1190) : Blocage IPS DMZ Custom.SQLi.Attack (ID 3900) & PathTraversal (ID 2906)
+- Rule 100109 (x1, lvl 8, T1498)  : Atténuation DoS ICMP Flood FortiGate (51 > seuil 50, ID 16777316)
 ```
 
 ---
