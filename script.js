@@ -189,7 +189,7 @@ VPCS> ping 8.8.8.8
   "commutation_l2": "Cisco SW1 IOL L2 (VLAN 10, Port-Security Sticky/Shutdown, DHCP Snooping, BPDU Guard)",
   "routage_ha": "Cluster HSRP R1/R_STANDBY (VIP 10.10.10.254, Failover < 1s) + OSPFv2 Area 0",
   "audit_netdevops": "40/40 points conformes (5 équipements, score : 100.0 %)",
-  "rapport_audit": "Dossier Technique complet disponible (4.04 Mo / 13 modules / 20 captures réelles)"
+  "rapport_audit": "Dossier Technique complet disponible (4.24 Mo / 85 pages / 13 modules / 2 schémas vectoriels + 22 captures réelles)"
 }`,
 
         'forti-audit': `<span style="color:#f87171;">[AUDIT PARE-FEU FORTINET FORTIOS 7.4]</span>
