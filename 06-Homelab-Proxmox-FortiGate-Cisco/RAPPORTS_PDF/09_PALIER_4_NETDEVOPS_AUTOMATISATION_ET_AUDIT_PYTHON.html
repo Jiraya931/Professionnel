@@ -2,15 +2,21 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Guide 09 : Palier 4 - NetDevOps, Automatisation Reseau et Audit de Conformite (Python)</title>
+  <title>Guide 09 : Palier 4 - NetDevOps, Automatisation Réseau et Audit de Conformité (Python)</title>
   <style>
   @page {
     size: A4 portrait;
-    margin: 14mm 12mm 14mm 12mm;
-    @bottom-right {
-      content: counter(page) "/" counter(pages);
-      font-size: 8pt;
+    margin: 16mm 14mm 16mm 14mm;
+    @bottom-left {
+      content: "Homelab Proxmox VE / FortiGate 7.4 / Cisco IOL / Wazuh SIEM";
+      font-size: 7.5pt;
       color: #64748b;
+    }
+    @bottom-right {
+      content: "Page " counter(page) " / " counter(pages);
+      font-size: 8pt;
+      font-weight: 600;
+      color: #334155;
     }
   }
   
@@ -19,10 +25,10 @@
     -webkit-print-color-adjust: exact !important;
     print-color-adjust: exact !important;
   }
-  
+
   body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-    font-size: 10pt;
+    font-size: 9.8pt;
     line-height: 1.55;
     color: #1e293b;
     background: #ffffff;
@@ -30,113 +36,177 @@
     padding: 0;
   }
 
-  .header-card {
+  a {
+    color: #0284c7;
+    text-decoration: none;
+  }
+
+  .anc-marker {
+    position: absolute;
+    right: 0;
+    top: 0;
+    font-size: 2pt;
+    line-height: 1;
+    opacity: 0.015;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .header-card, .section-banner {
+    position: relative;
     background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
     color: #ffffff;
-    padding: 20px 24px;
+    padding: 18px 22px;
     border-radius: 8px;
-    margin-bottom: 22px;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    margin-bottom: 18px;
+    border-bottom: 3px solid #0ea5e9;
+    break-inside: avoid;
   }
 
-  .header-card h1 {
-    margin: 0 0 6px 0;
-    font-size: 18pt;
+  .header-card h1, .section-main-title {
+    margin: 4px 0 6px 0;
+    font-size: 16pt;
     font-weight: 700;
     color: #f8fafc;
-    letter-spacing: -0.3px;
+    letter-spacing: -0.2px;
+    line-height: 1.25;
   }
 
-  .header-card .subtitle {
-    margin: 0 0 14px 0;
-    font-size: 10.5pt;
-    color: #93c5fd;
+  .header-card .subtitle, .section-subtitle {
+    margin: 0;
+    font-size: 9.5pt;
+    color: #bae6fd;
     font-weight: 400;
   }
 
   .header-meta {
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    gap: 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.16);
     padding-top: 10px;
-    font-size: 8.5pt;
+    margin-top: 12px;
+    font-size: 8.2pt;
     color: #cbd5e1;
   }
 
-  .header-meta-item {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .badge {
+  .badge, .banner-tag {
     display: inline-block;
-    padding: 2px 7px;
+    padding: 2px 8px;
     border-radius: 4px;
-    font-size: 7.5pt;
-    font-weight: 600;
+    font-size: 7.2pt;
+    font-weight: 700;
     text-transform: uppercase;
-    background: rgba(59, 130, 246, 0.2);
-    color: #bfdbfe;
-    border: 1px solid rgba(147, 197, 253, 0.3);
+    letter-spacing: 0.6px;
+    background: rgba(14, 165, 233, 0.22);
+    color: #e0f2fe;
+    border: 1px solid rgba(125, 211, 252, 0.35);
+    margin-bottom: 6px;
   }
 
   h2 {
+    position: relative;
     color: #0f172a;
-    font-size: 13pt;
+    font-size: 12.2pt;
     font-weight: 700;
-    border-bottom: 2px solid #e2e8f0;
-    padding-bottom: 5px;
-    margin-top: 22px;
-    margin-bottom: 12px;
+    border-bottom: 2px solid #cbd5e1;
+    border-left: 4px solid #0284c7;
+    padding: 2px 0 5px 10px;
+    margin-top: 16px;
+    margin-bottom: 8px;
+    break-after: avoid;
     page-break-after: avoid;
   }
 
   h3 {
     color: #1e3a8a;
-    font-size: 11pt;
-    font-weight: 600;
-    margin-top: 16px;
-    margin-bottom: 8px;
+    font-size: 10.6pt;
+    font-weight: 700;
+    margin-top: 14px;
+    margin-bottom: 6px;
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  h4 {
+    color: #334155;
+    font-size: 9.8pt;
+    font-weight: 700;
+    margin-top: 10px;
+    margin-bottom: 5px;
+    break-after: avoid;
     page-break-after: avoid;
   }
 
   p {
-    margin: 0 0 10px 0;
+    margin: 0 0 8px 0;
+    text-align: justify;
+    hyphens: auto;
   }
 
   ul, ol {
-    margin: 0 0 12px 0;
-    padding-left: 22px;
+    margin: 0 0 11px 0;
+    padding-left: 20px;
   }
 
   li {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   code {
     font-family: Consolas, "Courier New", monospace;
-    font-size: 9pt;
+    font-size: 8.5pt;
     background: #f1f5f9;
     color: #0f172a;
-    padding: 1.5px 5px;
-    border-radius: 4px;
+    padding: 1px 4px;
+    border-radius: 3px;
     border: 1px solid #e2e8f0;
+    overflow-wrap: break-word;
+  }
+
+  td code, th code {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  td code.code-nowrap, th code.code-nowrap {
+    white-space: nowrap;
   }
 
   pre {
     background: #0f172a;
     color: #f8fafc;
-    padding: 12px 14px;
+    padding: 10px 12px;
     border-radius: 6px;
     font-family: Consolas, "Courier New", monospace;
-    font-size: 8.5pt;
-    line-height: 1.45;
-    overflow-x: auto;
-    margin: 8px 0 14px 0;
+    margin: 7px 0 11px 0;
     border: 1px solid #1e293b;
-    page-break-inside: avoid;
+  }
+
+  pre.code-block {
+    font-size: 8pt;
+    line-height: 1.42;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+    overflow-x: visible;
+    break-inside: avoid;
+  }
+
+  pre.code-long {
+    break-inside: auto;
+  }
+
+  pre.diagram-ascii {
+    font-size: 6.7pt;
+    line-height: 1.26;
+    white-space: pre;
+    overflow-x: visible;
+    break-inside: avoid;
+    background: #0b1120;
+    color: #e2e8f0;
+    border: 1px solid #334155;
   }
 
   pre code {
@@ -145,29 +215,47 @@
     padding: 0;
     border: none;
     font-size: inherit;
+    overflow-wrap: inherit;
   }
 
   table {
     width: 100%;
     border-collapse: collapse;
-    margin: 12px 0 16px 0;
-    font-size: 8.5pt;
-    page-break-inside: avoid;
+    margin: 10px 0 14px 0;
+    font-size: 8.1pt;
+    break-inside: auto;
+  }
+
+  thead {
+    display: table-header-group;
+  }
+
+  tr {
+    break-inside: avoid;
   }
 
   th {
     background: #f1f5f9;
     color: #0f172a;
-    font-weight: 600;
+    font-weight: 700;
     text-align: left;
-    padding: 8px 10px;
+    padding: 6px 7px;
     border: 1px solid #cbd5e1;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: normal;
   }
 
   td {
-    padding: 7px 10px;
+    padding: 5px 7px;
     border: 1px solid #e2e8f0;
     vertical-align: top;
+    overflow-wrap: break-word;
+    word-break: normal;
+  }
+
+  .status-pill-ok {
+    white-space: nowrap;
   }
 
   tr:nth-child(even) td {
@@ -175,164 +263,184 @@
   }
 
   blockquote {
-    margin: 12px 0;
-    padding: 10px 14px;
+    margin: 10px 0 14px 0;
+    padding: 9px 13px;
     background: #eff6ff;
-    border-left: 4px solid #3b82f6;
-    color: #1e3a8a;
+    border-left: 4px solid #0284c7;
+    color: #0f172a;
     border-radius: 0 6px 6px 0;
-    page-break-inside: avoid;
+    font-size: 9pt;
+    break-inside: avoid;
   }
 
   blockquote p {
-    margin: 0;
+    margin: 0 0 3px 0;
+    text-align: left;
+  }
+  blockquote p:last-child {
+    margin-bottom: 0;
   }
 
-  /* Screenshot / Verification Box */
-  .screenshot-box {
-    margin: 16px 0 20px 0;
-    background: #fafaf9;
-    border: 2px dashed #0284c7;
+  .section-divider {
+    border: none;
+    border-top: 1px solid #e2e8f0;
+    margin: 14px 0;
+  }
+
+  /* Figures et captures d'ecran */
+  .report-figure {
+    position: relative;
+    margin: 10px 0 14px 0;
+    padding: 10px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
     border-radius: 8px;
-    padding: 14px 16px;
+    text-align: center;
+    break-inside: avoid;
     page-break-inside: avoid;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.03);
   }
 
-  .screenshot-box-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    border-bottom: 1px solid #e0f2fe;
-    padding-bottom: 6px;
+  .report-figure img {
+    max-width: 100%;
+    max-height: 290px;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    border: 1px solid #cbd5e1;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.08);
+    display: block;
+    margin: 0 auto;
   }
 
-  .screenshot-tag {
-    background: #0284c7;
-    color: #ffffff;
-    font-size: 7.5pt;
-    font-weight: 700;
-    text-transform: uppercase;
-    padding: 3px 8px;
-    border-radius: 4px;
-    letter-spacing: 0.5px;
+  .svg-figure {
+    background: #ffffff;
+    border: 1px solid #cbd5e1;
+    padding: 10px 12px;
   }
 
-  .screenshot-target {
-    font-size: 8.5pt;
-    font-weight: 600;
-    color: #0369a1;
+  .svg-figure svg {
+    display: block;
+    width: 100%;
+    height: auto;
   }
 
-  .screenshot-title {
-    font-size: 10pt;
-    font-weight: 700;
-    color: #0c4a6e;
-    margin: 0 0 6px 0;
-  }
-
-  .screenshot-checklist {
-    margin: 6px 0 0 0;
-    padding-left: 20px;
-    font-size: 8.5pt;
-    color: #334155;
-  }
-
-  .screenshot-checklist li {
-    margin-bottom: 3px;
-  }
-
-  .screenshot-preview {
+  .report-figure figcaption {
+    font-size: 8.3pt;
+    color: #475569;
     margin-top: 8px;
-    background: #0f172a;
-    color: #38bdf8;
-    padding: 8px 12px;
-    border-radius: 4px;
-    font-family: Consolas, monospace;
-    font-size: 8pt;
-    border: 1px solid #1e293b;
+    font-style: italic;
+    text-align: center;
+    line-height: 1.4;
+  }
+
+  .callout-methodology {
+    margin: 16px 0;
+    padding: 12px 14px;
+    background: #f8fafc;
+    border: 1px solid #cbd5e1;
+    border-left: 4px solid #1e3a8a;
+    border-radius: 6px;
+    break-inside: avoid;
+  }
+
+  .callout-methodology h3 {
+    margin-top: 0;
+    color: #0f172a;
   }
 
   .page-break {
     page-break-before: always;
+    break-before: page;
   }
 
   .footer-notice {
-    margin-top: 25px;
-    padding-top: 10px;
+    margin-top: 10px;
+    padding-top: 8px;
     border-top: 1px solid #e2e8f0;
     font-size: 7.5pt;
     color: #64748b;
     display: flex;
     justify-content: space-between;
+    break-inside: avoid;
+  }
+
+  .header-card {
+    padding: 14px 20px;
+    margin-bottom: 14px;
+  }
+  .report-figure img {
+    max-height: 270px;
+  }
+  .footer-notice {
+    margin-top: 6px;
+    padding-top: 6px;
   }
 </style>
 </head>
 <body>
   <div class="header-card">
-    <div class="badge">DOCUMENTATION OFFICIELLE HOMELAB & RÉSEAU</div>
-    <h1>Guide 09 : Palier 4 - NetDevOps, Automatisation Reseau et Audit de Conformite (Python)</h1>
-    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox et cybersécurité Fortinet / Cisco</div>
+    <div class="badge">MODULE 09 / 13 — PALIER 4</div>
+    <h1>Guide 09 : Palier 4 - NetDevOps, Automatisation Réseau et Audit de Conformité (Python)</h1>
+    <div class="subtitle">Laboratoire d'infrastructure réseau, virtualisation Proxmox VE 8, cybersécurité Fortinet / Cisco &amp; SIEM Wazuh</div>
     <div class="header-meta">
-      <div class="header-meta-item"><strong>Date :</strong> 11 Novembre 2026</div>
-      <div class="header-meta-item"><strong>Hôte :</strong> Proxmox VE (192.168.1.200)</div>
-      <div class="header-meta-item"><strong>SIEM :</strong> Wazuh v4.14.10 (192.168.1.201)</div>
-      <div class="header-meta-item"><strong>Lab :</strong> EVE-NG Community (192.168.1.202)</div>
-      <div class="header-meta-item"><strong>Statut :</strong> Validé &amp; Opérationnel (Audit 40/40)</div>
+      <div><strong>Date :</strong> 11 Novembre 2026</div>
+      <div><strong>Hôte :</strong> Proxmox VE (192.168.1.200)</div>
+      <div><strong>SIEM :</strong> Wazuh v4.14.10 (192.168.1.201)</div>
+      <div><strong>Lab :</strong> EVE-NG (192.168.1.202)</div>
+      <div><strong>Audit :</strong> 40/40 Contrôles (100.0 %)</div>
     </div>
   </div>
 
   <p>Ce guide documente l'implementation complete du Palier 4 d'Ingenierie Reseau et Securite : la conception et le deploiement d'une suite logicielle NetDevOps en Python pour l'automatisation des sauvegardes de configurations et l'audit de conformite continue sur un parc hybride Cisco IOS et Fortinet FortiGate 7.4.13.</p>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>1. Contexte et Enjeux Industriels du NetDevOps</h2>
+<hr class="section-divider" />
+<h2 id="sec_09_h2_1">1. Contexte et Enjeux Industriels du NetDevOps</h2>
 <p>Dans une infrastructure d'entreprise moderne, l'administration artisanale via console interactive (CLI manuelle) presente plusieurs limites critiques :</p>
-<ol start="1"><li><strong>Risque d'erreur humaine :</strong> Oubli d'enregistrement (<code>write memory</code>), mauvaise attribution de VLAN ou suppression accidentelle d'une route.</li><li><strong>Derive de configuration (<em>Configuration Drift</em>) :</strong> Divergence non documentee entre l'etat voulu du reseau et son etat reel en production.</li><li><strong>Absence de tracabilite :</strong> Impossibilite de savoir quand et par qui une regle de pare-feu ou une interface a ete modifiee.</li><li><strong>Temps de reprise sur sinistre (<em>Disaster Recovery</em>) :</strong> En cas de defaillance d'un equipement, la restauration necessite de disposer de copies exactes, horodatees et exploitables sans delai.</li></ol>
+<ol start="1"><li><strong>Risque d'erreur humaine :</strong> Oubli d'enregistrement (<code class="code-nowrap">write memory</code>), mauvaise attribution de VLAN ou suppression accidentelle d'une route.</li><li><strong>Derive de configuration (<em>Configuration Drift</em>) :</strong> Divergence non documentee entre l'etat voulu du reseau et son etat reel en production.</li><li><strong>Absence de tracabilite :</strong> Impossibilite de savoir quand et par qui une regle de pare-feu ou une interface a ete modifiee.</li><li><strong>Temps de reprise sur sinistre (<em>Disaster Recovery</em>) :</strong> En cas de defaillance d'un equipement, la restauration necessite de disposer de copies exactes, horodatees et exploitables sans delai.</li></ol>
 <p>Le <strong>Palier 4</strong> repond a ces defis en introduisant l'approche <strong>Infrastructure as Code (IaC)</strong> et l'automatisation logicielle appliquee aux equipements du Homelab.</p>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>2. Architecture de la Solution NetDevOps</h2>
-<pre><code class="text">+-----------------------------------------------------------------------------------------+
+<hr class="section-divider" />
+<h2 id="sec_09_h2_2">2. Architecture de la Solution NetDevOps</h2>
+<pre class="diagram-ascii"><code class="text">+-----------------------------------------------------------------------------------------+
 |                               POSTE D'ADMINISTRATION / INGENIEUR                        |
 |                               Suite Logicielle Python 3.14                              |
 |                                                                                         |
 |  - CLI d'Orchestration       : netdevops.py (--backup, --audit, --all)                  |
-|  - Moteur de Sauvegarde      : backup_engine.py (Archivage date &amp; calcul difflib)        |
-|  - Moteur d'Audit            : audit_engine.py (22 points de controle operationnels)   |
+|  - Moteur de Sauvegarde      : backup_engine.py (Archivage date &amp; calcul difflib)       |
+|  - Moteur d'Audit            : audit_engine.py (22 points de controle operationnels)    |
 |  - Connecteurs Reseau        : connectors.py (CiscoTelnetClient &amp; FortiSSHClient)       |
 +--------------------------------------------+--------------------------------------------+
                                              |
                                              | Flux de Gestion Automatisee
                                              v
 +-----------------------------------------------------------------------------------------+
-|                               PASSERELLE DE LAB / EVE-NG (192.168.1.3)                 |
+|                               PASSERELLE DE LAB / EVE-NG (192.168.1.3)                  |
 +---------------------+----------------------+---------------------+----------------------+
                       |                      |                     |                      |
                       | Port 32770           | Port 32771          | Port 32774           | SSH port 22
 +---------------------v---+  +---------------v---+  +--------------v---+  +---------------v------+
 |       SW1_HQ (L2)       |  |    R1_HQ (L3)     |  |   R2_BRANCH      |  |     FORTIGATE_HQ     |
-|   Commutateur Campus    |  |  Routeur Campus   |  | Routeur Succursale|  |   NGFW FortiOS 7.4   |
+|   Commutateur Campus    |  |  Routeur Campus   |  |Routeur Succursale |  |   NGFW FortiOS 7.4   |
 | - VLANs 1 &amp; 10          |  | - e0/1 &amp; e0/0.10  |  | - WAN &amp; LAN      |  | - VIP, UTM, DoS      |
 | - Sauvegarde .cfg       |  | - Route 0.0.0.0/0 |  | - Route WAN      |  | - Sauvegarde .cfg    |
 +-------------------------+  +-------------------+  +------------------+  +----------------------+</code></pre>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>3. Conception des Modules Logiciels</h2>
-<h3>3.1. Gestionnaire d'Inventaire et de Criteres (<code>config.py</code>)</h3>
+<hr class="section-divider" />
+<h2 id="sec_09_h2_3">3. Conception des Modules Logiciels</h2>
+<h3>3.1. Gestionnaire d'Inventaire et de Criteres (<code class="code-nowrap">config.py</code>)</h3>
 <p>Ce fichier centralise la topologie logique du reseau, les adresses des passerelles et les parametres attendus pour l'audit :</p>
-<ul><li>Interfaces critiques devant etre a l'etat <code>UP/UP</code>.</li><li>Routes obligatoires dans la table de routage (RIB).</li><li>Politiques de securite pare-feu, Virtual IPs (VIP) et profils d'inspection UTM (IPS / Application Control).</li></ul>
-<h3>3.2. Abstraction des Canaux de Communication (<code>connectors.py</code>)</h3>
+<ul><li>Interfaces critiques devant etre a l'etat <code class="code-nowrap">UP/UP</code>.</li><li>Routes obligatoires dans la table de routage (RIB).</li><li>Politiques de securite pare-feu, Virtual IPs (VIP) et profils d'inspection UTM (IPS / Application Control).</li></ul>
+<h3>3.2. Abstraction des Canaux de Communication (<code class="code-nowrap">connectors.py</code>)</h3>
 <p>Le module utilise une approche multi-protocoles sans dependance externe lourde :</p>
-<ul><li><strong><code>CiscoTelnetClient</code> :</strong> Communication via socket TCP natif vers les consoles IOL. Le client envoie les sequences d'initialisation (<code>terminal length 0</code>), purge les tampons memoire et nettoie les caracteres d'echappement proprietaires IOL via des expressions regulieres.</li><li><strong><code>FortiSSHClient</code> :</strong> Execution par flux batch SSH securise via PuTTY Plink vers la passerelle, puis rebond authentifie vers FortiGate (<code>192.168.1.4</code>). Les sorties de commandes FortiOS sont nettoyees et normalisees.</li></ul>
-<h3>3.3. Moteur de Sauvegarde Horodatee et Calcul de Derive (<code>backup_engine.py</code>)</h3>
-<ul><li>Extrait a chaud la totalite des configurations actives : <code>show running-config</code> pour Cisco et <code>show</code> pour FortiOS (plus de 11 000 lignes de configuration pare-feu).</li><li>Stocke les fichiers dans une arborescence horodatee : <code>backups/YYYY-MM-DD/<EQUIPEMENT>_<TIMESTAMP>.cfg</code>.</li><li>Maintient une version de reference <code>*_latest.cfg</code> a la racine du dossier de sauvegarde.</li><li>Compare automatiquement la version extraite avec la reference precedente a l'aide de la bibliotheque standard <code>difflib</code> pour mesurer le niveau de derive (<em>Drift Detection</em>).</li></ul>
-<h3>3.4. Moteur d'Audit de Sante et de Conformite Continue (<code>audit_engine.py</code>)</h3>
+<ul><li><strong><code>CiscoTelnetClient</code> :</strong> Communication via socket TCP natif vers les consoles IOL. Le client envoie les sequences d'initialisation (<code>terminal length 0</code>), purge les tampons memoire et nettoie les caracteres d'echappement proprietaires IOL via des expressions regulieres.</li><li><strong><code class="code-nowrap">FortiSSHClient</code> :</strong> Execution par flux batch SSH securise via PuTTY Plink vers la passerelle, puis rebond authentifie vers FortiGate (<code class="code-nowrap">192.168.1.4</code>). Les sorties de commandes FortiOS sont nettoyees et normalisees.</li></ul>
+<h3>3.3. Moteur de Sauvegarde Horodatee et Calcul de Derive (<code class="code-nowrap">backup_engine.py</code>)</h3>
+<ul><li>Extrait a chaud la totalite des configurations actives : <code>show running-config</code> pour Cisco et <code class="code-nowrap">show</code> pour FortiOS (plus de 11 000 lignes de configuration pare-feu).</li><li>Stocke les fichiers dans une arborescence horodatee : <code>backups/YYYY-MM-DD/&lt;EQUIPEMENT&gt;_&lt;TIMESTAMP&gt;.cfg</code>.</li><li>Maintient une version de reference <code class="code-nowrap">*_latest.cfg</code> a la racine du dossier de sauvegarde.</li><li>Compare automatiquement la version extraite avec la reference precedente a l'aide de la bibliotheque standard <code class="code-nowrap">difflib</code> pour mesurer le niveau de derive (<em>Drift Detection</em>).</li></ul>
+<h3>3.4. Moteur d'Audit de Sante et de Conformite Continue (<code class="code-nowrap">audit_engine.py</code>)</h3>
 <p>Execute 22 tests operationnels en temps reel sur l'infrastructure :</p>
-<ol start="1"><li><strong>Etat des Interfaces Reseau :</strong> Verification que toutes les liaisons critiques (<code>Ethernet0/1</code>, <code>Ethernet0/0.10</code>, <code>port1</code>, <code>port2</code>, <code>port3</code>) sont operationnelles.</li><li><strong>Integrite du Routage :</strong> Presence de la passerelle par defaut vers FortiGate (<code>0.0.0.0/0 via 172.16.1.1</code>) et des routes d'interconnexion.</li><li><strong>Provisioning des VLANs :</strong> Validation de l'existence des VLANs Campus sur les commutateurs L2.</li><li><strong>Posture de Securite FortiGate :</strong></li></ol>
-<ul><li>Etat de la Virtual IP <code>VIP_WEB_DMZ</code> (publication port 8080 vers 80).</li><li>Etat des regles de filtrage <code>LAN_TO_INTERNET</code>, <code>CORP_INTERNAL_INTERZONE</code> et <code>WAN_TO_DMZ_VIP</code>.</li><li>Etat du capteur d'inspection profonde <code>IPS_SENSOR_DMZ</code>.</li><li>Etat du profil de filtrage applicatif <code>APP_CTRL_ENTERPRISE</code>.</li><li>Activation de la politique de protection anti-DDoS sur l'interface WAN.</li></ul>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>4. Resultats Operationnels et Preuves d'Execution</h2>
+<ol start="1"><li><strong>Etat des Interfaces Reseau :</strong> Verification que toutes les liaisons critiques (<code class="code-nowrap">Ethernet0/1</code>, <code class="code-nowrap">Ethernet0/0.10</code>, <code class="code-nowrap">port1</code>, <code class="code-nowrap">port2</code>, <code class="code-nowrap">port3</code>) sont operationnelles.</li><li><strong>Integrite du Routage :</strong> Presence de la passerelle par defaut vers FortiGate (<code>0.0.0.0/0 via 172.16.1.1</code>) et des routes d'interconnexion.</li><li><strong>Provisioning des VLANs :</strong> Validation de l'existence des VLANs Campus sur les commutateurs L2.</li><li><strong>Posture de Securite FortiGate :</strong></li></ol>
+<ul><li>Etat de la Virtual IP <code class="code-nowrap">VIP_WEB_DMZ</code> (publication port 8080 vers 80).</li><li>Etat des regles de filtrage <code class="code-nowrap">LAN_TO_INTERNET</code>, <code>CORP_INTERNAL_INTERZONE</code> et <code class="code-nowrap">WAN_TO_DMZ_VIP</code>.</li><li>Etat du capteur d'inspection profonde <code class="code-nowrap">IPS_SENSOR_DMZ</code>.</li><li>Etat du profil de filtrage applicatif <code>APP_CTRL_ENTERPRISE</code>.</li><li>Activation de la politique de protection anti-DDoS sur l'interface WAN.</li></ul>
+<hr class="section-divider" />
+<h2 id="sec_09_h2_4">4. Resultats Operationnels et Preuves d'Execution</h2>
 <p>L'execution de la commande <code>python -m automation.netdevops --all</code> a produit les resultats suivants :</p>
 <h3>4.1. Sauvegarde a Chaud du Parc Reseau</h3>
-<pre><code class="text">================================================================================
+<pre class="code-block"><code class="text">================================================================================
 EQUIPEMENT       | STATUT     | LIGNES   | VARIATION / DRIFT             
 ================================================================================
 R1_HQ            | SUCCESS    | 125      | Conforme
@@ -342,7 +450,7 @@ FORTIGATE_HQ     | SUCCESS    | 11126    | Conforme
 ================================================================================</code></pre>
 <p><em>L'integralite des 4 equipements a ete sauvegardee en moins de 15 secondes sans interruption de service.</em></p>
 <h3>4.2. Audit de Conformite Globale (22/22 Tests Valides)</h3>
-<pre><code class="text">================================================================================
+<pre class="code-block"><code class="text">================================================================================
 RAPPORT GLOBAL : SCORE DE CONFORMITE = 100.0 % (22/22 tests valides)
 ================================================================================
 EQUIPEMENT       | CONSTRUCTEUR   | SCORE    | CONTROLES    | STATUT    
@@ -352,40 +460,40 @@ SW1_HQ           | Cisco          | 100.0  % | 4/4          | CONFORME
 R2_BRANCH        | Cisco          | 100.0  % | 3/3          | CONFORME  
 FORTIGATE_HQ     | Fortinet       | 100.0  % | 10/10        | CONFORME  
 ================================================================================</code></pre>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>5. Formats des Rapports Generes</h2>
+<hr class="section-divider" />
+<h2 id="sec_09_h2_5">5. Formats des Rapports Generes</h2>
 <p>Le moteur d'audit publie automatiquement deux formats de restitution :</p>
 <ol start="1"><li><strong>Rapport Executif Markdown (<code>reports/audit_report_latest.md</code>) :</strong></li></ol>
 <ul><li>Vue synthetique avec tableaux de score par equipement.</li><li>Detail exhaustif des 22 points de controle et de leur statut technique.</li></ul>
 <ol start="2"><li><strong>Rapport Machine JSON (<code>reports/audit_report_latest.json</code>) :</strong></li></ol>
 <ul><li>Format structure standardisable pour integration dans une chaine CI/CD (GitHub Actions / GitLab CI) ou un tableau de bord de supervision.</li></ul>
 <p>Extrait de structure JSON generee :</p>
-<pre><code class="json">{
-  "audit_timestamp": "20261028_192730",
-  "audit_date": "28/10/2026 19:27:30",
-  "auditor": "Ababacar Ousmane Niang - Master 2 RESI",
-  "global_score": 100.0,
-  "total_passed": 22,
-  "total_checks": 22,
-  "devices": [
+<pre class="code-block"><code class="json">{
+  &quot;audit_timestamp&quot;: &quot;20261028_192730&quot;,
+  &quot;audit_date&quot;: &quot;28/10/2026 19:27:30&quot;,
+  &quot;auditor&quot;: &quot;Ababacar Ousmane Niang - Master 2 RESI&quot;,
+  &quot;global_score&quot;: 100.0,
+  &quot;total_passed&quot;: 22,
+  &quot;total_checks&quot;: 22,
+  &quot;devices&quot;: [
     {
-      "device": "R1_HQ",
-      "vendor": "cisco",
-      "score": 100.0,
-      "checks": [
-        { "test": "Interface Ethernet0/1 active (UP/UP)", "passed": true },
-        { "test": "Presence route 0.0.0.0/0", "passed": true }
+      &quot;device&quot;: &quot;R1_HQ&quot;,
+      &quot;vendor&quot;: &quot;cisco&quot;,
+      &quot;score&quot;: 100.0,
+      &quot;checks&quot;: [
+        { &quot;test&quot;: &quot;Interface Ethernet0/1 active (UP/UP)&quot;, &quot;passed&quot;: true },
+        { &quot;test&quot;: &quot;Presence route 0.0.0.0/0&quot;, &quot;passed&quot;: true }
       ]
     }
   ]
 }</code></pre>
-<hr style="border: none; border-top: 1px solid #e2e8f0; margin: 18px 0;" />
-<h2>6. Memento des Commandes de la Suite NetDevOps</h2>
+<hr class="section-divider" />
+<h2 id="sec_09_h2_6">6. Memento des Commandes de la Suite NetDevOps</h2>
 <table><thead><tr><th>Commande CLI</th><th>Action Realisee</th></tr></thead><tbody><tr><td><code>python -m automation.netdevops --all</code></td><td>Sauvegarde complete du parc et audit exhaustif avec rapports</td></tr><tr><td><code>python -m automation.netdevops --backup</code></td><td>Extraction et archivage horodate des configurations</td></tr><tr><td><code>python -m automation.netdevops --audit</code></td><td>Verification des 22 points de controle sans re-sauvegarde</td></tr><tr><td><code>python -m automation.netdevops -h</code></td><td>Afficher l'aide en ligne et les options disponibles</td></tr></tbody></table>
 
   <div class="footer-notice">
-    <span>Homelab Cybersécurité & Réseau — Documentation Technique Opérationnelle</span>
-    <span>Généré automatiquement au format d'audit PDF</span>
+    <span>Homelab Cybersécurité &amp; Infrastructure Réseau — Documentation Technique Opérationnelle</span>
+    <span>Ababacar Ousmane Niang — Master 2 RESI (Groupe ISI)</span>
   </div>
 </body>
 </html>

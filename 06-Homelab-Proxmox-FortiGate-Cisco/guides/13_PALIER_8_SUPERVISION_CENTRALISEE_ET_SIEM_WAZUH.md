@@ -21,9 +21,9 @@ A ce stade de maturite, les noeuds critiques d'infrastructure ont ete figes en *
 
 ```text
 +------------------------------------------------------------------------------------------------------+
-|                          RESEAU D'ADMINISTRATION & INTERCONNEXION (192.168.1.0/24)                  |
+|                          RESEAU D'ADMINISTRATION & INTERCONNEXION (192.168.1.0/24)                   |
 |                                                                                                      |
-|  [ PROXMOX VE Bare-Metal ]         [ VM 101 : WAZUH SIEM v4.14.10 ]         [ VM 200 : EVE-NG ]     |
+|  [ PROXMOX VE Bare-Metal ]         [ VM 101 : WAZUH SIEM v4.14.10 ]         [ VM 200 : EVE-NG ]      |
 |        192.168.1.200                        192.168.1.201                     192.168.1.202          |
 |                                     Collecteur Syslog UDP/514                                        |
 |                                  Indexer OpenSearch (:9200 TLS)                                      |
@@ -52,7 +52,7 @@ A ce stade de maturite, les noeuds critiques d'infrastructure ont ete figes en *
                                                    v
 +--------------------------------------------------+---------------------------------------------------+
 |                               COMMUTATEUR D'ACCES DURCI CISCO SW1                                    |
-|  - Management SVI Vlan10 : 10.10.10.10/24 | Passerelle : 10.10.10.254 (HSRP VIP)                    |
+|  - Management SVI Vlan10 : 10.10.10.10/24 | Passerelle : 10.10.10.254 (HSRP VIP)                     |
 |  - Route statique explicite : ip route 0.0.0.0 0.0.0.0 10.10.10.254 (pour trafic Syslog local)       |
 |  - Securite Et0/1 : Port-Security (Sticky, Restrict), DHCP Snooping VLAN 10, BPDU Guard              |
 +------------------------------------------------------------------------------------------------------+
@@ -175,7 +175,7 @@ Deux contraintes reelles d'exploitation ont ete diagnostiquees et resolues lors 
 
 ## 5. Ingenierie des Regles de Correlation SOC & Mapping MITRE ATT&CK
 
-Le referentiel personnalise [`automation/wazuh/local_rules.xml`](file:///c:/Users/DELL/Desktop/DOC/Homelab/automation/wazuh/local_rules.xml) est deploye dans `/var/ossec/etc/rules/local_rules.xml`. Il tire parti d'une analyse rigoureuse des decodeurs Wazuh natifs (`cisco-ios` et `fortigate-firewall-v5`) :
+Le referentiel personnalise [`automation/wazuh/local_rules.xml`](../automation/wazuh/local_rules.xml) est deploye dans `/var/ossec/etc/rules/local_rules.xml`. Il tire parti d'une analyse rigoureuse des decodeurs Wazuh natifs (`cisco-ios` et `fortigate-firewall-v5`) :
 - **Hierarchie des regles Cisco :** Dans le ruleset standard Wazuh (`0025-cisco-ios_rules.xml`), la regle racine `4700` est evaluee au niveau `0`, tandis que les regles filles `4712` a `4716` classifient les logs par severite Syslog (`2` = Critical -> `4712`, `3` = Error -> `4713`, `4` = Warning -> `4714`, `5` = Notification -> `4715`, `6` = Info -> `4716`). Le ciblage precis `<if_sid>4712</if_sid>` a `4716` associe aux champs extraits `cisco.facility` et `cisco.mnemonic` garantit le declenchement deterministe des alertes.
 - **Hierarchie des regles FortiGate :** Nos regles etendent `81630` (Anomalies DoS) et `81629` (IPS) en filtrant directement sur `subtype` (`^anomaly$`) et `attack` (`^Custom\.`), tout en enrichissant dynamiquement la description via `$(attack)`.
 
@@ -239,7 +239,7 @@ Apres deploiement du service Web HTTP DMZ sur `SRV-WEB-DMZ` (`172.16.50.10:80`) 
 
 ## 7. Extension NetDevOps : Audit Automatique a 40 Points (100.0 %)
 
-Afin d'eviter toute regression entre la couche reseau, la haute disponibilite HSRP et la supervision SIEM, la suite Python [`automation/`](file:///c:/Users/DELL/Desktop/DOC/Homelab/automation) a ete etendue :
+Afin d'eviter toute regression entre la couche reseau, la haute disponibilite HSRP et la supervision SIEM, la suite Python [`automation/`](../automation) a ete etendue :
 1. **Inventaire complet a 5 noeuds (`config.py`) :** Integration du routeur secondaire `R_STANDBY_HQ`, passage aux adresses fixes definitives (`.200` a `.203`) et declaration de `expected_hsrp` et `expected_syslog_host` (`192.168.1.201`).
 2. **Nouveaux controles programmatiques (`audit_engine.py`) :**
    - Verification de l'etat HSRP Groupe 1 (`Active` sur `R1_HQ`, `Standby` sur `R_STANDBY_HQ`, VIP `10.10.10.254`).

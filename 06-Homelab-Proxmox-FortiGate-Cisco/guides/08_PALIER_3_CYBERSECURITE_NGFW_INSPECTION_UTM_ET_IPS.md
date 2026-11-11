@@ -17,8 +17,8 @@ A la suite du deploiement de la zone DMZ (Palier 1) et de l'interconnexion VPN I
 
 ```text
 +-----------------------------------------------------------------------------------------+
-|                               WAN / Internet / Reseau Externe                          |
-|                       Source d'Attaque & Trafic Legitime (192.168.1.3)                 |
+|                               WAN / Internet / Reseau Externe                           |
+|                       Source d'Attaque & Trafic Legitime (192.168.1.3)                  |
 +--------------------------------------------+--------------------------------------------+
                                              | IP WAN : 192.168.1.4 (port1)
                                              | [DoS Policy: Anti-Flood & Anti-Scan]
@@ -27,7 +27,7 @@ A la suite du deploiement de la zone DMZ (Palier 1) et de l'interconnexion VPN I
 |                               Moteur NGFW / Inspection UTM                              |
 |                                                                                         |
 |  - Politiques DoS WAN       : tcp_syn_flood (100 pps), icmp_flood (50 pps), port_scan   |
-|  - Capteur IPS (IPS_SENSOR) : Custom.SQLi.Attack (3900), Custom.PathTraversal (2906)   |
+|  - Capteur IPS (IPS_SENSOR) : Custom.SQLi.Attack (3900), Custom.PathTraversal (2906)    |
 |  - Application Control      : APP_CTRL_ENTERPRISE (Blocage P2P / Proxy / Tunnels)       |
 |  - Virtual IP (VIP_WEB_DMZ) : Redirection WAN 8080 vers DMZ 80 avec inspection DPI      |
 +---------------------+---------------------------------------------------+---------------+

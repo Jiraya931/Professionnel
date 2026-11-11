@@ -24,21 +24,21 @@ Le **Palier 4** repond a ces defis en introduisant l'approche **Infrastructure a
 |                               Suite Logicielle Python 3.14                              |
 |                                                                                         |
 |  - CLI d'Orchestration       : netdevops.py (--backup, --audit, --all)                  |
-|  - Moteur de Sauvegarde      : backup_engine.py (Archivage date & calcul difflib)        |
-|  - Moteur d'Audit            : audit_engine.py (22 points de controle operationnels)   |
+|  - Moteur de Sauvegarde      : backup_engine.py (Archivage date & calcul difflib)       |
+|  - Moteur d'Audit            : audit_engine.py (22 points de controle operationnels)    |
 |  - Connecteurs Reseau        : connectors.py (CiscoTelnetClient & FortiSSHClient)       |
 +--------------------------------------------+--------------------------------------------+
                                              |
                                              | Flux de Gestion Automatisee
                                              v
 +-----------------------------------------------------------------------------------------+
-|                               PASSERELLE DE LAB / EVE-NG (192.168.1.3)                 |
+|                               PASSERELLE DE LAB / EVE-NG (192.168.1.3)                  |
 +---------------------+----------------------+---------------------+----------------------+
                       |                      |                     |                      |
                       | Port 32770           | Port 32771          | Port 32774           | SSH port 22
 +---------------------v---+  +---------------v---+  +--------------v---+  +---------------v------+
 |       SW1_HQ (L2)       |  |    R1_HQ (L3)     |  |   R2_BRANCH      |  |     FORTIGATE_HQ     |
-|   Commutateur Campus    |  |  Routeur Campus   |  | Routeur Succursale|  |   NGFW FortiOS 7.4   |
+|   Commutateur Campus    |  |  Routeur Campus   |  |Routeur Succursale |  |   NGFW FortiOS 7.4   |
 | - VLANs 1 & 10          |  | - e0/1 & e0/0.10  |  | - WAN & LAN      |  | - VIP, UTM, DoS      |
 | - Sauvegarde .cfg       |  | - Route 0.0.0.0/0 |  | - Route WAN      |  | - Sauvegarde .cfg    |
 +-------------------------+  +-------------------+  +------------------+  +----------------------+

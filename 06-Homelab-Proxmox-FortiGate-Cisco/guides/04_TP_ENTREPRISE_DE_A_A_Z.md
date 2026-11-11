@@ -34,7 +34,7 @@ Ce guide documente l'architecture réseau et sécurité complète réalisée en 
 │ Management(Cloud0) │ Réseau physique de la Box (vmbr0)
 └─────────┬──────────┘
           v
-    VRAI INTERNET (8.8.8.8)
+   VRAI INTERNET (8.8.8.8)
 ```
 
 ---
@@ -188,10 +188,8 @@ ping 8.8.8.8
 # Résultat : 84 bytes from 8.8.8.8 icmp_seq=1 ttl=113 time=62.9 ms (SUCCÈS TOTAL)
 ```
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Console Cisco Routeur L3 (`R1# show ip route`)  
-> *Affichage :* Table de routage avec sous-interface 802.1Q `e0/0.10` et route par défaut vers FortiGate.
+![Console Routeur Cisco R1 Table de Routage](../RAPPORTS_PDF/captures/capture_04_cisco_r1.png)
+*Figure 4.1 : Console du routeur Cisco IOL L3 `R1` (`show ip route`) confirmant la sous-interface 802.1Q `e0/0.10` et la route par défaut vers FortiGate.*
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Console Client (`VPCS> ping 8.8.8.8`)  
-> *Affichage :* Test de bout en bout réussi confirmant l'accès Internet depuis le client VLAN 10.
+![Test Ping Bout en Bout Client VPCS](../RAPPORTS_PDF/captures/capture_04_vpcs_ping.png)
+*Figure 4.2 : Console client VPCS (`PC1`) attestant de la connectivité de bout en bout vers `10.10.10.1`, `172.16.1.1` et Internet (`8.8.8.8`).*

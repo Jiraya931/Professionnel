@@ -34,7 +34,7 @@ Le **Palier 6** neutralise integralement ces vecteurs d'attaque sur le segment d
 +--------------------------------------------------+-----------------------------------------------+
 |                                  COMMUTATEUR CISCO IOL L2 (SW1)                                  |
 |                                                                                                  |
-|  - Inspection DHCP Snooping : Filtre actif sur VLAN 10 (Option 82 desactivee)                   |
+|  - Inspection DHCP Snooping : Filtre actif sur VLAN 10 (Option 82 desactivee)                    |
 |  - Table de liaison dynamique : Enregistre {MAC, IP, Bail, Port, VLAN}                           |
 |  - Protection Spanning-Tree : PortFast (Zero latence) & BPDU Guard (Anti-Boucle/Commutateur)     |
 |  - Port-Security            : Verrouillage d'adresse MAC Sticky, limitation a 1 hote             |

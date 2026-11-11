@@ -54,9 +54,8 @@ rm -f /var/lib/vz/dump/EVE-NG.vmdk
 qm start 200
 ```
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Shell Proxmox VE (`>_ Shell`)  
-> *Affichage :* Sortie de `qm list` confirmant la VM 200 en statut `running` avec 8192 Mo de RAM et son disque de 60 Go sur `local-lvm`.
+![Console Shell Proxmox VE 8](../RAPPORTS_PDF/captures/capture_01_pve_cli.png)
+*Figure 1.1 : Console Shell Proxmox VE 8 confirmant l'état `running` de la VM 200 (`eve-ng-lab`), ses 8192 Mo de RAM et son disque sur `local-lvm`.*
 
 ---
 
@@ -70,6 +69,5 @@ qm start 200
    * **Password :** `eve`
    * **Console mode :** `HTML5`
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Interface Web Proxmox VE (`https://192.168.1.200:8006`)  
-> *Affichage :* Tableau de bord de gestion Proxmox VE avec la VM 200 opérationnelle.
+![Interface Web Proxmox VE](../RAPPORTS_PDF/captures/01_proxmox_web.png)
+*Figure 1.2 : Tableau de bord Proxmox VE (`https://192.168.1.200:8006`) attestant de l'état de santé de l'hôte et de la VM 200 opérationnelle.*

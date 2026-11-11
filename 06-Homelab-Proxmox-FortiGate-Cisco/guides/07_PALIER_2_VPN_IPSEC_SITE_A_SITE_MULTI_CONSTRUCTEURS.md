@@ -13,7 +13,7 @@ Ce guide documente l'implémentation complète du **Palier 2 d'Ingénierie Rése
                │ IP WAN : 192.168.1.4 (DHCP port1)                        │ IP WAN : 192.168.1.250 (e0/0)
 ┌──────────────┴──────────────────────────┐             ┌─────────────────┴──────────────┐
 │       SIÈGE CENTRAL (HQ)                │             │       SUCCURSALE (BRANCH)      │
-│     FortiGate 7.4.13 NGFW               │<->│    Routeur Cisco IOL L3 R2     │
+│     FortiGate 7.4.13 NGFW               │<----------->│    Routeur Cisco IOL L3 R2     │
 │  - Phase 1 IKEv2 : VPN_BRANCH           │  TUNNEL     │  - IKEv2 Profile : PROF_FORTI  │
 │  - Phase 2 IPsec : P2_VPN_BRANCH        │   IPSEC     │  - Transform-set : TS_FORTI    │
 │  - Policy Multi-Zones : CORP_INTERNAL   │  CHIFFRÉ    │  - Crypto Map : CMAP_FORTIGATE │
@@ -242,9 +242,11 @@ Toutes les étapes du déploiement ont été rigoureusement testées et validée
 
 Le lien WAN direct entre le routeur de succursale Cisco R2 et le pare-feu FortiGate (`192.168.1.4`) ainsi que la passerelle locale du client `PC2-BRANCH` ont été validés à 100% de réussite :
 
-> Note de validation : [Ping WAN Cisco R2 vers FortiGate] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Ping WAN Cisco R2 vers FortiGate](../RAPPORTS_PDF/captures/capture_10_r2_wan_ping.png)
+*Figure 7.1 : Test ICMP WAN R2-BRANCH vers FortiGate (`192.168.1.4`) avec 100 % de succès et latence moyenne de 1 ms.*
 
-> Note de validation : [Ping Client PC2 vers Passerelle R2] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Ping Client PC2 vers Passerelle R2](../RAPPORTS_PDF/captures/capture_11_pc2_gw_ping.png)
+*Figure 7.2 : Validation de la connectivité locale entre le client `PC2` (`192.168.20.50`) et sa passerelle `R2` (`192.168.20.1`).*
 
 ---
 
@@ -252,7 +254,8 @@ Le lien WAN direct entre le routeur de succursale Cisco R2 et le pare-feu FortiG
 
 La commande `diagnose vpn ike gateway list` sur le FortiGate démontre l'établissement sans faille de la Phase 1 IKEv2 avec la proposition `des-sha256` et le profil cryptographique DH14 :
 
-> Note de validation : [Vérification IKEv2 Gateway FortiGate] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Vérification IKEv2 Gateway FortiGate](../RAPPORTS_PDF/captures/capture_12_forti_ike_gateway.png)
+*Figure 7.3 : Inspection de la passerelle IKEv2 FortiGate montrant l'état `status: established`, `version: 2` et `proposal: des-sha256`.*
 
 ---
 
@@ -260,7 +263,8 @@ La commande `diagnose vpn ike gateway list` sur le FortiGate démontre l'établi
 
 La commande `diagnose vpn tunnel list` atteste que le tunnel `VPN_BRANCH` est dans l'état opérationnel **`status=up`**, avec deux Child SAs actives (vers la DMZ `172.16.50.0/24` et vers le Campus `10.10.10.0/24`) et des compteurs de paquets chiffrés / déchiffrés qui s'incrémentent parfaitement :
 
-> Note de validation : [Inspection Tunnels IPsec FortiGate] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Inspection Tunnels IPsec FortiGate](../RAPPORTS_PDF/captures/capture_13_forti_tunnel_list.png)
+*Figure 7.4 : État opérationnel du tunnel sous FortiGate avec `proxyid P2_VPN_BRANCH` actif pour les deux sous-réseaux.*
 
 ---
 
@@ -268,7 +272,8 @@ La commande `diagnose vpn tunnel list` atteste que le tunnel `VPN_BRANCH` est da
 
 Les commandes `show crypto ikev2 sa` et `show crypto ipsec sa` sur Cisco confirment l'état **`READY`** de la Phase 1 et l'encapsulation/décapsulation symétrique sans aucune erreur (`#send errors 0, #recv errors 0`) :
 
-> Note de validation : [Vérification SA IKEv2 et IPsec Cisco] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Vérification SA IKEv2 et IPsec Cisco](../RAPPORTS_PDF/captures/capture_14_cisco_crypto_sa.png)
+*Figure 7.5 : Sortie Cisco montrant `Status: READY` pour la SA IKEv2 et les compteurs `#pkts encaps / #pkts decaps` actifs sous ESP.*
 
 ---
 
@@ -276,7 +281,8 @@ Les commandes `show crypto ikev2 sa` et `show crypto ipsec sa` sur Cisco confirm
 
 Depuis le poste de travail de la succursale `PC2-BRANCH` (`192.168.20.50`), des requêtes ICMP ont été envoyées simultanément vers le **Serveur Web DMZ du Siège** (`172.16.50.10`) et vers le **Client LAN Campus du Siège** (`10.10.10.50`). Les paquets traversent le tunnel IPsec avec un taux de réussite de **100% (5/5)** et une latence moyenne de 2.2 à 2.8 ms :
 
-> Note de validation : [Test Ping de Bout en Bout Succursale vers HQ] — Capture certifiee integree dans le rapport d'audit officiel (docs/Rapport_Homelab_Proxmox_FortiGate.pdf)
+![Test Ping de Bout en Bout Succursale vers HQ](../RAPPORTS_PDF/captures/capture_15_vpcs_ping_end_to_end.png)
+*Figure 7.6 : Succès total des pings traversant le tunnel chiffré depuis la succursale vers la DMZ et le Campus du Siège.*
 
 ---
 

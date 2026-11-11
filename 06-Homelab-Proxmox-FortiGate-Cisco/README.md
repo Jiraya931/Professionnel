@@ -39,11 +39,11 @@ L'objectif principal consiste à interconnecter un environnement d'émulation r�
            │ (172.16.1.1/30)         │             │ Syslog UDP/514  │
            └────────────┬────────────┘             └─────────────────┘
                         │  OSPFv2 (Area 0)                ^
-           ┌────────────┴──────────────────────────┐      │ Logs Syslog
-           │ Cluster HSRP VLAN 10 (VIP 10.10.10.254│──────┘ (tous nœuds)
-           │ R1 (Active .1, Prio 110)              │
-           │ R_STANDBY (Standby .2, Prio 100)      │
-           └────────────┬──────────────────────────┘
+           ┌────────────┴───────────────────────────┐      │ Logs Syslog
+           │ Cluster HSRP VLAN 10 (VIP 10.10.10.254)│──────┘ (tous nœuds)
+           │ R1 (Active .1, Prio 110)               │
+           │ R_STANDBY (Standby .2, Prio 100)       │
+           └────────────┬───────────────────────────┘
                         │  Trunks 802.1Q (VLAN 1, 10)
            ┌────────────┴────────────┐
            │ Cisco SW1 (IOL L2)      │  Vlan10 Mgmt : 10.10.10.10/24

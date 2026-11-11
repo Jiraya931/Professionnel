@@ -50,8 +50,8 @@ Le **Palier 7** deploie **HSRP v1** sur le VLAN 10 pour garantir une redondance 
 +-------------------------------------------------+--------------------------------------------------+
 |                                  COMMUTATEUR CISCO IOL L2 (SW1)                                    |
 |                                                                                                    |
-|  - Trunks 802.1Q : Ethernet0/0 (R1) et Ethernet0/2 (R_STANDBY) avec VLAN 10 autorise              |
-|  - Port d'Acces  : Ethernet0/1 (VLAN 10) - Port-Security & BPDU Guard                             |
+|  - Trunks 802.1Q : Ethernet0/0 (R1) et Ethernet0/2 (R_STANDBY) avec VLAN 10 autorise               |
+|  - Port d'Acces  : Ethernet0/1 (VLAN 10) - Port-Security & BPDU Guard                              |
 +-------------------------------------------------+--------------------------------------------------+
                                                   |
                                                   | Port d'Acces VLAN 10

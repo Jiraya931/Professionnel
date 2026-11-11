@@ -15,7 +15,7 @@ Ce guide détaille la mise en place des images **Cisco IOL (IOS on Linux)** dans
 ## 2. Emplacement des fichiers dans EVE-NG
 
 Les binaires Cisco IOL se placent obligatoirement dans :
- `/opt/unetlab/addons/iol/bin/`
+`/opt/unetlab/addons/iol/bin/`
 
 Images installées :
 1. **Switch L2 :** `i86bi-linux-l2-adventerprisek9-15.1a.bin`
@@ -86,9 +86,8 @@ echo "export IOURC=/opt/unetlab/addons/iol/bin/iourc" >> /etc/environment
 > `[license]`
 > `eve-ng = 972f30267ef51616;`
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Console Cisco Switch L2 (`SW1# show interfaces trunk`)  
-> *Affichage :* Activation du Trunk 802.1Q et validation du VLAN 10 Utilisateurs.
+![Console Switch Cisco SW1 Trunk 802.1Q](../RAPPORTS_PDF/captures/capture_03_cisco_sw1.png)
+*Figure 3.1 : Console du commutateur Cisco IOL L2 `SW1` (`show interfaces trunk` et `show vlan brief`) validant le trunk 802.1Q `Et0/0` et le VLAN 10 Utilisateurs.*
 
 ---
 
@@ -97,6 +96,4 @@ echo "export IOURC=/opt/unetlab/addons/iol/bin/iourc" >> /etc/environment
 Lorsque tu ouvres la console HTML5 d'un switch ou routeur Cisco IOL pour la première fois, l'écran reste noir : **c'est normal !**  
 Il faut cliquer avec la souris dans le carré noir pour donner le focus, puis **appuyer 2 fois sur la touche Entrée** de ton clavier pour faire apparaître l'invite `Switch>` ou `Router>`.
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Portail Web EVE-NG (`http://192.168.1.3`)  
-> *Affichage :* Vue d'ensemble du laboratoire avec les commutateurs et routeurs Cisco opérationnels.
+> **Validation du Laboratoire EVE-NG :** Portail Web EVE-NG (`http://192.168.1.3` initialement, fixé à `192.168.1.202`) opérationnel en mode console HTML5, confirmant le démarrage simultané des nœuds Cisco IOL L2/L3 avec la licence `iourc` active.

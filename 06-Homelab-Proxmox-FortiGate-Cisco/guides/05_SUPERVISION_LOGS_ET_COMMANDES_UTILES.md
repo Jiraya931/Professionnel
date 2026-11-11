@@ -37,9 +37,8 @@ config firewall policy
 end
 ```
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Console CLI FortiGate  
-> *Affichage :* Sortie de la commande `get log memory setting` montrant `status: enable`.
+![Activation des Logs RAM et Politique Firewall FortiGate](../RAPPORTS_PDF/captures/capture_05_forti_logs.png)
+*Figure 5.1 : Console FortiGate confirmant l'activation des journaux en mémoire vive (`get log memory setting`) et le suivi sur `LAN_TO_INTERNET`.*
 
 ---
 
@@ -48,15 +47,13 @@ end
 Une fois les logs mémoire activés et le trafic généré (ex: depuis le PC1 vers `8.8.8.8`) :
 
 1. Ouvre l'interface web : `https://192.168.1.4`
-2. Rendez-vous dans **`Log & Report`**  **`Forward Traffic`** :
+2. Rendez-vous dans **`Log & Report`** -> **`Forward Traffic`** :
    * Chaque ligne représente une session traversant le pare-feu.
    * Vérifie les colonnes : **Source** (`10.10.10.50`), **Destination** (`8.8.8.8`), **Service** (`PING / ICMP`), **Action** (`Accept`), **Sent/Received Bytes**, et **NAT IP** (`192.168.1.4`).
 3. Menu **`FortiView Sources`** ou **`FortiView Sessions`** :
    * Visualisation en temps réel de la bande passante consommée par adresse IP source.
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Menu Web FortiGate `Log & Report` > `Forward Traffic`  
-> *Affichage :* Tableau montrant les flux ICMP du client `10.10.10.50` sortant via le port WAN avec le statut `Accept`.
+> **Validation FortiView / Forward Traffic :** Dans l'interface FortiOS (`Log & Report` -> `Forward Traffic`), les sessions ICMP du client `10.10.10.50` vers `8.8.8.8` apparaissent en statut `Accept` avec translation NAT active sur `port1`.
 
 ---
 
@@ -129,9 +126,7 @@ show ip interface brief
 show spanning-tree brief
 ```
 
-> ** [VERIFICATION] :**  
-> *Emplacement :* Console Cisco SW1  
-> *Affichage :* Sortie de `show interfaces trunk` montrant `Et0/0` en mode `trunk` avec encapsulation `802.1q`.
+> **Validation CLI Commutateur SW1 :** La vérification `show interfaces trunk` (illustrée en Figure 3.1) confirme le transit du VLAN 10 sur l'interface trunk `Et0/0` en encapsulation `802.1q`.
 
 ### B. Routeur L3 (R1)
 
