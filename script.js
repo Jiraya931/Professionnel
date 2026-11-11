@@ -180,16 +180,16 @@ VPCS> ping 8.8.8.8
 84 bytes from 8.8.8.8 icmp_seq=2 ttl=113 time=65.156 ms
 [+] Résultat : 100% de paquets transmis, translation NAT active, latence inter-VLAN &lt; 1ms.`,
 
-        'homelab': `<span style="color:#00f0ff;">[LABORATOIRE PROXMOX VE 8 • FORTIGATE 7.4 • CISCO IOL]</span>
+        'homelab': `<span style="color:#00f0ff;">[LABORATOIRE PROXMOX VE 8 • FORTIGATE 7.4 • WAZUH SIEM • CISCO IOL]</span>
 {
-  "hyperviseur": "Proxmox VE 8.x (Kernel 7.0.14-pve)",
-  "virtualisation": "KVM imbriquée (nested Intel VT-x/AMD-V CPU Host)",
-  "lab_engine": "EVE-NG Community (VM 200, 4 vCPU, 8 Go RAM)",
-  "firewall": "Fortinet FortiGate-VM64 7.4.13 (Licence Permanente, NAT, Logs RAM)",
-  "commutation": "Cisco IOL L2 adventerprise (VLAN 10, Trunk 802.1Q)",
-  "routage": "Cisco IOL L3 (Router-on-a-stick, route par défaut 0.0.0.0/0)",
-  "rapport_audit": "Dossier Technique complet disponible (1.45 Mo / 9 captures réelles)",
-  "statut_operationnel": "100% Validé et Actif"
+  "hyperviseur": "Proxmox VE 8.x (192.168.1.200 • Nested KVM Intel VMX)",
+  "siem_soc": "Wazuh SIEM v4.14.10 (VM 101 • 192.168.1.201 • Syslog UDP/514, OpenSearch, MITRE ATT&CK)",
+  "lab_engine": "EVE-NG Community (VM 200 • 192.168.1.202 • 4 vCPU, 8 Go RAM)",
+  "firewall": "Fortinet FortiGate-VM64 7.4.13 (192.168.1.203 • DMZ/VIP, IPS DPI, Anti-DDoS, IKEv2, OSPFv2)",
+  "commutation_l2": "Cisco SW1 IOL L2 (VLAN 10, Port-Security Sticky/Shutdown, DHCP Snooping, BPDU Guard)",
+  "routage_ha": "Cluster HSRP R1/R_STANDBY (VIP 10.10.10.254, Failover < 1s) + OSPFv2 Area 0",
+  "audit_netdevops": "40/40 points conformes (5 équipements, score : 100.0 %)",
+  "rapport_audit": "Dossier Technique complet disponible (4.04 Mo / 13 modules / 20 captures réelles)"
 }`,
 
         'forti-audit': `<span style="color:#f87171;">[AUDIT PARE-FEU FORTINET FORTIOS 7.4]</span>
@@ -383,13 +383,13 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             link: `https://github.com/Jiraya931/Professionnel/tree/main/03-Securite-Systemes-Reseaux`
         },
         'virt': {
-            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtuel Proxmox VE 8, FortiGate 7.4 & EVE-NG`,
-            desc: `Infrastructure de virtualisation d'entreprise déployée en Bare-Metal sur Proxmox VE 8.x avec support KVM Nested (Intel VMX). Intégration d'un pare-feu NGFW FortiGate 7.4.13 assurant le routage inter-VLANs, le NAT dynamique WAN et la politique de sécurité pour un laboratoire d'émulation réseau EVE-NG composé de routeurs et commutateurs Cisco IOL (L2/L3). Connectivité WAN validée à 100% avec latence < 1ms en interne.`,
-            chips: ['Proxmox VE 8.x', 'Nested KVM', 'FortiGate 7.4.13', 'EVE-NG Community', 'Cisco IOL L2/L3', 'VLAN 802.1Q', 'NAT / Inspection'],
+            title: `<i class="fas fa-cubes-stacked" style="color: var(--accent-indigo);"></i> Datacenter Virtuel Proxmox VE 8, FortiGate 7.4, EVE-NG & Wazuh SIEM`,
+            desc: `Infrastructure de virtualisation et cybersécurité d'entreprise déployée en Bare-Metal sur Proxmox VE 8.x (.200) avec KVM Nested. Interconnexion complète du NGFW FortiGate 7.4.13 (.203), du serveur SIEM Wazuh v4.14.10 (.201) et d'EVE-NG (.202) hébergeant routeurs et commutateurs Cisco IOL (cluster HSRP VIP 10.10.10.254, OSPFv2, durcissement L2). Audit NetDevOps validé à 40/40 (100%).`,
+            chips: ['Proxmox VE 8.x', 'Wazuh SIEM v4.14', 'FortiGate 7.4.13', 'EVE-NG', 'Cisco IOL L2/L3', 'HSRP / OSPFv2', 'NetDevOps 40/40'],
             specs: [
-                `Hyperviseur Bare-Metal : Proxmox VE 8.x avec pont Linux vmbr0 et Nested Virtualization active`,
-                `Pare-feu NGFW : FortiGate 7.4.13 en coupure (WAN port1 DHCP, LAN port2 192.168.10.254/24)`,
-                `Commutation & Routage : Cisco IOL L2 Trunk 802.1Q + Router-on-a-Stick avec helper DHCP`
+                `Hyperviseur Bare-Metal : Proxmox VE 8.x (192.168.1.200) hébergeant Wazuh SIEM (.201) et EVE-NG (.202)`,
+                `Pare-feu NGFW & VPN : FortiGate 7.4.13 (192.168.1.203, DMZ 172.16.50.0/24, IPS DPI, DoS, IKEv2, OSPFv2)`,
+                `Supervision SOC & Haute Dispo : Wazuh Syslog UDP/514 (MITRE ATT&CK) + Cluster HSRP VLAN 10 (VIP 10.10.10.254)`
             ],
             link: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         }
@@ -489,17 +489,17 @@ O IA  192.168.50.0/24 [110/2] via 192.168.1.10, 02:11:34, Port-channel1 (LACP 2G
             github: `https://github.com/Jiraya931/Professionnel/tree/main/02-Reseaux-Cisco-Huawei`
         },
         'homelab-project': {
-            title: `Laboratoire Datacenter : Proxmox VE 8, FortiGate 7.4 & Cisco IOL`,
-            category: `VIRTUALISATION KVM, CYBERSÉCURITÉ FORTINET & RÉSEAUX CISCO`,
+            title: `Laboratoire Datacenter : Proxmox VE 8, FortiGate 7.4, Cisco IOL & Wazuh SIEM`,
+            category: `VIRTUALISATION KVM, CYBERSÉCURITÉ FORTINET, SIEM SOC & NETDEVOPS`,
             image: `assets/project_homelab_network.png`,
-            desc: `Conception, déploiement physique et audit complet d'un laboratoire d'ingénierie virtualisé d'entreprise : hyperviseur physique Proxmox VE 8 (CPU Host VT-x imbriqué, VirtIO SCSI), émulateur EVE-NG, pare-feu Fortinet FortiOS 7.4 (licence permanente, NAT, règles d'état, logs RAM), commutation Cisco IOL L2 (VLAN 10, Trunk 802.1Q) et routage Cisco IOL L3 (Router-on-a-stick). Tests réels validés de bout en bout avec latence < 1ms et rapport d'audit officiel téléchargeable.`,
-            techs: [`Proxmox VE 8.x`, `EVE-NG Community`, `Fortinet FortiOS 7.4`, `Cisco IOL L2/L3`, `Trunk 802.1Q`, `Inter-VLAN Routing`, `NAT Dynamique`, `Router-on-a-Stick`, `KVM / VirtIO SCSI`],
+            desc: `Conception, déploiement physique et audit complet d'un laboratoire d'ingénierie virtualisé d'entreprise réparti sur 8 paliers progressifs : hyperviseur Proxmox VE 8 (.200), émulateur EVE-NG (.202), NGFW Fortinet FortiOS 7.4.13 (.203), routeurs/commutateurs Cisco IOL (OSPFv2, HSRP, sécurité L2), serveur SIEM Wazuh v4.14.10 (.201) avec règles MITRE ATT&CK et suite Python NetDevOps (40 points d'audit conformes à 100%).`,
+            techs: [`Proxmox VE 8.x`, `Wazuh SIEM v4.14`, `FortiOS 7.4.13`, `EVE-NG`, `Cisco IOL L2/L3`, `OSPFv2`, `HSRP FHRP`, `VPN IPsec IKEv2`, `IPS DPI & Anti-DDoS`, `NetDevOps Python`],
             features: [
-                `Interconnexion complète client VPCS -> Switch L2 (VLAN 10) -> Routeur L3 -> FortiGate -> Sortie Internet (8.8.8.8)`,
-                `Politique de sécurité FortiGate avec NAT dynamique, inspection d'état et journalisation des sessions en mémoire RAM`,
-                `Commutateur Cisco L2 avec Trunking dot1q et routeur Cisco L3 avec sous-interfaces 802.1Q dédiées`,
-                `Serveur physique Proxmox VE 8 avec accélération CPU host KVM imbriquée et stockage VirtIO SCSI TRIM`,
-                `Dossier technique d'audit officiel complet (1.45 Mo) intégrant 9 captures réelles de terminaux et d'interfaces web`
+                `Zone DMZ étanche avec publication Virtual IP, tunnel VPN IPsec IKEv2 multi-constructeurs et routage dynamique OSPFv2`,
+                `Prévention d'intrusion FortiGate (signatures F-SBID custom contre SQLi et Path Traversal) et politique Anti-DDoS`,
+                `Durcissement L2 (Port-Security Sticky/Shutdown, DHCP Snooping, BPDU Guard) et cluster HSRP VLAN 10 (failover < 1s)`,
+                `SIEM Wazuh v4.14.10 : collecte Syslog UDP/514 multi-constructeurs et 10 règles SOC corrélées MITRE ATT&CK (T1200, T1190, T1498)`,
+                `Suite NetDevOps Python : sauvegarde GitOps et audit automatisé à 40/40 points (100.0 %) compilé en rapport PDF de 4.04 Mo (13 modules, 20 captures réelles)`
             ],
             github: `docs/Rapport_Homelab_Proxmox_FortiGate.pdf`
         },

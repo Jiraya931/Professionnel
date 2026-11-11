@@ -402,10 +402,11 @@
                                     <span class="comp-name">Observabilité, Métrologie & Supervision IT</span>
                                     <span class="comp-level-badge level-spec">Supervision 24/7</span>
                                 </div>
-                                <p class="comp-description">Collecte de métriques temps réel sous Prometheus & Grafana, centralisation des logs sous Graylog SIEM, alertage Zabbix et ITSM d'entreprise (GLPI + FusionInventory).</p>
+                                <p class="comp-description">Collecte de métriques temps réel sous Prometheus & Grafana, centralisation et corrélation des logs sous Wazuh SIEM v4.14.10 (MITRE ATT&CK) & Graylog, alertage Zabbix et ITSM d'entreprise (GLPI + FusionInventory).</p>
                                 <div class="comp-tags-row">
                                     <span class="comp-tag">Prometheus</span>
                                     <span class="comp-tag">Grafana</span>
+                                    <span class="comp-tag">Wazuh SIEM</span>
                                     <span class="comp-tag">Graylog</span>
                                     <span class="comp-tag">GLPI / ITIL</span>
                                 </div>
@@ -677,7 +678,7 @@
                             </div>
                             <h3 class="bento-title">Homelab Proxmox VE 8, FortiGate 7.4 & Cisco IOL</h3>
                             <p class="bento-desc">
-                                Déploiement bare-metal et virtualisation nested KVM. Paliers 1 à 7 : DMZ étanche, publication VIP, VPN IPsec IKEv2 multi-constructeurs, cybersécurité UTM/IPS (signatures custom & Anti-DDoS), suite NetDevOps Python (audit 25 points à 100%), routage dynamique OSPFv2, cybersécurité L2 d'accès (Port-Security, DHCP Snooping, BPDU Guard), et haute disponibilité FHRP/HSRP (redondance de passerelle avec failover < 1s).
+                                Déploiement bare-metal et virtualisation nested KVM (Paliers 1 à 8) : DMZ étanche, publication VIP, VPN IPsec IKEv2 multi-constructeurs, cybersécurité UTM/IPS (signatures custom & Anti-DDoS), routage dynamique OSPFv2, durcissement L2 (Port-Security, DHCP Snooping, BPDU Guard), haute disponibilité HSRP (failover < 1s), supervision SIEM Wazuh v4.14.10 (corrélation SOC MITRE ATT&CK) et suite NetDevOps Python (audit 40 points à 100%).
                             </p>
                             <div class="comp-tags-row">
                                 <span class="comp-tag">Proxmox VE 8.x</span>
@@ -687,13 +688,15 @@
                                 <span class="comp-tag">VPN IPsec IKEv2</span>
                                 <span class="comp-tag">NGFW / IPS DPI</span>
                                 <span class="comp-tag">NetDevOps Python</span>
-                                <span class="comp-tag">Audit Conformité</span>
+                                <span class="comp-tag">Wazuh SIEM / SOC</span>
+                                <span class="comp-tag">HSRP FHRP</span>
+                                <span class="comp-tag">Audit 40/40</span>
                             </div>
                         </div>
 
                         <div class="bento-footer">
                             <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Technique Homelab (Proxmox VE 8, EVE-NG, FortiGate 7.4, Cisco IOL)">
-                                <i class="fas fa-file-pdf"></i> Rapport PDF (3.54 Mo)
+                                <i class="fas fa-file-pdf"></i> Rapport PDF (4.04 Mo)
                             </button>
                             <button class="btn btn-primary btn-sm btn-details" data-project="homelab-project">
                                 <i class="fas fa-eye"></i> Spécifications & Preuves
@@ -970,12 +973,12 @@
                         <div class="cert-icon-frame" style="background: rgba(16, 185, 129, 0.15); color: #34d399; border: 1px solid rgba(16, 185, 129, 0.3);"><i class="fas fa-server"></i></div>
                         <div>
                             <h3 class="vault-cert-title">Audit Technique Homelab Réseau</h3>
-                            <div class="vault-cert-sub">Rapport_Homelab_Proxmox_FortiGate.pdf • 3.54 Mo</div>
-                            <p class="vault-cert-desc">Dossier technique d'architecture et de validation opérationnelle (12 modules) : Proxmox VE 8.x, EVE-NG, Pare-feu FortiGate 7.4, Cisco IOL L2/L3, VPN IPsec IKEv2, DMZ VIP, inspection UTM/IPS, suite NetDevOps Python et routage dynamique OSPFv2 multi-constructeurs (25 points d'audit validés à 100%).</p>
+                            <div class="vault-cert-sub">Rapport_Homelab_Proxmox_FortiGate.pdf • 4.04 Mo</div>
+                            <p class="vault-cert-desc">Dossier technique d'architecture et de validation opérationnelle (13 modules, Paliers 1 à 8) : Proxmox VE 8.x, EVE-NG, FortiGate 7.4, Cisco IOL L2/L3, VPN IPsec IKEv2, DMZ VIP, inspection UTM/IPS, OSPFv2, durcissement L2, haute disponibilité HSRP, SIEM Wazuh v4.14.10 (corrélation SOC MITRE ATT&CK) et suite NetDevOps Python (40 points d'audit validés à 100%).</p>
                         </div>
                         <div class="vault-actions-row">
                             <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Homelab (Proxmox VE 8, EVE-NG, FortiGate, Cisco)"><i class="fas fa-eye"></i> Aperçu Express</button>
-                            <a href="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" download="Rapport_Homelab_Proxmox_FortiGate_Niang.pdf" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> PDF (3.54 Mo)</a>
+                            <a href="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" download="Rapport_Homelab_Proxmox_FortiGate_Niang.pdf" class="btn btn-primary btn-sm"><i class="fas fa-download"></i> PDF (4.04 Mo)</a>
                         </div>
                     </div>
 
@@ -1268,7 +1271,7 @@
                     <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA1.pdf" data-title="Certification Cisco CCNA 1 (ITN)"><i class="fas fa-shield-alt"></i> Cisco CCNA 1</button>
                     <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA2.pdf" data-title="Certification Cisco CCNA 2 (SRWE)"><i class="fas fa-shield-alt"></i> Cisco CCNA 2</button>
                     <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/CCNA3.pdf" data-title="Certification Cisco CCNA 3 (ENSA)"><i class="fas fa-shield-alt"></i> Cisco CCNA 3</button>
-                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Technique Homelab (Proxmox VE 8, EVE-NG, FortiGate 7.4, Cisco IOL)"><i class="fas fa-network-wired"></i> Audit Homelab (3.54 Mo)</button>
+                    <button class="btn btn-secondary btn-sm btn-doc-view" data-pdf="docs/Rapport_Homelab_Proxmox_FortiGate.pdf" data-title="Rapport d'Audit Technique Homelab (Proxmox VE 8, EVE-NG, FortiGate 7.4, Cisco IOL)"><i class="fas fa-network-wired"></i> Audit Homelab (4.04 Mo)</button>
                 </div>
             </div>
 
